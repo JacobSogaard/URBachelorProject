@@ -28,6 +28,7 @@
                id="URCapPlugin.toolbar">
             <command
                   commandId="URCapPlugin.commands.showWizard"
+                  disabledIcon="icons/ur.jpg"
                   icon="icons/ur.jpg"
                   label="showWizard"
                   style="push">
@@ -40,7 +41,7 @@
       <command
             defaultHandler="urcapplugin.toolbar.handler.ShowWizard"
             id="URCapPlugin.commands.showWizard"
-            name="showwizard">
+            name="Setup URCap Project">
       </command>
    </extension>
 
