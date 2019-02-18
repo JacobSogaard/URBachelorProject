@@ -19,5 +19,29 @@
             id="URCapPlugin.perspective">
       </perspective>
    </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="URCapPlugin.toolbar">
+            <command
+                  commandId="URCapPlugin.commands.showWizard"
+                  icon="icons/ur.jpg"
+                  label="showWizard"
+                  style="push">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="urcapplugin.toolbar.handler.ShowWizard"
+            id="URCapPlugin.commands.showWizard"
+            name="showwizard">
+      </command>
+   </extension>
 
 </plugin>
