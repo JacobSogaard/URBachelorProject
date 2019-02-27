@@ -1,14 +1,12 @@
 package urcaplugin.wizard;
 
+
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -18,9 +16,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 public class NewURCapPage extends WizardPage{
@@ -37,7 +33,7 @@ public class NewURCapPage extends WizardPage{
 
 	@Override
 	public void createControl(Composite parent) {
-		
+		this.workspacePath = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString();
 		container = new Composite(parent, SWT.NONE);
 		browseContainer = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
@@ -110,7 +106,7 @@ public class NewURCapPage extends WizardPage{
 		label4.setEnabled(false);
 		directoryText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		
-		directoryText.setMessage("Choose directory to add project in");
+		directoryText.setText(this.workspacePath);
 		Button button = new Button(container, SWT.PUSH);
 	    button.setBounds(40, 50, 50, 20);
 	    button.setText("Browse");
@@ -149,7 +145,7 @@ public class NewURCapPage extends WizardPage{
 	private String browseFile() {
 		DirectoryDialog fd = new DirectoryDialog(container.getShell(), SWT.OPEN);
         fd.setText("Open");
-        fd.setFilterPath("/home");
+        fd.setFilterPath("");
         //String[] filterExt = { "*.*" };
         //fd.setFilterExtensions(filterExt);
         String selected = fd.open();
