@@ -25,15 +25,37 @@
             allPopups="false"
             locationURI="toolbar:org.eclipse.ui.main.toolbar">
          <toolbar
-               id="URCapPlugin.toolbar">
+               id="URCapPlugin.toolbar1">
             <command
-                  commandId="URCapPlugin.commands.showWizard"
-                  disabledIcon="icons/ur.jpg"
+                  commandId="referenceToMenuId"
                   icon="icons/ur.jpg"
-                  label="showWizard"
-                  style="push">
+                  label="Pulldown Menu"
+                  style="pulldown">
             </command>
          </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:referenceToMenuId">
+         <command
+               commandId="URCapPlugin.commands.showWizard"
+               label="Install Node"
+               style="push">
+         </command>
+         <command
+               commandId="URCapPlugin.commands.showWizard"
+               label="Program Node"
+               style="push">
+         </command>
+         <command
+               commandId="URCapPlugin.commands.showWizard"
+               label="Toolbar Node"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="URCapPlugin.menuContribution1">
       </menuContribution>
    </extension>
    <extension
@@ -42,6 +64,11 @@
             defaultHandler="urcapplugin.toolbar.handler.ShowWizard"
             id="URCapPlugin.commands.showWizard"
             name="Setup URCap Project">
+      </command>
+      <command
+            defaultHandler="urcapplugin.toolbar.handler.ShowWizard"
+            id="referenceToMenuId"
+            name="New URCap">
       </command>
    </extension>
 

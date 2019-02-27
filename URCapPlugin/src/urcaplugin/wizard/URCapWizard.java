@@ -10,7 +10,7 @@ import org.eclipse.jface.wizard.Wizard;
  */
 public class URCapWizard extends Wizard {
 
-	//protected MyPageOne one;
+	protected NewURCapPage one;
 	//protected MyPageTwo two;
 
 	public URCapWizard() {
@@ -20,9 +20,9 @@ public class URCapWizard extends Wizard {
 
 	@Override
 	public void addPages() {
-		//one = new MyPageOne();
+		one = new NewURCapPage();
 		//two = new MyPageTwo();
-		//addPage(one);
+		addPage(one);
 		//addPage(two);
 	}
 
