@@ -53,10 +53,6 @@
                style="push">
          </command>
       </menuContribution>
-      <menuContribution
-            allPopups="false"
-            locationURI="URCapPlugin.menuContribution1">
-      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.commands">

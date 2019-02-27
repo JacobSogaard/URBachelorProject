@@ -20,14 +20,7 @@ public class ShowWizard extends AbstractHandler{
 		WizardDialog dialog = new WizardDialog(HandlerUtil
 				.getActiveShell(event), wizard);
 		dialog.open();
-		this.runInstallScript();
 		return null;
-	}
-	
-	
-	//https://stackoverflow.com/questions/525212/how-to-run-unix-shell-script-from-java-code
-	private void runInstallScript() {
-		
 	}
 
 }
