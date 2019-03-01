@@ -16,6 +16,7 @@ import urcaplugin.wizard.URCapWizard;
 public class ShowWizard extends AbstractHandler{
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
+		
 		URCapWizard wizard = new URCapWizard();
 		WizardDialog dialog = new WizardDialog(HandlerUtil
 				.getActiveShell(event), wizard);
