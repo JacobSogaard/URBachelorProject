@@ -7,6 +7,7 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import urcaplugin.wizard.URCapWizard;
+import urcapproject.Generator.urcapGenerator;
 
 /**
  * Class to start up the wizard when toolbar icon is clicked.
@@ -17,6 +18,8 @@ public class ShowWizard extends AbstractHandler{
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		
+		urcapGenerator ur = new urcapGenerator();
+		ur.genreateMavenProject();
 		URCapWizard wizard = new URCapWizard();
 		WizardDialog dialog = new WizardDialog(HandlerUtil
 				.getActiveShell(event), wizard);
