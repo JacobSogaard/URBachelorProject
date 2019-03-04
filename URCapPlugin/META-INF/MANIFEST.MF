@@ -8,6 +8,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.apache.felix.scr,
  org.eclipse.equinox.util,
  org.eclipse.equinox.event,
- org.eclipse.core.resources;bundle-version="3.13.200"
+ org.eclipse.core.resources;bundle-version="3.13.200",
+ TestPlugin;bundle-version="1.0.0"
 Automatic-Module-Name: URCapPlugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
