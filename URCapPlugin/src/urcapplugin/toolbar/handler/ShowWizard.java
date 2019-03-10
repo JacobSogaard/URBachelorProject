@@ -11,18 +11,18 @@ import urcapproject.Generator.urcapGenerator;
 
 /**
  * Class to start up the wizard when toolbar icon is clicked.
+ * 
  * @author jacob
  *
  */
-public class ShowWizard extends AbstractHandler{
+public class ShowWizard extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		
+
 		urcapGenerator ur = new urcapGenerator();
-		ur.genreateMavenProject();
+		ur.executeMavenCommand();
 		URCapWizard wizard = new URCapWizard();
-		WizardDialog dialog = new WizardDialog(HandlerUtil
-				.getActiveShell(event), wizard);
+		WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
 		dialog.open();
 		return null;
 	}
