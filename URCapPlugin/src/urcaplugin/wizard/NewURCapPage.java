@@ -72,6 +72,7 @@ public class NewURCapPage extends WizardPage {
 		for (String api : API_VERSIONS) {
 			comboDropDownApiVersion.add(api);
 		}
+		comboDropDownApiVersion.select(comboDropDownApiVersion.getItemCount() - 1);
 		
 		this.emptyLabel();
 		
@@ -199,7 +200,7 @@ public class NewURCapPage extends WizardPage {
 	}
 	
 	private boolean allFieldsSet() {
-		return this.groupIdText.getText().isEmpty() && this.artifactIdText.getText().isEmpty();
+		return !this.groupIdText.getText().isEmpty() && !this.artifactIdText.getText().isEmpty();
 	}
 
 	public IWizardPage getNextPage() {
