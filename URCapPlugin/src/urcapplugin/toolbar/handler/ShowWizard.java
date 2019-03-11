@@ -10,6 +10,7 @@ import org.osgi.framework.BundleContext;
 import testplugin.*;
 
 import urcaplugin.wizard.URCapWizard;
+import urcapproject.Generator.urcapGenerator;
 
 /**
  * Class to start up the wizard when toolbar icon is clicked.
@@ -20,10 +21,11 @@ import urcaplugin.wizard.URCapWizard;
 public class ShowWizard extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		TestPluginClass sss = new TestPluginClass();
-		sss.helloworld();
+
+		urcapGenerator ur = new urcapGenerator();
+		ur.executeMavenCommand();
 		URCapWizard wizard = new URCapWizard();
-		WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);	
+		WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
 		dialog.open();
 		return null;
 	}

@@ -19,17 +19,21 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import urcapproject.Generator.urcapGenerator;
+
 public class NewURCapPage extends WizardPage{
 	private Text groupIdText, artifactIdText, directoryText, versionText;
 	private Composite container, browseContainer;
 	private int number = 0;
 	private String workspacePath;
 	private final String[] API_VERSIONS = {"1.0", "1.1", "1.2", "1.3", "1.4", "1.5"};
+	private urcapGenerator ur;
 
 	public NewURCapPage() {
 		super("First Page");
 		setTitle("New URCap project");
 		setDescription("Define name and location of URCap project");
+		ur = new urcapGenerator();
 	}
 
 	@Override
