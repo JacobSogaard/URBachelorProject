@@ -16,12 +16,6 @@ public class urcapGenerator {
 
 
 	public urcapGenerator() {
-		//Invoker invoker = new DefaultInvoker();
-		//invoker.setMavenHome(new File(System.getenv("MAVEN_HOME")));
-		//System.out.println("maven home: " + invoker.getMavenHome().toString());
-		
-
-
 	}
 
 	
@@ -40,7 +34,7 @@ public class urcapGenerator {
 		}
 	}
 	
-	public void setProperties(String groupId, String artifactId, String version, String apiVersion) {
-
+	public void setProperties() {
+		
 	}
 }
