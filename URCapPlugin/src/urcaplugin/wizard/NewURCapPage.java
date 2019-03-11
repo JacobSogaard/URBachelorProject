@@ -1,7 +1,11 @@
 package urcaplugin.wizard;
 
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -19,21 +23,26 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import urcapproject.Generator.NewProjectModel;
 import urcapproject.Generator.urcapGenerator;
 
-public class NewURCapPage extends WizardPage{
+public class NewURCapPage extends WizardPage { 
 	private Text groupIdText, artifactIdText, directoryText, versionText;
 	private Composite container, browseContainer;
 	private int number = 0;
 	private String workspacePath;
 	private final String[] API_VERSIONS = {"1.0", "1.1", "1.2", "1.3", "1.4", "1.5"};
-	private urcapGenerator ur;
-
-	public NewURCapPage() {
+	private Combo comboDropDownApiVersion;
+	
+	public NewProjectModel getProjectModel() {
+		return new NewProjectModel(groupIdText.getText(), artifactIdText.getText(), 
+				comboDropDownApiVersion.getText(), directoryText.getText());
+	}
+	
+	public NewURCapPage(NewProjectModel projectInfo) {
 		super("First Page");
 		setTitle("New URCap project");
 		setDescription("Define name and location of URCap project");
-		ur = new urcapGenerator();
 	}
 
 	@Override
@@ -59,7 +68,7 @@ public class NewURCapPage extends WizardPage{
 		//Label and dropdown for selection of api version
 		Label apiVersionLabel = new Label(container, SWT.NONE);
 		apiVersionLabel.setText("API version");
-		Combo comboDropDownApiVersion = new Combo(container, SWT.DROP_DOWN | SWT.BORDER);
+		comboDropDownApiVersion = new Combo(container, SWT.DROP_DOWN | SWT.BORDER);
 		for (String api : API_VERSIONS) {
 			comboDropDownApiVersion.add(api);
 		}
@@ -179,6 +188,7 @@ public class NewURCapPage extends WizardPage{
         //fd.setFilterExtensions(filterExt);
         String selected = fd.open();
         this.directoryText.setText(selected);
+        
         return selected;
 	}
 	

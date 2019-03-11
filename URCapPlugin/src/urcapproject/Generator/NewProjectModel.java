@@ -36,6 +36,7 @@ public class NewProjectModel {
 	}
 
 	private void setProperties() {
+		this.properties = new Properties();
 		properties.setProperty("interactiveMode", "false");
 		properties.setProperty("archetypeGroupId", this.ARCHYTYPE_GROUPID);
 		properties.setProperty("archetypeArtifactId", this.ARCHYTYPE_ARTIFACTID);
@@ -64,7 +65,6 @@ public class NewProjectModel {
 	
 	
 	public Properties getProperties() {
-		
 		return properties;
 	}
 
