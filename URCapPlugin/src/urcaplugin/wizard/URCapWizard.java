@@ -25,7 +25,7 @@ public class URCapWizard extends Wizard {
 
 	public URCapWizard() {
 		super();
-		this.projectInfo = new NewProjectModel();
+//		this.projectInfo = new NewProjectModel();
 		setNeedsProgressMonitor(true);
 	}
 
@@ -39,24 +39,14 @@ public class URCapWizard extends Wizard {
 
 	@Override
 	public boolean performFinish() {
-		
-		//Runnable generator = new Runnable() {
-			urcapGenerator urgen = new urcapGenerator();
-			//public void run() {
-				Display display = Display.getDefault();
-				Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
-				
-				Shell shell = getShell();
-				shell.setCursor(waitCursor);
-				
-				urgen.executeMavenCommand(one.getProjectModel()); //Generates project with object model made through NewURCapWizardPage
-				shell.setCursor(null);
-				waitCursor.dispose();
-			//}
-		//};
-		
-		//BusyIndicator.showWhile(new Display(), generator);
-				
+		urcapGenerator urgen = new urcapGenerator();
+		Display display = Display.getDefault();
+		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
+		Shell shell = getShell();
+		shell.setCursor(waitCursor);
+		urgen.executeMavenCommand(one.getProjectModel()); //Generates project with object model made through NewURCapWizardPage
+		shell.setCursor(null);
+		waitCursor.dispose();				
 		return true;
 	}
 }

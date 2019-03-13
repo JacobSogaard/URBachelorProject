@@ -15,6 +15,7 @@ public class NewProjectModel {
 	private String projectPAth;
 	private String packaging;
 	private String apiVersionRelease;
+	private String version;
 
 	private Properties properties;
 	
@@ -22,7 +23,7 @@ public class NewProjectModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public NewProjectModel(String groupID, String artifactID, String apiVersion, String projectPath) {
+	public NewProjectModel(String groupID, String artifactID, String version, String apiVersion, String projectPath) {
 
 		this.groupID = groupID;
 		this.artifactID = artifactID;
@@ -30,6 +31,7 @@ public class NewProjectModel {
 		this.setProjectPAth(projectPath);
 		this.packaging = groupID + "." + artifactID;
 		this.apiVersionRelease = apiVersion;
+		this.version = version;
 		
 		this.setProperties();
 
@@ -46,6 +48,7 @@ public class NewProjectModel {
 		properties.setProperty("artifactId", this.artifactID);
 		properties.setProperty("apiversion", this.apiVersion);
 		properties.setProperty("apiversionRelease", this.apiVersionRelease);
+		properties.setProperty("version", this.version);
 	}
 	
 	public Properties setDefaultProperties() {
@@ -59,6 +62,7 @@ public class NewProjectModel {
 		propertiesTest.setProperty("artifactId", "test02");
 		propertiesTest.setProperty("apiversion", ARCHYTYPE_VERSION);
 		propertiesTest.setProperty("apiversionRelease", ARCHYTYPE_VERSION);
+		propertiesTest.setProperty("version", "1.0.0");
 		
 		return propertiesTest;
 	}
