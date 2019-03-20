@@ -7,6 +7,7 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import urcaplugin.wizard.URCapWizard;
+import urcapproject.Generator.ProjectImporter;
 import urcapproject.Generator.urcapGenerator;
 
 /**
@@ -19,8 +20,12 @@ public class ShowWizard extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 
-		urcapGenerator ur = new urcapGenerator();
-		ur.executeMavenCommand();
+		//urcapGenerator ur = new urcapGenerator();
+		//ur.executeMavenCommand();
+		
+		ProjectImporter importer = new ProjectImporter();
+		importer.mavenProjectImporter();
+		
 		URCapWizard wizard = new URCapWizard();
 		WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
 		dialog.open();
