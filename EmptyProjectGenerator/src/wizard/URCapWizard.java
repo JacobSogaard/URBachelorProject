@@ -1,14 +1,12 @@
-package urcaplugin.wizard;
+package wizard;
 
+import emptyProjectModel.*;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-
-import urcapproject.Generator.NewProjectModel;
-import urcapproject.Generator.urcapGenerator;
 
 /**
  * Class which handles pages in wizard.
@@ -25,16 +23,15 @@ public class URCapWizard extends Wizard {
 
 	public URCapWizard() {
 		super();
-//		this.projectInfo = new NewProjectModel();
+		this.projectInfo = new NewProjectModel();
 		setNeedsProgressMonitor(true);
 	}
 
 	@Override
 	public void addPages() {
-		one = new NewURCapPage(this.projectInfo);
+		this.one = new NewURCapPage();
 		//two = new MyPageTwo();
 		addPage(one);
-		//addPage(two);
 	}
 
 	@Override

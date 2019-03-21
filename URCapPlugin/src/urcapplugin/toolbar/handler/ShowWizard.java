@@ -8,8 +8,8 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osgi.framework.BundleContext;
 
-import urcaplugin.wizard.URCapWizard;
-import urcapproject.Generator.urcapGenerator;
+import emptyProjectModel.*;
+import wizard.*;
 
 /**
  * Class to start up the wizard when toolbar icon is clicked.

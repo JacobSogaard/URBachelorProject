@@ -1,4 +1,5 @@
-package urcaplugin.wizard;
+package wizard;
+
 
 
 import java.lang.reflect.InvocationTargetException;
@@ -23,8 +24,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import urcapproject.Generator.NewProjectModel;
-import urcapproject.Generator.urcapGenerator;
+import emptyProjectModel.*;
 
 public class NewURCapPage extends WizardPage { 
 	private Text groupIdText, artifactIdText, directoryText, versionText;
@@ -43,8 +43,12 @@ public class NewURCapPage extends WizardPage {
 				comboDropDownApiVersion.getText(), directoryText.getText());
 	}
 	
-	
-	public NewURCapPage(NewProjectModel projectInfo) {
+	/**
+	 * Creates page to set groupid, artifactid, api and urcap version and the directory to have
+	 * urcap project in.
+	 * Constructor only sets wizard page title and description. 
+	 */
+	public NewURCapPage() {
 		super("First Page");
 		setTitle("New URCap project");
 		setDescription("Define name and location of URCap project");
@@ -85,7 +89,8 @@ public class NewURCapPage extends WizardPage {
 		Label versionNumberLabel = new Label(container, SWT.NONE);
 		versionNumberLabel.setText("Version number");
 		versionText = new Text(container, SWT.BORDER | SWT.SINGLE);
-		versionText.setText("1.0.0");
+		versionText.setText("This is from the EmptyProjectGenerator!!");
+		
 		versionText.addKeyListener(new KeyListener() {
 
 			@Override
@@ -113,7 +118,7 @@ public class NewURCapPage extends WizardPage {
 		directoryText.setText(this.workspacePath);
 		Button browseBTN = new Button(container, SWT.PUSH);
 	    browseBTN.setBounds(40, 50, 50, 20);
-	    browseBTN.setText("Browse");
+	    browseBTN.setText("THIS IS THE UPDATED BROWSE FIELD!!!");
 	    browseBTN.addSelectionListener(new SelectionListener() {
 			
 			@Override

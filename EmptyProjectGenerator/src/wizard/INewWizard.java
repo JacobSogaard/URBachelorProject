@@ -1,4 +1,4 @@
-package urcaplugin.wizard;
+package wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;

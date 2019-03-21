@@ -1,4 +1,4 @@
-package urcapproject.Generator;
+package emptyProjectModel;
 
 import java.util.Properties;
 

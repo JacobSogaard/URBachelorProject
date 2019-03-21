@@ -1,4 +1,4 @@
-package urcapproject.Generator;
+package emptyProjectModel;
 
 import java.io.File;
 import java.util.Collections;
@@ -12,11 +12,10 @@ import org.apache.maven.shared.invoker.MavenInvocationException;
 
 public class urcapGenerator {
 
-	private NewProjectModel model;
+	private final String MAVEN1_ENVIRONMENT = System.getenv("MAVEN_HOME");
+	private final String MAVEN2_ENVIRONMENT = System.getenv("M2_HOME");
 
 	public urcapGenerator() {
-
-		this.model = new NewProjectModel();
 	}
 
 	public void executeMavenCommand(NewProjectModel projectModel) {
@@ -29,7 +28,19 @@ public class urcapGenerator {
 		request.setProperties(projectModel.getProperties());
 
 		Invoker invoker = new DefaultInvoker();
-		invoker.setMavenHome(new File(System.getenv("M2_HOME")));
+		
+		
+		//Check for Maven environment, might be some better try-catch solution....
+		//Also test whether this will always work, might be some problem with maven3
+		if (this.MAVEN1_ENVIRONMENT == null) {
+			invoker.setMavenHome(new File(this.MAVEN2_ENVIRONMENT));
+		} else if (this.MAVEN2_ENVIRONMENT == null) {
+			invoker.setMavenHome(new File(this.MAVEN1_ENVIRONMENT));
+		} else {
+			System.err.println("No suitable maven environment");
+		}
+		
+		
 
 		try {
 			InvocationResult result = invoker.execute(request);

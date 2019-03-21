@@ -1,5 +1,7 @@
 package urcapplugin;
 
+import java.io.FileWriter;
+
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.swt.widgets.Display;
@@ -13,6 +15,11 @@ public class Application implements IApplication {
 
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
+		String fileContent = "Start of the application";
+	     
+	    FileWriter fileWriter = new FileWriter("/home/Desktop/output.txt");
+	    fileWriter.write(fileContent);
+	    fileWriter.close();
 		Display display = PlatformUI.createDisplay();
 		try {
 			int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
