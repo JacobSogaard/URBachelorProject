@@ -1,4 +1,4 @@
-package wizard;
+package emptyprojectgenerator.wizard;
 
 
 
@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import emptyProjectModel.*;
+import emptyprojectgenerator.modelClasses.*;
 
 public class NewURCapPage extends WizardPage { 
 	private Text groupIdText, artifactIdText, directoryText, versionText;
@@ -99,7 +99,7 @@ public class NewURCapPage extends WizardPage {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (!allFieldsSet()) {
+				if (!isAllFieldsSet()) {
 					setPageComplete(true);
 
 				}
@@ -166,7 +166,7 @@ public class NewURCapPage extends WizardPage {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (allFieldsSet()) {
+				if (isAllFieldsSet()) {
 					setPageComplete(true);
 
 				}
@@ -209,7 +209,7 @@ public class NewURCapPage extends WizardPage {
 		return groupIdText.getText();
 	}
 	
-	private boolean allFieldsSet() {
+	private boolean isAllFieldsSet() {
 		return !this.groupIdText.getText().isEmpty() && !this.artifactIdText.getText().isEmpty();
 	}
 

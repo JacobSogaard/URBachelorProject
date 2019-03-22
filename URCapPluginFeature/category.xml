@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/URCapPluginFeature_1.0.0.qualifier.jar" id="URCapPluginFeature" version="1.0.0.qualifier">
-      <category name="URCap"/>
-   </feature>
-   <category-def name="URCap" label="Universal Robots URCap Development"/>
-</site>

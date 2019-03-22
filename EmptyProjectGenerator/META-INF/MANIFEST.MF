@@ -8,7 +8,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.core.resources;bundle-version="3.13.200"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: wizard, emptyProjectModel
+Export-Package: emptyprojectgenerator.modelClasses,
+ emptyprojectgenerator.wizard
 Bundle-ClassPath: aether-api-1.7.jar,
  aether-impl-1.7.jar,
  aether-spi-1.7.jar,

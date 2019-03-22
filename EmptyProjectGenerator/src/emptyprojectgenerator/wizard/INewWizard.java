@@ -1,4 +1,4 @@
-package wizard;
+package emptyprojectgenerator.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;

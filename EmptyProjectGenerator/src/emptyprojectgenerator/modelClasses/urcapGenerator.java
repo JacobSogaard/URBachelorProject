@@ -1,4 +1,4 @@
-package emptyProjectModel;
+package emptyprojectgenerator.modelClasses;
 
 import java.io.File;
 import java.util.Collections;

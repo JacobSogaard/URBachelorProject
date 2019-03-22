@@ -1,4 +1,4 @@
-package emptyProjectModel;
+package emptyprojectgenerator.modelClasses;
 
 import java.util.Properties;
 
@@ -7,7 +7,7 @@ public class NewProjectModel {
 	private static final String ARCHYTYPE_GROUPID = "com.ur.urcap";
 	private static final String ARCHYTYPE_ARTIFACTID = "archetype";
 	private static final String ARCHYTYPE_VERSION = "1.5.0";
-	private static final String interativeMood = "false";
+	private static final String ITERATIVE_MOOD = "false";
 
 	private String groupID;
 	private String artifactID;
@@ -40,9 +40,9 @@ public class NewProjectModel {
 	private void setProperties() {
 		this.properties = new Properties();
 		properties.setProperty("interactiveMode", "false");
-		properties.setProperty("archetypeGroupId", this.ARCHYTYPE_GROUPID);
-		properties.setProperty("archetypeArtifactId", this.ARCHYTYPE_ARTIFACTID);
-		properties.setProperty("archetypeVersion", this.ARCHYTYPE_VERSION);
+		properties.setProperty("archetypeGroupId", ARCHYTYPE_GROUPID);
+		properties.setProperty("archetypeArtifactId", ARCHYTYPE_ARTIFACTID);
+		properties.setProperty("archetypeVersion", ARCHYTYPE_VERSION);
 		properties.setProperty("package", this.packaging+".impl");
 		properties.setProperty("groupId", this.groupID);
 		properties.setProperty("artifactId", this.artifactID);

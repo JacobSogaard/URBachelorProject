@@ -1,12 +1,13 @@
-package wizard;
+package emptyprojectgenerator.wizard;
 
-import emptyProjectModel.*;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+
+import emptyprojectgenerator.modelClasses.*;
 
 /**
  * Class which handles pages in wizard.
