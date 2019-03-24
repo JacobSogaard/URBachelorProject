@@ -17,8 +17,8 @@ public class SetClassesNamePage extends WizardPage{
 	private Composite container;
 	private GridLayout layout;
 	private final String VIEW_INPUT_LABEL = "Program node view";
-	private final String SERVICE_INPUT_LABEL = "Service node view";
-	private final String CONTRIBUTION_INPUT_LABEL = "Contribution node view";
+	private final String SERVICE_INPUT_LABEL = "Program node service";
+	private final String CONTRIBUTION_INPUT_LABEL = "Program node contribution";
 	private String viewInputText, serviceInputText, contributionInputText;
 	
 	
@@ -26,11 +26,11 @@ public class SetClassesNamePage extends WizardPage{
 		super("Set Program Node Classes Page");
 		setTitle("Setup Program Node Classes");
 		setDescription("Set names of classes in program node (Standard names recommended)");
+		setPageComplete(true);
 	}
 
 	@Override
 	public void createControl(Composite parent) {
-		// TODO Auto-generated method stub
 		this.container = new Composite(parent, SWT.NONE);
 		this.layout = new GridLayout();
 		this.container.setLayout(this.layout);
@@ -56,7 +56,7 @@ public class SetClassesNamePage extends WizardPage{
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		this.setAllLayout(gd);
 		setControl(container);
-		setPageComplete(false);
+	
 		
 	}
 	
@@ -72,21 +72,7 @@ public class SetClassesNamePage extends WizardPage{
 		
 		label.setText(labelText);
 		text.setText(message);
-		text.addKeyListener(new KeyListener() {
-	
-			@Override
-			public void keyPressed(KeyEvent e) {
-			}
-	
-			@Override
-			public void keyReleased(KeyEvent e) {
-				if (isAllFieldsSet()) {
-					setPageComplete(true);
-	
-				}
-			}
-	
-		});
+		
 	}
 	
 	/**
@@ -94,14 +80,45 @@ public class SetClassesNamePage extends WizardPage{
 	 * Should be refactored to get artifact id from project selected i project explorer. 
 	 */
 	private void setInputFieldsText() {
-		this.viewInputText = "VIEW PLACEHOLDER TEXT";
-		this.serviceInputText = "SERVICE PLACEHOLDER TEXT";
-		this.contributionInputText = "CONTRIBUTION PLACEHOLDER TEXT";
+		this.viewInputText = "ProgramNodeView";
+		this.serviceInputText = "ProgramNodeService";
+		this.contributionInputText = "ProgramNodeContribution";
 	}
 	
 	private boolean isAllFieldsSet() {
 		return true;
 	}
+	
+	@Override
+	public boolean canFlipToNextPage() {		
+		 return (!this.viewClassName.getText().isEmpty() && !this.serviceClassName.getText().isEmpty()
+				&& !this.contributionClassName.getText().isEmpty());
+	}
+	
+	/**
+	 * Get the input from view class name field
+	 * @return view class name as String
+	 */
+	public String getViewClassname() {
+		return this.viewClassName.getText();
+	}
+	
+	/**
+	 * Get the input from service class name field
+	 * @return view class name as String
+	 */
+	public String getServiceClassname() {
+		return this.serviceClassName.getText();
+	}
+	
+	/**
+	 * Get the input from contribution class name field
+	 * @return view class name as String
+	 */
+	public String getContributionClassname() {
+		return this.contributionClassName.getText();
+	}
+
 }
 
 
