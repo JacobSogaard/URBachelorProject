@@ -1,4 +1,4 @@
-package urcapproject.Generator;
+package emptyprojectgenerator.modelClasses;
 
 import java.util.Properties;
 
@@ -7,7 +7,7 @@ public class NewProjectModel {
 	private static final String ARCHYTYPE_GROUPID = "com.ur.urcap";
 	private static final String ARCHYTYPE_ARTIFACTID = "archetype";
 	private static final String ARCHYTYPE_VERSION = "1.5.0";
-	private static final String interativeMood = "false";
+	private static final String ITERATIVE_MOOD = "false";
 
 	private String groupID;
 	private String artifactID;
@@ -15,6 +15,7 @@ public class NewProjectModel {
 	private String projectPAth;
 	private String packaging;
 	private String apiVersionRelease;
+	private String version;
 
 	private Properties properties;
 	
@@ -22,7 +23,7 @@ public class NewProjectModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public NewProjectModel(String groupID, String artifactID, String apiVersion, String projectPath) {
+	public NewProjectModel(String groupID, String artifactID, String version, String apiVersion, String projectPath) {
 
 		this.groupID = groupID;
 		this.artifactID = artifactID;
@@ -30,21 +31,24 @@ public class NewProjectModel {
 		this.setProjectPAth(projectPath);
 		this.packaging = groupID + "." + artifactID;
 		this.apiVersionRelease = apiVersion;
+		this.version = version;
 		
 		this.setProperties();
 
 	}
 
 	private void setProperties() {
+		this.properties = new Properties();
 		properties.setProperty("interactiveMode", "false");
-		properties.setProperty("archetypeGroupId", this.ARCHYTYPE_GROUPID);
-		properties.setProperty("archetypeArtifactId", this.ARCHYTYPE_ARTIFACTID);
-		properties.setProperty("archetypeVersion", this.ARCHYTYPE_VERSION);
+		properties.setProperty("archetypeGroupId", ARCHYTYPE_GROUPID);
+		properties.setProperty("archetypeArtifactId", ARCHYTYPE_ARTIFACTID);
+		properties.setProperty("archetypeVersion", ARCHYTYPE_VERSION);
 		properties.setProperty("package", this.packaging+".impl");
 		properties.setProperty("groupId", this.groupID);
 		properties.setProperty("artifactId", this.artifactID);
 		properties.setProperty("apiversion", this.apiVersion);
 		properties.setProperty("apiversionRelease", this.apiVersionRelease);
+		properties.setProperty("version", this.version);
 	}
 	
 	public Properties setDefaultProperties() {
@@ -58,13 +62,13 @@ public class NewProjectModel {
 		propertiesTest.setProperty("artifactId", "test02");
 		propertiesTest.setProperty("apiversion", ARCHYTYPE_VERSION);
 		propertiesTest.setProperty("apiversionRelease", ARCHYTYPE_VERSION);
+		propertiesTest.setProperty("version", "1.0.0");
 		
 		return propertiesTest;
 	}
 	
 	
 	public Properties getProperties() {
-		
 		return properties;
 	}
 

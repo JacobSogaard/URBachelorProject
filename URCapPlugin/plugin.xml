@@ -38,17 +38,20 @@
             allPopups="false"
             locationURI="menu:referenceToMenuId">
          <command
-               commandId="URCapPlugin.commands.showWizard"
+               commandId="URCapPlugin.showInstallationNodeWizard"
+               id="InstallNode"
                label="Install Node"
                style="push">
          </command>
          <command
-               commandId="URCapPlugin.commands.showWizard"
+               commandId="URCapPlugin.showProgramNodeWizard"
+               id="ProgramNode"
                label="Program Node"
                style="push">
          </command>
          <command
-               commandId="URCapPlugin.commands.showWizard"
+               commandId="URCapPlugin.showToolbarNodeWizard"
+               id="ToolbarNode"
                label="Toolbar Node"
                style="push">
          </command>
@@ -65,6 +68,21 @@
             defaultHandler="urcapplugin.toolbar.handler.ShowWizard"
             id="referenceToMenuId"
             name="New URCap">
+      </command>
+      <command
+            defaultHandler="urcapplugin.toolbar.handler.ShowProgramNodeWizard"
+            id="URCapPlugin.showProgramNodeWizard"
+            name="ShowProgramNodeWizard">
+      </command>
+      <command
+            defaultHandler="urcapplugin.toolbar.handler.ShowInstallationNodeWizard"
+            id="URCapPlugin.showInstallationNodeWizard"
+            name="ShowInstallationNodeWizard">
+      </command>
+      <command
+            defaultHandler="urcapplugin.toolbar.handler.ShowToolbarNodeWizard"
+            id="URCapPlugin.showToolbarNodeWizard"
+            name="ShowToolbarNodeWizard">
       </command>
    </extension>
 

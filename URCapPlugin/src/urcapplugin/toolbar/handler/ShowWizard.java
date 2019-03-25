@@ -3,8 +3,10 @@ package urcapplugin.toolbar.handler;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.osgi.framework.BundleContext;
 
 import urcaplugin.wizard.URCapWizard;
 import urcapproject.Generator.ProjectImporter;
