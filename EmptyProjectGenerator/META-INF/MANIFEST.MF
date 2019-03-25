@@ -1,15 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: URCapPlugin
-Bundle-SymbolicName: URCapPlugin;singleton:=true
+Bundle-Name: EmptyProjectGenerator
+Bundle-SymbolicName: EmptyProjectGenerator;singleton:=true
 Bundle-Version: 1.0.0
+Automatic-Module-Name: EmptyProjectGenerator
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
- org.eclipse.core.resources;bundle-version="3.13.200",
- EmptyProjectGenerator;bundle-version="1.0.0",
- ProgramNodeGenerator;bundle-version="1.0.0"
-Automatic-Module-Name: URCapPlugin
+ org.eclipse.core.resources;bundle-version="3.13.200"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: emptyprojectgenerator.modelClasses,
+ emptyprojectgenerator.wizard
 Bundle-ClassPath: aether-api-1.7.jar,
  aether-impl-1.7.jar,
  aether-spi-1.7.jar,
@@ -79,5 +79,4 @@ Bundle-ClassPath: aether-api-1.7.jar,
  xml-apis-1.3.04.jar,
  xmlunit-1.5.jar,
  .
-
-
+Bundle-ActivationPolicy: lazy

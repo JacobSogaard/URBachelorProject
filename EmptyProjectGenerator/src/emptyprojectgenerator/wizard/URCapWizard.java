@@ -1,4 +1,4 @@
-package urcaplugin.wizard;
+package emptyprojectgenerator.wizard;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
@@ -7,8 +7,7 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import urcapproject.Generator.NewProjectModel;
-import urcapproject.Generator.urcapGenerator;
+import emptyprojectgenerator.modelClasses.*;
 
 /**
  * Class which handles pages in wizard.
@@ -31,32 +30,21 @@ public class URCapWizard extends Wizard {
 
 	@Override
 	public void addPages() {
-		one = new NewURCapPage(this.projectInfo);
+		this.one = new NewURCapPage();
 		//two = new MyPageTwo();
 		addPage(one);
-		//addPage(two);
 	}
 
 	@Override
 	public boolean performFinish() {
-		
-		//Runnable generator = new Runnable() {
-			urcapGenerator urgen = new urcapGenerator();
-			//public void run() {
-				Display display = Display.getDefault();
-				Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
-				
-				Shell shell = getShell();
-				shell.setCursor(waitCursor);
-				
-				urgen.executeMavenCommand(one.getProjectModel()); //Generates project with object model made through NewURCapWizardPage
-				shell.setCursor(null);
-				waitCursor.dispose();
-			//}
-		//};
-		
-		//BusyIndicator.showWhile(new Display(), generator);
-				
+		urcapGenerator urgen = new urcapGenerator();
+		Display display = Display.getDefault();
+		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
+		Shell shell = getShell();
+		shell.setCursor(waitCursor);
+		urgen.executeMavenCommand(one.getProjectModel()); //Generates project with object model made through NewURCapWizardPage
+		shell.setCursor(null);
+		waitCursor.dispose();				
 		return true;
 	}
 }
