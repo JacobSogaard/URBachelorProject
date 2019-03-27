@@ -8,7 +8,10 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osgi.framework.BundleContext;
 
+import emptyprojectgenerator.modelClasses.projectImporter;
 import emptyprojectgenerator.wizard.URCapWizard;
+import urcapproject.Generator.ProjectImporter;
+
 
 /**
  * Class to start up the wizard when toolbar icon is clicked.
@@ -19,7 +22,10 @@ import emptyprojectgenerator.wizard.URCapWizard;
 public class ShowWizard extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		System.out.println("Show wizard");
+		
+		projectImporter importer = new projectImporter();
+		importer.importProjectAsMavenProject();
+		
 		URCapWizard wizard = new URCapWizard();
 		WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
 		dialog.open();
