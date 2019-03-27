@@ -1,5 +1,6 @@
 package programnodegenerator.wizard;
 
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -9,6 +10,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 
 public class SetClassesNamePage extends WizardPage{
 
@@ -41,7 +44,11 @@ public class SetClassesNamePage extends WizardPage{
 		//Set view input and label
 		this.viewInputLabel = new Label(container, SWT.NONE);
 		this.viewClassName = new Text(container, SWT.BORDER | SWT.SINGLE);
-		this.createInputForm(this.viewClassName, this.viewInputText, this.viewInputLabel, VIEW_INPUT_LABEL);
+		
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		ISelection selection = window.getSelectionService().getSelection("org.eclipse.jdt.ui.PackageExplorer");
+		
+		this.createInputForm(this.viewClassName, selection.toString(), this.viewInputLabel, VIEW_INPUT_LABEL);
 		
 		//Set service input and label
 		this.serviceInputLabel = new Label(container, SWT.NONE);

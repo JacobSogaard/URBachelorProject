@@ -9,6 +9,9 @@ import javax.lang.model.element.Modifier;
 import javax.swing.JPanel;
 
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
@@ -40,6 +43,7 @@ public class ProgramNodeGenerator {
 	
 	public ProgramNodeGenerator(ProgramNodeModel model) {
 		this.path = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString(); 
+		
 		this.filePath = new File(path);
 		System.out.println(filePath.getPath());
 		this.model = model;
