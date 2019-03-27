@@ -45,10 +45,10 @@ public class SetClassesNamePage extends WizardPage{
 		this.viewInputLabel = new Label(container, SWT.NONE);
 		this.viewClassName = new Text(container, SWT.BORDER | SWT.SINGLE);
 		
-		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		ISelection selection = window.getSelectionService().getSelection("org.eclipse.jdt.ui.PackageExplorer");
+		//IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		//ISelection selection = window.getSelectionService().getSelection("org.eclipse.jdt.ui.PackageExplorer");
 		
-		this.createInputForm(this.viewClassName, selection.toString(), this.viewInputLabel, VIEW_INPUT_LABEL);
+		this.createInputForm(this.viewClassName, this.viewInputText, this.viewInputLabel, VIEW_INPUT_LABEL);
 		
 		//Set service input and label
 		this.serviceInputLabel = new Label(container, SWT.NONE);
