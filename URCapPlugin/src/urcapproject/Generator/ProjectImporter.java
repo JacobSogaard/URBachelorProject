@@ -23,7 +23,8 @@ public class ProjectImporter {
 	
 	public ProjectImporter() {
 	 
-	 this.file = new File("C:\\Users\\Bruger\\eclipse-workspace\\test01\\pom.xml");
+	 //this.file = new File("C:\\Users\\Bruger\\eclipse-workspace\\test01\\pom.xml");
+	 this.file = new File("");
 	 info = new MavenProjectInfo("project", this.file, model, info);
 		
 	}

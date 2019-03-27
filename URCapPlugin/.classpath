@@ -12,8 +12,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/EmptyProjectGenerator"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ProgramNodeGenerator"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/EmptyProjectGenerator"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/ProgramNodeGenerator"/>
 	<classpathentry exported="true" kind="lib" path="aether-api-1.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="aether-impl-1.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="aether-spi-1.7.jar"/>
