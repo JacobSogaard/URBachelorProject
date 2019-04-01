@@ -42,10 +42,14 @@ public class ProgramNodeGenerator {
 					swingProgramNodeViewClass, scriptWriterClass, serviceClass;
 	
 	public ProgramNodeGenerator(ProgramNodeModel model) {
-		this.path = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString(); 
 		
+		/*
+		this.path = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString(); 
 		this.filePath = new File(path);
 		System.out.println(filePath.getPath());
+		*/
+		
+		
 		this.model = model;
 		this.serviceClassGenerator();
 		this.viewClassGenerator();
@@ -55,21 +59,23 @@ public class ProgramNodeGenerator {
 		
 	}
 
-	
+	/**
+	 * Method to generate the activator class for program node
+	 */
 	private void activatorClassGenerator() {
 		this.serviceClass = ClassName.get("", this.model.getServiceClassname());
+		
+		//Start method
 		MethodSpec start = MethodSpec.methodBuilder("start")
 				.addAnnotation(Override.class)
 				.addModifiers(Modifier.PUBLIC)
 				.returns(void.class)
 				.addParameter(BundleContext.class, "bundleContext")
 				.addStatement("bundleContext.registerService(SwingProgramNodeService.class, new $T(), null)", this.serviceClass)
-				.addStatement("bundleContext.registerService(SwingProgramNodeService.class, new $T(), null)", this.viewClass)
-				.addStatement("bundleContext.registerService(SwingProgramNodeService.class, new $T(), null)", this.contributionClass)
 				.addException(Exception.class)
 				.build();
 		
-		
+		//Stop method
 		MethodSpec stop = MethodSpec.methodBuilder("stop")
 				.addAnnotation(Override.class)
 				.addModifiers(Modifier.PUBLIC)
@@ -79,6 +85,7 @@ public class ProgramNodeGenerator {
 				.addException(Exception.class)
 				.build();
 		
+		// Class generation 
 		TypeSpec activatorClass = TypeSpec.classBuilder("Activator")
 				.addModifiers(Modifier.PUBLIC)
 				.addSuperinterface(BundleActivator.class)
@@ -96,6 +103,9 @@ public class ProgramNodeGenerator {
 		}
 	}
 	
+	/**
+	 * Method to generate the contribution class for program node
+	 */
 	private void contributionClassGenerator() {
 		MethodSpec openView = MethodSpec.methodBuilder("openView")
 				.addAnnotation(Override.class)
@@ -166,6 +176,10 @@ public class ProgramNodeGenerator {
 		}
 	}
 	
+	
+	/**
+	 * Method to generate the view class for program node
+	 */
 	private void viewClassGenerator() {
 		this.contributionProviderClass = ClassName.get("com.ur.urcap.api.contribution","ContributionProvider");
 		MethodSpec buildUI = MethodSpec.methodBuilder("buildUI")
@@ -202,7 +216,9 @@ public class ProgramNodeGenerator {
 		
 	}
 	
-	
+	/**
+	 * Method to generate the service class for program node
+	 */
 	private void serviceClassGenerator() {
 		MethodSpec getId = MethodSpec.methodBuilder("getId")
 				.addAnnotation(Override.class)

@@ -17,32 +17,36 @@ import emptyprojectgenerator.modelClasses.*;
  */
 public class URCapWizard extends Wizard {
 
-	protected NewURCapPage one;
-	private NewProjectModel projectInfo;
+	protected SetupURCapPage urcapSetupPage;
+	private URCapProjectModel projectInfo;
 	private static Cursor cursor = null;
 	//protected MyPageTwo two;
 
 	public URCapWizard() {
 		super();
-		this.projectInfo = new NewProjectModel();
+		this.projectInfo = new URCapProjectModel();
 		setNeedsProgressMonitor(true);
 	}
 
 	@Override
 	public void addPages() {
-		this.one = new NewURCapPage();
-		//two = new MyPageTwo();
-		addPage(one);
+		this.urcapSetupPage = new SetupURCapPage();
+		addPage(urcapSetupPage);
 	}
 
 	@Override
 	public boolean performFinish() {
-		urcapGenerator urgen = new urcapGenerator();
+		URCapProjectGenerator urgen = new URCapProjectGenerator();
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
 		Shell shell = getShell();
 		shell.setCursor(waitCursor);
-		urgen.executeMavenCommand(one.getProjectModel()); //Generates project with object model made through NewURCapWizardPage
+		urgen.generate(urcapSetupPage.getProjectModel()); //Generates project with object model made through NewURCapWizardPage
+		
+		MavenProjectImporter importer = new MavenProjectImporter();
+		importer.importProjectAsMavenProject(urcapSetupPage.getProjectModel().getProjectPath());
+		
+		
 		shell.setCursor(null);
 		waitCursor.dispose();				
 		return true;

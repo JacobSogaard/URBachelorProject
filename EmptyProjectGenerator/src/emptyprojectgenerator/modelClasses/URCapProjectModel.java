@@ -2,33 +2,45 @@ package emptyprojectgenerator.modelClasses;
 
 import java.util.Properties;
 
-public class NewProjectModel {
+/**
+ * Model class for the project to be generated. Has the groupId, artifactId, apiVersion, project path,
+ * UR api version and the project version number. 
+ * @author jacob
+ *
+ */
+public class URCapProjectModel {
 
 	private static final String ARCHYTYPE_GROUPID = "com.ur.urcap";
 	private static final String ARCHYTYPE_ARTIFACTID = "archetype";
 	private static final String ARCHYTYPE_VERSION = "1.5.0";
 	private static final String ITERATIVE_MOOD = "false";
 
-	private String groupID;
-	private String artifactID;
-	private String apiVersion;
-	private String projectPAth;
-	private String packaging;
-	private String apiVersionRelease;
-	private String version;
+	private String groupID, artifactID, apiVersion, projectPath, 
+							packaging, apiVersionRelease, version;
 
 	private Properties properties;
 	
-	public NewProjectModel() {
+	/**
+	 * Empty constructor
+	 */
+	public URCapProjectModel() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public NewProjectModel(String groupID, String artifactID, String version, String apiVersion, String projectPath) {
+	/**
+	 * Constructor the set all class fields.
+	 * @param groupID
+	 * @param artifactID
+	 * @param version
+	 * @param apiVersion
+	 * @param projectPath
+	 */
+	public URCapProjectModel(String groupID, String artifactID, String version, String apiVersion, String projectPath) {
 
 		this.groupID = groupID;
 		this.artifactID = artifactID;
 		this.apiVersion = apiVersion;
-		this.setProjectPAth(projectPath);
+		this.projectPath = projectPath;
 		this.packaging = groupID + "." + artifactID;
 		this.apiVersionRelease = apiVersion;
 		this.version = version;
@@ -37,6 +49,9 @@ public class NewProjectModel {
 
 	}
 
+	/**
+	 * Sets properties for maven project to be generated. 
+	 */
 	private void setProperties() {
 		this.properties = new Properties();
 		properties.setProperty("interactiveMode", "false");
@@ -51,6 +66,12 @@ public class NewProjectModel {
 		properties.setProperty("version", this.version);
 	}
 	
+	/**
+	 * Sets the default values for generation of UR Cap project
+	 * (Should only be used for testing)
+	 * TODO Delete this method
+	 * @return
+	 */
 	public Properties setDefaultProperties() {
 		Properties propertiesTest = new Properties();
 		
@@ -67,17 +88,21 @@ public class NewProjectModel {
 		return propertiesTest;
 	}
 	
-	
+	/**
+	 * Get all properties set for maven project generation
+	 * @return Properties of type Properties
+	 */
 	public Properties getProperties() {
-		return properties;
+		return this.properties;
 	}
-
-	public String getProjectPAth() {
-		return projectPAth;
+	
+	/**
+	 * Get the path of the generated project
+	 * @return path as String
+	 */
+	public String getProjectPath() {
+		return this.projectPath;
 	}
-
-	public void setProjectPAth(String projectPAth) {
-		this.projectPAth = projectPAth;
-	}
+	
 
 }

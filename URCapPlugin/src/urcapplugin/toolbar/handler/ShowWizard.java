@@ -8,9 +8,8 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osgi.framework.BundleContext;
 
-import emptyprojectgenerator.modelClasses.projectImporter;
+import emptyprojectgenerator.modelClasses.MavenProjectImporter;
 import emptyprojectgenerator.wizard.URCapWizard;
-import urcapproject.Generator.ProjectImporter;
 
 
 /**
@@ -21,11 +20,7 @@ import urcapproject.Generator.ProjectImporter;
  */
 public class ShowWizard extends AbstractHandler {
 	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		
-		projectImporter importer = new projectImporter();
-		importer.importProjectAsMavenProject();
-		
+	public Object execute(ExecutionEvent event) throws ExecutionException {		
 		URCapWizard wizard = new URCapWizard();
 		WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
 		dialog.open();

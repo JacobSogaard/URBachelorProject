@@ -10,26 +10,49 @@ import org.apache.maven.shared.invoker.InvocationResult;
 import org.apache.maven.shared.invoker.Invoker;
 import org.apache.maven.shared.invoker.MavenInvocationException;
 
-public class urcapGenerator {
+/**
+ * Generates maven project using maven invoker. 
+ * @author jacob
+ *
+ */
+public class URCapProjectGenerator {
 
 	private final String MAVEN1_ENVIRONMENT = System.getenv("MAVEN_HOME");
 	private final String MAVEN2_ENVIRONMENT = System.getenv("M2_HOME");
+	private InvocationRequest request;
+	private Invoker invoker;
 
-	public urcapGenerator() {
+	public URCapProjectGenerator() {
+		this.request = new DefaultInvocationRequest();
+		this.invoker = new DefaultInvoker();
 	}
 
-	public void executeMavenCommand(NewProjectModel projectModel) {
+	/**
+	 * Generates the maven project using the maven invoker
+	 * @param projectModel
+	 */
+	public void generate(URCapProjectModel projectModel) {
+		this.setupRequest(projectModel);
+		
+		try {
+			InvocationResult result = invoker.execute(request);
+		} catch (MavenInvocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		InvocationRequest request = new DefaultInvocationRequest();
-		//request.setPomFile(new File("C:\\Users\\Bruger\\Documents\\URBachelorProject\\URCapPlugin\\pom.xml"));
-		request.setBaseDirectory(new File(projectModel.getProjectPAth()));
+	}
+
+	/**
+	 * Sets up the request to be made by maven to generate the URCap project
+	 * @param projectModel
+	 */
+	private void setupRequest(URCapProjectModel projectModel) {
+		request.setBaseDirectory(new File(projectModel.getProjectPath()));
 		request.setGoals(Collections.singletonList("archetype:generate"));
 		request.setBatchMode(true);
 		request.setProperties(projectModel.getProperties());
 
-		Invoker invoker = new DefaultInvoker();
-		
-		
 		//Check for Maven environment, might be some better try-catch solution....
 		//Also test whether this will always work, might be some problem with maven3
 		if (this.MAVEN1_ENVIRONMENT == null) {
@@ -40,15 +63,6 @@ public class urcapGenerator {
 			System.err.println("No suitable maven environment");
 		}
 		
-		
-
-		try {
-			InvocationResult result = invoker.execute(request);
-		} catch (MavenInvocationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	}
-
+	
 }

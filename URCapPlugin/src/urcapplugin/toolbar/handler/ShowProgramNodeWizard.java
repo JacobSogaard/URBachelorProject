@@ -6,7 +6,11 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 import programnodegenerator.wizard.ProgramNodeWizard;
-
+/**
+ * Class to open the program node wizard. 
+ * @author jacob
+ *
+ */
 public class ShowProgramNodeWizard extends AbstractHandler {
 
 	@Override

@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Text;
 
 import emptyprojectgenerator.modelClasses.*;
 
-public class NewURCapPage extends WizardPage {
+public class SetupURCapPage extends WizardPage {
 	private Text groupIdText, artifactIdText, directoryText, versionText;
 	private Composite container, browseContainer;
 	private int number = 0;
@@ -37,8 +37,8 @@ public class NewURCapPage extends WizardPage {
 	 * 
 	 * @return
 	 */
-	public NewProjectModel getProjectModel() {
-		return new NewProjectModel(groupIdText.getText(), artifactIdText.getText(), versionText.getText(),
+	public URCapProjectModel getProjectModel() {
+		return new URCapProjectModel(groupIdText.getText(), artifactIdText.getText(), versionText.getText(),
 				comboDropDownApiVersion.getText(), directoryText.getText());
 	}
 
@@ -47,7 +47,7 @@ public class NewURCapPage extends WizardPage {
 	 * directory to have urcap project in. Constructor only sets wizard page title
 	 * and description.
 	 */
-	public NewURCapPage() {
+	public SetupURCapPage() {
 		super("First Page");
 		setTitle("New URCap project");
 		setDescription("Define name and location of URCap project");
