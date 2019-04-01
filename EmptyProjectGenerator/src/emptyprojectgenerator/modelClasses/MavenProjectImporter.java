@@ -16,7 +16,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.List;
 
-import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
