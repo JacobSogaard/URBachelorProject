@@ -1,4 +1,4 @@
-package emptyprojectgenerator.modelClasses;
+package modelClasses;
 
 import java.util.Properties;
 
@@ -8,22 +8,20 @@ import java.util.Properties;
  * @author jacob
  *
  */
-public class URCapProjectModel {
+public class EmptyProjectModel extends URCapProjectModel {
 
 	private static final String ARCHYTYPE_GROUPID = "com.ur.urcap";
 	private static final String ARCHYTYPE_ARTIFACTID = "archetype";
 	private static final String ARCHYTYPE_VERSION = "1.5.0";
-	private static final String ITERATIVE_MOOD = "false";
 
-	private String groupID, artifactID, apiVersion, projectPath, 
-							packaging, apiVersionRelease, version;
+	private String apiVersion, packaging, apiVersionRelease, version;
 
 	private Properties properties;
 	
 	/**
 	 * Empty constructor
 	 */
-	public URCapProjectModel() {
+	public EmptyProjectModel() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -35,10 +33,10 @@ public class URCapProjectModel {
 	 * @param apiVersion
 	 * @param projectPath
 	 */
-	public URCapProjectModel(String groupID, String artifactID, String version, String apiVersion, String projectPath) {
+	public EmptyProjectModel(String groupID, String artifactID, String version, String apiVersion, String projectPath) {
 
-		this.groupID = groupID;
-		this.artifactID = artifactID;
+		this.groupId = groupID;
+		this.artifactId = artifactID;
 		this.apiVersion = apiVersion;
 		this.projectPath = projectPath;
 		this.packaging = groupID + "." + artifactID;
@@ -59,8 +57,8 @@ public class URCapProjectModel {
 		properties.setProperty("archetypeArtifactId", ARCHYTYPE_ARTIFACTID);
 		properties.setProperty("archetypeVersion", ARCHYTYPE_VERSION);
 		properties.setProperty("package", this.packaging+".impl");
-		properties.setProperty("groupId", this.groupID);
-		properties.setProperty("artifactId", this.artifactID);
+		properties.setProperty("groupId", this.groupId);
+		properties.setProperty("artifactId", this.artifactId);
 		properties.setProperty("apiversion", this.apiVersion);
 		properties.setProperty("apiversionRelease", this.apiVersionRelease);
 		properties.setProperty("version", this.version);

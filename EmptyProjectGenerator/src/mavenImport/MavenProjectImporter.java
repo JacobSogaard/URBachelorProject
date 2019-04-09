@@ -1,4 +1,4 @@
-package emptyprojectgenerator.modelClasses;
+package mavenImport;
 
 import org.eclipse.m2e.core.project.AbstractProjectScanner;
 import org.eclipse.m2e.core.project.IMavenProjectImportResult;
