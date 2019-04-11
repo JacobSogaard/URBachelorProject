@@ -8,6 +8,11 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;;
 
+/**
+ * Wizard page which sets information about the program node, excepts class names. 
+ * @author jacob
+ *
+ */
 public class SetAttributesPage extends WizardPage {
 
 	private Text nodeId, nodeTitle;
@@ -27,6 +32,9 @@ public class SetAttributesPage extends WizardPage {
 
 	}
 
+	/**
+	 * Creates the look of the page. Sets all labels and input fields
+	 */
 	@Override
 	public void createControl(Composite parent) {
 		this.container = new Composite(parent, SWT.NONE);
@@ -73,10 +81,10 @@ public class SetAttributesPage extends WizardPage {
 			}
 		});
 		
-		
-		
+		//Sets check box for is children allowed.
 		this.setChildrenAllowedBTN = new Button(container, SWT.CHECK);
 		this.setChildrenAllowedBTN.setText(SET_CHILDREN_ALLOWED_TEXT);
+		
 		
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		this.nodeId.setLayoutData(gd);
@@ -97,6 +105,10 @@ public class SetAttributesPage extends WizardPage {
 
 
 
+	/**
+	 * Checks if all input fields are non empty. 
+	 * @return
+	 */
 	private boolean isAllFieldsSet() {
 		return !this.nodeId.getText().isEmpty() && !this.nodeTitle.getText().isEmpty();
 	}

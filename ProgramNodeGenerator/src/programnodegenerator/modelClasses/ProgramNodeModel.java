@@ -1,5 +1,12 @@
 package programnodegenerator.modelClasses;
 
+
+/**
+ * Model for program node classes. Holds the information a program node needs from the user.
+ * Class should be filled out through the wizard
+ * @author jacob
+ *
+ */
 public class ProgramNodeModel {
 	private String serviceClassname, viewClassname, contributionClassname, nodeId, nodeTitle;
 	private boolean setChildrenAllowed = false;

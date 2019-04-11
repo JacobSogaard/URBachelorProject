@@ -5,6 +5,12 @@ import org.eclipse.jface.wizard.Wizard;
 import generator.ProgramNodeGenerator;
 import programnodegenerator.modelClasses.ProgramNodeModel;
 
+/**
+ * Sets up the wizard for program node installation
+ * Adds the pages to the wizard
+ * @author jacob
+ *
+ */
 public class ProgramNodeWizard extends Wizard{
 	
 	private SetClassesNamePage setClassesPage;
@@ -16,6 +22,9 @@ public class ProgramNodeWizard extends Wizard{
 		setNeedsProgressMonitor(true);
 	}
 	
+	/**
+	 * Adds the pages to the wizard. 
+	 */
 	@Override
 	public void addPages() {
 		this.setClassesPage = new SetClassesNamePage();
@@ -24,6 +33,10 @@ public class ProgramNodeWizard extends Wizard{
 		addPage(this.setAttributesPage);
 	}
 	
+	/**
+	 * Takes the program node information filled out in the wizard and creates a 
+	 * programNodeModel class from them 
+	 */
 	@Override
 	public boolean performFinish() {
 		// TODO Auto-generated method stub
@@ -37,8 +50,7 @@ public class ProgramNodeWizard extends Wizard{
 		this.nodeModel = new ProgramNodeModel(serviceClassname, viewClassname, 
 				contributionClassname, nodeId, nodeTitle);
 		
-		System.out.println(this.nodeModel.toString());
-		
+		//Generate the program node classes using the program node model.
 		ProgramNodeGenerator png = new ProgramNodeGenerator(this.nodeModel);
 		
 		return true;

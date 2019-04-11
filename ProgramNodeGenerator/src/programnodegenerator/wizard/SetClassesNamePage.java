@@ -1,5 +1,6 @@
 package programnodegenerator.wizard;
 
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -9,7 +10,14 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 
+/**
+ * Wizard page to set the class names for service, view and contribution class, on a program node. 
+ * @author jacob
+ *
+ */
 public class SetClassesNamePage extends WizardPage{
 
 	private Text viewClassName, serviceClassName, contributionClassName;
@@ -29,6 +37,9 @@ public class SetClassesNamePage extends WizardPage{
 		setPageComplete(true);
 	}
 
+	/**
+	 * Creates the input fields of the wizard page. 
+	 */
 	@Override
 	public void createControl(Composite parent) {
 		this.container = new Composite(parent, SWT.NONE);
@@ -41,6 +52,10 @@ public class SetClassesNamePage extends WizardPage{
 		//Set view input and label
 		this.viewInputLabel = new Label(container, SWT.NONE);
 		this.viewClassName = new Text(container, SWT.BORDER | SWT.SINGLE);
+		
+		//IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		//ISelection selection = window.getSelectionService().getSelection("org.eclipse.jdt.ui.PackageExplorer");
+		
 		this.createInputForm(this.viewClassName, this.viewInputText, this.viewInputLabel, VIEW_INPUT_LABEL);
 		
 		//Set service input and label
@@ -60,16 +75,24 @@ public class SetClassesNamePage extends WizardPage{
 		
 	}
 	
+	/**
+	 * Sets the layout grid for input fields
+	 * @param gd
+	 */
 	private void setAllLayout(GridData gd) {
 		this.viewClassName.setLayoutData(gd);
 		this.serviceClassName.setLayoutData(gd);
 		this.contributionClassName.setLayoutData(gd);
 	}
 	
+	/**
+	 * Creates and sets the input text fields and their labels. 
+	 * @param text
+	 * @param message
+	 * @param label
+	 * @param labelText
+	 */
 	private void createInputForm(Text text, String message, Label label, String labelText) {
-		
-		
-		
 		label.setText(labelText);
 		text.setText(message);
 		
@@ -85,10 +108,9 @@ public class SetClassesNamePage extends WizardPage{
 		this.contributionInputText = "ProgramNodeContribution";
 	}
 	
-	private boolean isAllFieldsSet() {
-		return true;
-	}
-	
+	/**
+	 * Checks to see if the next button should be active. Check if the input fields are empty. 
+	 */
 	@Override
 	public boolean canFlipToNextPage() {		
 		 return (!this.viewClassName.getText().isEmpty() && !this.serviceClassName.getText().isEmpty()
