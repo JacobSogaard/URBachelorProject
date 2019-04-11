@@ -8,8 +8,8 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osgi.framework.BundleContext;
 
-import emptyprojectgenerator.modelClasses.MavenProjectImporter;
-import emptyprojectgenerator.wizard.URCapWizard;
+import emptyproject.URCapWizard;
+
 
 
 /**
@@ -21,7 +21,6 @@ import emptyprojectgenerator.wizard.URCapWizard;
 public class ShowWizard extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {	
-		System.out.println(ResourcesPlugin.getWorkspace().getRoot());
 		URCapWizard wizard = new URCapWizard();
 		WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
 		dialog.open();

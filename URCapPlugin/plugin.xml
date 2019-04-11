@@ -70,17 +70,20 @@
             name="New URCap">
       </command>
       <command
-            defaultHandler="urcapplugin.toolbar.handler.ShowProgramNodeWizard"
+            defaultHandler="urcapplugin.toolbar.handler.ShowNodeWizard"
+            description="ProgramNode"
             id="URCapPlugin.showProgramNodeWizard"
             name="ShowProgramNodeWizard">
       </command>
       <command
-            defaultHandler="urcapplugin.toolbar.handler.ShowInstallationNodeWizard"
+            defaultHandler="urcapplugin.toolbar.handler.ShowNodeWizard"
+            description="InstallationNode"
             id="URCapPlugin.showInstallationNodeWizard"
             name="ShowInstallationNodeWizard">
       </command>
       <command
-            defaultHandler="urcapplugin.toolbar.handler.ShowToolbarNodeWizard"
+            defaultHandler="urcapplugin.toolbar.handler.ShowNodeWizard"
+            description="ToolbarNode"
             id="URCapPlugin.showToolbarNodeWizard"
             name="ShowToolbarNodeWizard">
       </command>
