@@ -20,8 +20,6 @@ public class ShowNodeWizard extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		// ProgramNodeWizard wizard = new ProgramNodeWizard();
-		System.out.println("test");
 		System.out.println(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/" + "MyArtifactId");
 		
 		WizardFactory factory = new WizardFactory();

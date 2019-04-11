@@ -1,14 +1,13 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: EmptyProjectGenerator
+Bundle-Name: MavenManager
 Bundle-SymbolicName: MavenManager;singleton:=true
 Bundle-Version: 1.0.0
-Automatic-Module-Name: EmptyProjectGenerator
+Automatic-Module-Name: MavenManager
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.core.resources;bundle-version="3.13.200",
- org.eclipse.m2e.core;bundle-version="1.11.0",
- WizardManager
+ org.eclipse.m2e.core;bundle-version="1.11.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: mavenGenerator,
  mavenImport,
@@ -83,4 +82,3 @@ Bundle-ClassPath: aether-api-1.7.jar,
  xmlunit-1.5.jar,
  .
 Bundle-ActivationPolicy: lazy
-Import-Package: programnode

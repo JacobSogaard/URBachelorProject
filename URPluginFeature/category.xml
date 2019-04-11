@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/URCapFeature_1.0.0.jar" id="URCapFeature" version="1.0.0">
-      <category name="URPlugin"/>
-   </feature>
-   <category-def name="URPlugin" label="Universal Robots Plugin"/>
-</site>

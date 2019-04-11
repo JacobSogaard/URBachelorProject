@@ -2,8 +2,8 @@ package modelClasses;
 
 import java.util.Properties;
 
-import programnode.ProgramNodeModel;
-import wizardmanager.*;;
+
+
 
 /**
  * Model class for maven generation of a program node. Takes the groupid, artifactid which should be found be the wizard when from the selected project,
@@ -46,6 +46,8 @@ public class ProgramNodeProjectModel extends URCapProjectModel {
 		this.artifactId = artifactID;
 		this.projectPath = projectPath;
 		this.version = version;
+		
+		//Some smarter way to do this!!!!
 		this.programNode = (ProgramNodeModel) programNode;
 		
 		this.setProperties();
@@ -99,6 +101,7 @@ public class ProgramNodeProjectModel extends URCapProjectModel {
 	 * Get all properties set for maven project generation
 	 * @return Properties of type Properties
 	 */
+	@Override
 	public Properties getProperties() {
 		return this.properties;
 	}
@@ -107,6 +110,7 @@ public class ProgramNodeProjectModel extends URCapProjectModel {
 	 * Get the path of the generated project
 	 * @return path as String
 	 */
+	@Override
 	public String getProjectPath() {
 		return this.projectPath;
 	}

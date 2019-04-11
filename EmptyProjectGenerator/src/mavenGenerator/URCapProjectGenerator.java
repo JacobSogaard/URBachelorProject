@@ -2,19 +2,16 @@ package mavenGenerator;
 
 import java.io.File;
 import java.util.Collections;
-import java.util.Properties;
 import org.apache.maven.shared.invoker.DefaultInvocationRequest;
 import org.apache.maven.shared.invoker.DefaultInvoker;
 import org.apache.maven.shared.invoker.InvocationRequest;
 import org.apache.maven.shared.invoker.InvocationResult;
 import org.apache.maven.shared.invoker.Invoker;
 import org.apache.maven.shared.invoker.MavenInvocationException;
-
-import modelClasses.EmptyProjectModel;
 import modelClasses.URCapProjectModel;
 
 /**
- * Generates maven project using maven invoker. 
+ * Generates maven project using maven invoker.
  * @author jacob
  *
  */

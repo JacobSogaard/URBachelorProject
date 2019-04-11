@@ -90,6 +90,7 @@ public class EmptyProjectModel extends URCapProjectModel {
 	 * Get all properties set for maven project generation
 	 * @return Properties of type Properties
 	 */
+	@Override
 	public Properties getProperties() {
 		return this.properties;
 	}
@@ -98,6 +99,7 @@ public class EmptyProjectModel extends URCapProjectModel {
 	 * Get the path of the generated project
 	 * @return path as String
 	 */
+	@Override
 	public String getProjectPath() {
 		return this.projectPath;
 	}
