@@ -3,6 +3,11 @@ package wizardmanager;
 import programnode.ProgramNodeWizard;
 import org.eclipse.jface.wizard.Wizard;
 
+import deploy.local.DeployToLocalWizard;
+import deploy.robot.DeployToRobotWizard;
+import deploy.vm.DeployToVMWizard;
+import installationnode.InstallationNodeWizard;
+
 
 /**
  * Factory class to setup specific wizard type.
@@ -21,15 +26,21 @@ public class WizardFactory {
 	 * @return
 	 */
 	public Wizard getWizard(String wizardType) {
+		System.out.println(wizardType);
 		switch (wizardType) {
 		case "ProgramNode":
 			return new ProgramNodeWizard();
 		case "InstallationNode":
-			// TODO installation node not yet implemented
-			return null;
+			return new InstallationNodeWizard();
 		case "ToolbarNode":
 			// TODO Contribution node not yes implemented
 			return null;
+		case "DeployToRobot":
+			return new DeployToRobotWizard();
+		case "DeployLocal":
+			return new DeployToLocalWizard();
+		case "DeployToVM":
+			return new DeployToVMWizard();
 		default:
 			return null;
 		}

@@ -1,6 +1,9 @@
-package modelClasses;
+package modelClasses.programnode;
 
 import java.util.Properties;
+
+import modelClasses.NodeModel;
+import modelClasses.URCapProjectModel;
 
 
 
@@ -13,13 +16,9 @@ import java.util.Properties;
  * @author jacob
  *
  */
-public class ProgramNodeProjectModel extends URCapProjectModel {
-
-	private static final String ARCHYTYPE_GROUPID = "com.ur.urcap";
+public class ProgramNodeMavenModel extends URCapProjectModel {
 	private static final String ARCHYTYPE_ARTIFACTID = "programnodearchetype";
 	private static final String ARCHYTYPE_VERSION = "1.0";
-
-	private String version, packaging;
 	private ProgramNodeModel programNode;
 
 	private Properties properties;
@@ -27,8 +26,8 @@ public class ProgramNodeProjectModel extends URCapProjectModel {
 	/**
 	 * Empty constructor
 	 */
-	public ProgramNodeProjectModel() {
-		// TODO Auto-generated constructor stub
+	public ProgramNodeMavenModel() {
+		super();
 	}
 
 	/**
@@ -39,17 +38,9 @@ public class ProgramNodeProjectModel extends URCapProjectModel {
 	 * @param apiVersion
 	 * @param projectPath
 	 */
-	public ProgramNodeProjectModel(String groupId, String artifactID, String version, String projectPath, NodeModel programNode) {
-
-		this.groupId = groupId;
-		this.packaging = groupId;
-		this.artifactId = artifactID;
-		this.projectPath = projectPath;
-		this.version = version;
-		
-		//Some smarter way to do this!!!!
+	public ProgramNodeMavenModel(NodeModel programNode) {
+		super(programNode);
 		this.programNode = (ProgramNodeModel) programNode;
-		
 		this.setProperties();
 
 	}
@@ -63,39 +54,18 @@ public class ProgramNodeProjectModel extends URCapProjectModel {
 		properties.setProperty("archetypeGroupId", ARCHYTYPE_GROUPID);
 		properties.setProperty("archetypeArtifactId", ARCHYTYPE_ARTIFACTID);
 		properties.setProperty("archetypeVersion", ARCHYTYPE_VERSION);
-		properties.setProperty("package", this.packaging);
-		properties.setProperty("groupId", this.groupId);
-		properties.setProperty("artifactId", this.artifactId);
+		properties.setProperty("package", this.programNode.getGroupId());
+		properties.setProperty("groupId", this.programNode.getGroupId());
+		properties.setProperty("artifactId", this.programNode.getArtifactId());
 		properties.setProperty("contributionClassName", this.programNode.getContributionClassName());
 		properties.setProperty("serviceClassName", this.programNode.getServiceClassName());
 		properties.setProperty("viewClassName", this.programNode.getViewClassName());
 		properties.setProperty("isChildrenAllowed", Boolean.toString(this.programNode.isSetChildrenAllowed()));
 		properties.setProperty("nodeId", this.programNode.getNodeId());
 		properties.setProperty("nodeTitle", this.programNode.getTitle());
-		properties.setProperty("version", this.version);
+		properties.setProperty("version", this.programNode.getVersion());
 	}
-	
-	/**
-	 * Sets the default values for generation of UR Cap project
-	 * (Should only be used for testing)
-	 * TODO Delete this method
-	 * @return
-	 */
-	public Properties setDefaultProperties() {
-		Properties propertiesTest = new Properties();
-		
-		propertiesTest.setProperty("archetypeGroupId", ARCHYTYPE_GROUPID);
-		propertiesTest.setProperty("archetypeArtifactId", ARCHYTYPE_ARTIFACTID);
-		propertiesTest.setProperty("archetypeVersion", ARCHYTYPE_VERSION);
-		propertiesTest.setProperty("package", "com.ur.test02.impl");
-		propertiesTest.setProperty("groupId", "com.ur");
-		propertiesTest.setProperty("artifactId", "test02");
-		propertiesTest.setProperty("apiversion", ARCHYTYPE_VERSION);
-		propertiesTest.setProperty("apiversionRelease", ARCHYTYPE_VERSION);
-		propertiesTest.setProperty("version", "1.0.0");
-		
-		return propertiesTest;
-	}
+
 	
 	/**
 	 * Get all properties set for maven project generation
@@ -106,14 +76,6 @@ public class ProgramNodeProjectModel extends URCapProjectModel {
 		return this.properties;
 	}
 	
-	/**
-	 * Get the path of the generated project
-	 * @return path as String
-	 */
-	@Override
-	public String getProjectPath() {
-		return this.projectPath;
-	}
 	
 
 }

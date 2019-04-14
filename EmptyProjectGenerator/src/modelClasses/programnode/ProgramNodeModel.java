@@ -1,4 +1,6 @@
-package modelClasses;
+package modelClasses.programnode;
+
+import modelClasses.NodeModel;
 
 /**
  * Model for program node classes. Holds the information a program node needs from the user.
@@ -9,14 +11,11 @@ package modelClasses;
 public class ProgramNodeModel extends NodeModel{
 	private String nodeId;
 	private boolean setChildrenAllowed = false;
-	
-	public ProgramNodeModel(String serviceClassname, String viewClassname, String contributionClassname, String nodeId, String nodeTitle) {
-		setServiceClassName(serviceClassname);
-		setContributionClassName(contributionClassname);
-		setViewClassName(viewClassname);
+
+	public ProgramNodeModel(String serviceClassName, String viewClassName, String contributionClassName, String title,
+			String groupId, String artifactId, String version, String projectPath, String nodeId) {
+		super(serviceClassName, viewClassName, contributionClassName, title, groupId, artifactId, version, projectPath);
 		this.nodeId = nodeId;
-		setTitle(nodeTitle);
-		
 	}
 
 	public String getNodeId() {
