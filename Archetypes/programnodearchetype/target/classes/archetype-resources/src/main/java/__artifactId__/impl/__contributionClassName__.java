@@ -15,11 +15,11 @@ import com.ur.urcap.api.domain.program.nodes.contributable.URCapProgramNode;
 public class ${contributionClassName} implements ProgramNodeContribution {
 
 	private final ProgramAPI programAPI;
-	private final testProgramNodeView view;
+	private final ${viewClassName} view;
 	private final DataModel model;
 
 
-	public ${contributionClassName}(ProgramAPIProvider apiProvider, testProgramNodeView view, DataModel model) {
+	public ${contributionClassName}(ProgramAPIProvider apiProvider, ${viewClassName} view, DataModel model) {
 
 	
 		this.programAPI = apiProvider.getProgramAPI();

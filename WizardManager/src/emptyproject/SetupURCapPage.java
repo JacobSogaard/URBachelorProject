@@ -27,7 +27,6 @@ import modelClasses.*;
 public class SetupURCapPage extends WizardPage {
 	private Text groupIdText, artifactIdText, directoryText, versionText;
 	private Composite container, browseContainer;
-	private int number = 0;
 	private String workspacePath;
 	private final String[] API_VERSIONS = { "1.0", "1.1", "1.2", "1.3", "1.4", "1.5" };
 	private Combo comboDropDownApiVersion;

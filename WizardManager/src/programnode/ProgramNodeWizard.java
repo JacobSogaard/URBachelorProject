@@ -11,9 +11,9 @@ import org.eclipse.swt.widgets.Shell;
 
 import mavenGenerator.URCapProjectGenerator;
 import modelClasses.NodeModel;
-import modelClasses.ProgramNodeModel;
-import modelClasses.ProgramNodeProjectModel;
 import modelClasses.URCapProjectModel;
+import modelClasses.programnode.ProgramNodeModel;
+import modelClasses.programnode.ProgramNodeMavenModel;
 
 /**
  * Sets up the wizard for program node installation
@@ -50,21 +50,20 @@ public class ProgramNodeWizard extends Wizard{
 	@Override
 	public boolean performFinish() {
 		//this.setAttributesPage.setGeneratingLabel(); //does not work
-		String serviceClassname = this.setClassesPage.getServiceClassname();
-		String viewClassname = this.setClassesPage.getViewClassname();
-		String contributionClassname = this.setClassesPage.getContributionClassname();
+		String serviceClassName = this.setClassesPage.getServiceClassname();
+		String viewClassName = this.setClassesPage.getViewClassname();
+		String contributionClassName = this.setClassesPage.getContributionClassname();
 		String nodeId = this.setAttributesPage.getNodeId();
 		String nodeTitle = this.setAttributesPage.getNodeTitle();
+		String projectPath = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/" + "MyArtifactId";
 		
-		
-		this.nodeModel = new ProgramNodeModel(serviceClassname, viewClassname, 
-				contributionClassname, nodeId, nodeTitle);
+		this.nodeModel = new ProgramNodeModel(serviceClassName, viewClassName, contributionClassName, nodeTitle, "MyGroupId", "MyArtifactId", "1.0", projectPath, nodeId);
 		
 		//Generate the program node classes using the program node model.
 		URCapProjectGenerator prgen = new URCapProjectGenerator();
 		
-		String projectPath = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/" + "MyArtifactId";
-		URCapProjectModel prmodel = new ProgramNodeProjectModel("MyGroupId", "MyArtifactId", "1.0", projectPath, nodeModel);
+		
+		URCapProjectModel prmodel = new ProgramNodeMavenModel(nodeModel);
 		
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		

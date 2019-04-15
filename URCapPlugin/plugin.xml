@@ -55,6 +55,25 @@
                label="Toolbar Node"
                style="push">
          </command>
+         <menu
+               id="Deploy"
+               label="Deploy">
+            <command
+                  commandId="URCapPlugin.deploy.deploylocal"
+                  label="Deploy to local URSim"
+                  style="push">
+            </command>
+            <command
+                  commandId="URCapPlugin.deploy.deploytovm"
+                  label="Deploy to VM URSim"
+                  style="push">
+            </command>
+            <command
+                  commandId="URCapPlugin.deploy.deploytorobot"
+                  label="Deploy to robot"
+                  style="push">
+            </command>
+         </menu>
       </menuContribution>
    </extension>
    <extension
@@ -86,6 +105,21 @@
             description="ToolbarNode"
             id="URCapPlugin.showToolbarNodeWizard"
             name="ShowToolbarNodeWizard">
+      </command>
+      <command
+            defaultHandler="urcapplugin.toolbar.handler.deploy.ShowDeployWizard"
+            id="URCapPlugin.deploy.deploylocal"
+            name="DeployLocal">
+      </command>
+      <command
+            defaultHandler="urcapplugin.toolbar.handler.deploy.ShowDeployWizard"
+            id="URCapPlugin.deploy.deploytorobot"
+            name="DeployToRobot">
+      </command>
+      <command
+            defaultHandler="urcapplugin.toolbar.handler.deploy.ShowDeployWizard"
+            id="URCapPlugin.deploy.deploytovm"
+            name="DeployToVM">
       </command>
    </extension>
 
