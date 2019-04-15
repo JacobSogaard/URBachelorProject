@@ -9,11 +9,12 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import mavenGenerator.URCapProjectGenerator;
-import modelClasses.NodeModel;
+import mavenGenerator.MavenInvokerHandler;
+import modelClasses.IURCapMaven;
+import modelClasses.MavenModel;
 import modelClasses.URCapProjectModel;
 import modelClasses.programnode.ProgramNodeModel;
-import modelClasses.programnode.ProgramNodeMavenModel;
+import modelClasses.programnode.ProgramNodeProjectModel;
 
 /**
  * Sets up the wizard for program node installation
@@ -25,7 +26,7 @@ public class ProgramNodeWizard extends Wizard{
 	
 	private SetClassesNamePage setClassesPage;
 	private SetAttributesPage setAttributesPage;
-	private NodeModel nodeModel;
+	private IURCapMaven nodeModel;
 
 	public ProgramNodeWizard() {
 		super();
@@ -55,22 +56,31 @@ public class ProgramNodeWizard extends Wizard{
 		String contributionClassName = this.setClassesPage.getContributionClassname();
 		String nodeId = this.setAttributesPage.getNodeId();
 		String nodeTitle = this.setAttributesPage.getNodeTitle();
+		//boolean setChildrenAllowed = this.setAttributesPage.isChildrenAllowed(); //TODO create method is attributes page
+		boolean setChildrenAllowed = true;
+		
 		String projectPath = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/" + "MyArtifactId";
 		
-		this.nodeModel = new ProgramNodeModel(serviceClassName, viewClassName, contributionClassName, nodeTitle, "MyGroupId", "MyArtifactId", "1.0", projectPath, nodeId);
+		MavenModel mavenModel = new ProgramNodeModel(nodeTitle, nodeId, setChildrenAllowed, serviceClassName, contributionClassName, viewClassName);
+		mavenModel.setProjectPath(projectPath);
+		mavenModel.setProjectGroupId("MyGroupId");
+		mavenModel.setProjectArtifactId("MyArtifactId");
+		mavenModel.setProjectVersion("1.0");
+		
+		this.nodeModel = new ProgramNodeProjectModel(mavenModel);
 		
 		//Generate the program node classes using the program node model.
-		URCapProjectGenerator prgen = new URCapProjectGenerator();
+		MavenInvokerHandler prgen = new MavenInvokerHandler();
 		
 		
-		URCapProjectModel prmodel = new ProgramNodeMavenModel(nodeModel);
+		
 		
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
 		Shell shell = getShell();
 		shell.setCursor(waitCursor);
 		
-		prgen.generate(prmodel);	
+		prgen.invokeMavenExecution(this.nodeModel);	
 		//Import project here!
 		shell.setCursor(null);
 		waitCursor.dispose();

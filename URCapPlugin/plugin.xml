@@ -40,7 +40,7 @@
          <command
                commandId="URCapPlugin.showInstallationNodeWizard"
                id="InstallNode"
-               label="Install Node"
+               label="Installation Node"
                style="push">
          </command>
          <command

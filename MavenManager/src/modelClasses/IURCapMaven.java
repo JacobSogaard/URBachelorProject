@@ -1,5 +1,13 @@
 package modelClasses;
 
-public interface INodeModel {
-	public NodeModel getNodeModel();
+import java.util.Properties;
+
+public interface IURCapMaven {
+	
+	public Properties getProperties(); 
+	public String getProjectPath();
+	public String getGoal();
 }
+
+
+

@@ -1,6 +1,6 @@
 package modelClasses.programnode;
 
-import modelClasses.NodeModel;
+import modelClasses.MavenModel;
 
 /**
  * Model for program node classes. Holds the information a program node needs from the user.
@@ -8,14 +8,52 @@ import modelClasses.NodeModel;
  * @author jacob
  *
  */
-public class ProgramNodeModel extends NodeModel{
-	private String nodeId;
-	private boolean setChildrenAllowed = false;
+public class ProgramNodeModel extends MavenModel{
 
-	public ProgramNodeModel(String serviceClassName, String viewClassName, String contributionClassName, String title,
-			String groupId, String artifactId, String version, String projectPath, String nodeId) {
-		super(serviceClassName, viewClassName, contributionClassName, title, groupId, artifactId, version, projectPath);
+	private String serviceClassName, contributionClassName, viewClassName, nodeTitle, nodeId;
+	private boolean setChildrenAllowed;
+
+	public ProgramNodeModel(String nodeTitle, String nodeId, boolean setChildrenAllowed, String serviceClassName, 
+			String contributionClassName, String viewClassName) {
+		super();
+		this.serviceClassName = serviceClassName;
+		this.contributionClassName = contributionClassName;
+		this.viewClassName = viewClassName;
+		this.nodeTitle = nodeTitle;
 		this.nodeId = nodeId;
+		this.setChildrenAllowed = setChildrenAllowed;
+	}
+	
+	public String getServiceClassName() {
+		return serviceClassName;
+	}
+
+	public void setServiceClassName(String serviceClassName) {
+		this.serviceClassName = serviceClassName;
+	}
+
+	public String getContributionClassName() {
+		return contributionClassName;
+	}
+
+	public void setContributionClassName(String contributionClassName) {
+		this.contributionClassName = contributionClassName;
+	}
+
+	public String getViewClassName() {
+		return viewClassName;
+	}
+
+	public void setViewClassName(String viewClassName) {
+		this.viewClassName = viewClassName;
+	}
+
+	public String getNodeTitle() {
+		return nodeTitle;
+	}
+
+	public void setNodeTitle(String nodeTitle) {
+		this.nodeTitle = nodeTitle;
 	}
 
 	public String getNodeId() {
@@ -25,8 +63,7 @@ public class ProgramNodeModel extends NodeModel{
 	public void setNodeId(String nodeId) {
 		this.nodeId = nodeId;
 	}
-
-
+	
 	public boolean isSetChildrenAllowed() {
 		return setChildrenAllowed;
 	}
@@ -35,14 +72,4 @@ public class ProgramNodeModel extends NodeModel{
 		this.setChildrenAllowed = setChildrenAllowed;
 	}
 	
-	@Override
-	public String toString() {
-		String out = "Service name: " + getServiceClassName() 
-				+ "\nView name: " + getViewClassName() 
-				+ "\nContribution name: " + getContributionClassName()
-				+ "\nNode id: " + this.getNodeId() 
-				+ "\nNode title: " + getTitle()
-				+ "\nIs children allowed: " + this.isSetChildrenAllowed();
-		return out;
-	}
 }

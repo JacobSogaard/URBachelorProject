@@ -9,13 +9,12 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import mavenGenerator.URCapProjectGenerator;
-import modelClasses.NodeModel;
-import modelClasses.URCapProjectModel;
+import mavenGenerator.MavenInvokerHandler;
+import modelClasses.IURCapMaven;
+import modelClasses.MavenModel;
 import modelClasses.installationnode.InstallationNodeMavenModel;
 import modelClasses.installationnode.InstallationNodeModel;
-import modelClasses.programnode.ProgramNodeModel;
-import modelClasses.programnode.ProgramNodeMavenModel;
+
 
 /**
  * Sets up the wizard for program node installation
@@ -27,7 +26,7 @@ public class InstallationNodeWizard extends Wizard{
 	
 	private SetClassesNamePage setClassesPage;
 	private SetAttributesPage setAttributesPage;
-	private NodeModel nodeModel;
+	private IURCapMaven nodeModel;
 
 	public InstallationNodeWizard() {
 		super();
@@ -52,26 +51,34 @@ public class InstallationNodeWizard extends Wizard{
 	@Override
 	public boolean performFinish() {
 		//this.setAttributesPage.setGeneratingLabel(); //does not work
+		
+
 		String serviceClassName = this.setClassesPage.getServiceClassname();
 		String viewClassName = this.setClassesPage.getViewClassname();
 		String contributionClassName = this.setClassesPage.getContributionClassname();
 		String nodeTitle = this.setAttributesPage.getNodeTitle();
-		String projectPath = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/" + "MyArtifactId";
+		String projectPath = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/" + "MyArtifactId";  //TODO change to project artifact id here
 		
-		this.nodeModel = new InstallationNodeModel(serviceClassName, viewClassName, contributionClassName, nodeTitle, "MyGroupId", "MyArtifactId", "1.0", projectPath);
+		MavenModel mavenModel = new InstallationNodeModel(serviceClassName, contributionClassName, viewClassName, nodeTitle);
+		
+		
+		mavenModel.setProjectPath(projectPath);
+		mavenModel.setProjectGroupId("MyGroupId");
+		mavenModel.setProjectArtifactId("MyArtifactId");
+		mavenModel.setProjectVersion("1.0");
+		
+		this.nodeModel = new InstallationNodeMavenModel(mavenModel);
+		
 		
 		//Generate the program node classes using the program node model.
-		URCapProjectGenerator prgen = new URCapProjectGenerator();
-		
-		
-		URCapProjectModel prmodel = new InstallationNodeMavenModel(nodeModel);
+		MavenInvokerHandler prgen = new MavenInvokerHandler();
 		
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
 		Shell shell = getShell();
 		shell.setCursor(waitCursor);
 		
-		prgen.generate(prmodel);	
+		prgen.invokeMavenExecution(this.nodeModel);	
 		//Import project here!
 		shell.setCursor(null);
 		waitCursor.dispose();

@@ -7,7 +7,7 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import mavenGenerator.URCapProjectGenerator;
+import mavenGenerator.MavenInvokerHandler;
 import mavenImport.MavenProjectImporter;
 import modelClasses.*;
 
@@ -20,13 +20,12 @@ import modelClasses.*;
 public class URCapWizard extends Wizard {
 
 	protected SetupURCapPage urcapSetupPage;
-	private EmptyProjectModel projectInfo;
+	private IURCapMaven projectModel;
 	private static Cursor cursor = null;
 	//protected MyPageTwo two;
 
 	public URCapWizard() {
 		super();
-		this.projectInfo = new EmptyProjectModel();
 		setNeedsProgressMonitor(true);
 	}
 
@@ -38,13 +37,14 @@ public class URCapWizard extends Wizard {
 
 	@Override
 	public boolean performFinish() {
-		URCapProjectGenerator urgen = new URCapProjectGenerator();
+		MavenInvokerHandler invoker = new MavenInvokerHandler();
+		this.projectModel = new URCapProjectModel(urcapSetupPage.getProjectModel());
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
 		Shell shell = getShell();
 		shell.setCursor(waitCursor);
 		
-		urgen.generate(urcapSetupPage.getProjectModel()); //Generates project with object model made through NewURCapWizardPage
+		invoker.invokeMavenExecution(this.projectModel); //Generates project with object model made through NewURCapWizardPage
 		
 		//MavenProjectImporter importer = new MavenProjectImporter();
 		//importer.importProjectAsMavenProject(urcapSetupPage.getProjectModel().getProjectPath());

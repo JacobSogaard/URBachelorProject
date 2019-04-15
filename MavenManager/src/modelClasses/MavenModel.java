@@ -1,46 +1,79 @@
 package modelClasses;
 
-public abstract class NodeModel {
+public abstract class MavenModel {
 
-	private String serviceClassName, viewClassName, contributionClassName, title, 
-		groupId, artifactId, version, projectPath;
+	private String archetypeGroupId, archetypeArtifactId, archetypeVersionAPI, archetypeVersion, projectGroupId, projectArtifactId,
+			projectVersion, projectPath, mavenGoal;
+
+//	public NodeModel(String serviceClassName, String viewClassName, String contributionClassName, String title,
+//			String groupId, String artifactId, String version, String projectPath) {
+//		this.serviceClassName = serviceClassName;
+//		this.viewClassName = viewClassName;
+//		this.contributionClassName = contributionClassName;
+//		this.title = title;
+//		this.groupId = groupId;
+//		this.artifactId = artifactId;
+//		this.version = version;
+//		this.projectPath = projectPath;
+//	}
+
+	public MavenModel() {
+	}
+
+	public String getArchetypeGroupId() {
+		return archetypeGroupId;
+	}
+
+	public void setArchetypeGroupId(String archetypeGroupId) {
+		this.archetypeGroupId = archetypeGroupId;
+	}
+
+	public String getArchetypeArtifactId() {
+		return archetypeArtifactId;
+	}
+
+	public void setArchetypeArtifactId(String archetypeArtifactId) {
+		this.archetypeArtifactId = archetypeArtifactId;
+	}
+
+	public String getArchetypeVersionAPI() {
+		return archetypeVersionAPI;
+	}
+
+	public void setArchetypeVersionAPI(String archetypeVersionAPI) {
+		this.archetypeVersionAPI = archetypeVersionAPI;
+	}
 	
-	
-	
-	public NodeModel(String serviceClassName, String viewClassName, String contributionClassName, String title,
-			String groupId, String artifactId, String version, String projectPath) {
-		this.serviceClassName = serviceClassName;
-		this.viewClassName = viewClassName;
-		this.contributionClassName = contributionClassName;
-		this.title = title;
-		this.groupId = groupId;
-		this.artifactId = artifactId;
-		this.version = version;
-		this.projectPath = projectPath;
+	public String getArchetypeVersion() {
+		return archetypeVersion;
 	}
 
-	public String getGroupId() {
-		return groupId;
+	public void setArchetypeVersion(String archetypeVersion) {
+		this.archetypeVersion = archetypeVersion;
 	}
 
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
+	public String getProjectGroupId() {
+		return projectGroupId;
 	}
 
-	public String getArtifactId() {
-		return artifactId;
+	public void setProjectGroupId(String projectGroupId) {
+		this.projectGroupId = projectGroupId;
 	}
 
-	public void setArtifactId(String artifactId) {
-		this.artifactId = artifactId;
+	public String getProjectArtifactId() {
+		return projectArtifactId;
 	}
 
-	public String getVersion() {
-		return version;
+	public void setProjectArtifactId(String projectArtifactId) {
+		this.projectArtifactId = projectArtifactId;
 	}
 
-	public void setVersion(String version) {
-		this.version = version;
+	public String getProjectVersion() {
+		return projectVersion;
+	}
+
+	public void setProjectVersion(String projectVersion) {
+		this.projectVersion = projectVersion;
 	}
 
 	public String getProjectPath() {
@@ -51,47 +84,14 @@ public abstract class NodeModel {
 		this.projectPath = projectPath;
 	}
 
-	public void setServiceClassName(String serviceClassName) {
-		this.serviceClassName = serviceClassName;
+	public String getMavenGoal() {
+		return mavenGoal;
+	}
+
+	public void setMavenGoal(String mavenGoal) {
+		this.mavenGoal = mavenGoal;
 	}
 	
-	public void setViewClassName(String viewClassName) {
-		this.viewClassName = viewClassName;
-	}
 	
-	public void setContributionClassName(String contributionClassName) {
-		this.contributionClassName = contributionClassName;
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
-	public String getServiceClassName() {
-		if (serviceClassName != "") {
-			return serviceClassName;
-		}
-		return "";
-	}
-	
-	public String getViewClassName() {
-		if (viewClassName != "") {
-			return viewClassName;
-		}
-		return "";
-	}
-	
-	public String getContributionClassName() {
-		if (contributionClassName != "") {
-			return contributionClassName;
-		}
-		return "";
-	}
-	
-	public String getTitle() {
-		if (title != "") {
-			return title;
-		}
-		return "";
-	}
+
 }
