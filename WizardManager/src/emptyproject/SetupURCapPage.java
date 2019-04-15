@@ -37,8 +37,8 @@ public class SetupURCapPage extends WizardPage {
 	 * 
 	 * @return
 	 */
-	public EmptyProjectModel getProjectModel() {
-		return new EmptyProjectModel(groupIdText.getText(), artifactIdText.getText(), versionText.getText(),
+	public URCapProjectModel getProjectModel() {
+		return new URCapProjectModel(groupIdText.getText(), artifactIdText.getText(), versionText.getText(),
 				comboDropDownApiVersion.getText(), directoryText.getText());
 	}
 

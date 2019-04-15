@@ -8,32 +8,35 @@ import org.apache.maven.shared.invoker.InvocationRequest;
 import org.apache.maven.shared.invoker.InvocationResult;
 import org.apache.maven.shared.invoker.Invoker;
 import org.apache.maven.shared.invoker.MavenInvocationException;
-import modelClasses.URCapProjectModel;
+import modelClasses.MavenProjectModel;
 
 /**
- * Generates maven project using maven invoker.
+ * Maven invoker class handles the execution of a maven command.
+ * 
  * @author jacob
  *
  */
-public class URCapProjectGenerator {
+public class MavenInvokerHandler {
 
 	private final String MAVEN1_ENVIRONMENT = System.getenv("MAVEN_HOME");
 	private final String MAVEN2_ENVIRONMENT = System.getenv("M2_HOME");
 	private InvocationRequest request;
 	private Invoker invoker;
 
-	public URCapProjectGenerator() {
+	public MavenInvokerHandler() {
 		this.request = new DefaultInvocationRequest();
 		this.invoker = new DefaultInvoker();
 	}
 
 	/**
-	 * Generates the maven project using the maven invoker
+	 * Executes a maven command.
+	 * 
 	 * @param projectModel
 	 */
-	public void generate(URCapProjectModel projectModel) {
-		this.setupRequest(projectModel);
-		
+	public void invokeMavenExecution(MavenProjectModel projectModel) {
+
+		this.setupMavenRequest(projectModel);
+
 		try {
 			InvocationResult result = invoker.execute(request);
 		} catch (MavenInvocationException e) {
@@ -44,17 +47,24 @@ public class URCapProjectGenerator {
 	}
 
 	/**
-	 * Sets up the request to be made by maven to generate the URCap project
+	 * Sets up the request to be made by maven.
+	 * 
 	 * @param projectModel
 	 */
-	private void setupRequest(URCapProjectModel projectModel) {
+	private void setupMavenRequest(MavenProjectModel projectModel) {
 		request.setBaseDirectory(new File(projectModel.getProjectPath()));
-		request.setGoals(Collections.singletonList("archetype:generate"));
+		request.setGoals(Collections.singletonList(projectModel.getGoal()));
 		request.setBatchMode(true);
 		request.setProperties(projectModel.getProperties());
 
-		//Check for Maven environment, might be some better try-catch solution....
-		//Also test whether this will always work, might be some problem with maven3
+		this.checkMavenEnvironmentVariable();
+
+	}
+
+	/**
+	 * Check for Maven environment variable on host computer.
+	 */
+	private void checkMavenEnvironmentVariable() {
 		if (this.MAVEN1_ENVIRONMENT == null) {
 			invoker.setMavenHome(new File(this.MAVEN2_ENVIRONMENT));
 		} else if (this.MAVEN2_ENVIRONMENT == null) {
@@ -62,7 +72,6 @@ public class URCapProjectGenerator {
 		} else {
 			System.err.println("No suitable maven environment");
 		}
-		
 	}
-	
+
 }

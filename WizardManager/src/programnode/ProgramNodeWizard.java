@@ -9,11 +9,11 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import mavenGenerator.URCapProjectGenerator;
+import mavenGenerator.MavenInvokerHandler;
 import modelClasses.NodeModel;
 import modelClasses.ProgramNodeModel;
 import modelClasses.ProgramNodeProjectModel;
-import modelClasses.URCapProjectModel;
+import modelClasses.MavenProjectModel;
 
 /**
  * Sets up the wizard for program node installation
@@ -61,17 +61,17 @@ public class ProgramNodeWizard extends Wizard{
 				contributionClassname, nodeId, nodeTitle);
 		
 		//Generate the program node classes using the program node model.
-		URCapProjectGenerator prgen = new URCapProjectGenerator();
+		MavenInvokerHandler prgen = new MavenInvokerHandler();
 		
 		String projectPath = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/" + "MyArtifactId";
-		URCapProjectModel prmodel = new ProgramNodeProjectModel("MyGroupId", "MyArtifactId", "1.0", projectPath, nodeModel);
+		MavenProjectModel prmodel = new ProgramNodeProjectModel("MyGroupId", "MyArtifactId", "1.0", projectPath, nodeModel);
 		
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
 		Shell shell = getShell();
 		shell.setCursor(waitCursor);
 		
-		prgen.generate(prmodel);	
+		prgen.invokeMavenExecution(prmodel);	
 		//Import project here!
 		shell.setCursor(null);
 		waitCursor.dispose();

@@ -13,7 +13,7 @@ import java.util.Properties;
  * @author jacob
  *
  */
-public class ProgramNodeProjectModel extends URCapProjectModel {
+public class ProgramNodeProjectModel extends MavenProjectModel {
 
 	private static final String ARCHYTYPE_GROUPID = "com.ur.urcap";
 	private static final String ARCHYTYPE_ARTIFACTID = "programnodearchetype";
@@ -24,6 +24,7 @@ public class ProgramNodeProjectModel extends URCapProjectModel {
 
 	private Properties properties;
 	
+	private String mavenGoal;
 	/**
 	 * Empty constructor
 	 */
@@ -41,6 +42,8 @@ public class ProgramNodeProjectModel extends URCapProjectModel {
 	 */
 	public ProgramNodeProjectModel(String groupId, String artifactID, String version, String projectPath, NodeModel programNode) {
 
+		this.mavenGoal = "archetype:generate";
+		
 		this.groupId = groupId;
 		this.packaging = groupId;
 		this.artifactId = artifactID;
@@ -113,6 +116,12 @@ public class ProgramNodeProjectModel extends URCapProjectModel {
 	@Override
 	public String getProjectPath() {
 		return this.projectPath;
+	}
+
+	@Override
+	public String getGoal() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
