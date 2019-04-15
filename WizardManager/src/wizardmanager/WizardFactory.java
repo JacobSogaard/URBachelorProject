@@ -26,7 +26,7 @@ public class WizardFactory {
 	 * @return
 	 */
 	public Wizard getWizard(String wizardType) {
-		System.out.println(wizardType);
+		System.out.println("WIZARD: " + wizardType);
 		switch (wizardType) {
 		case "ProgramNode":
 			return new ProgramNodeWizard();

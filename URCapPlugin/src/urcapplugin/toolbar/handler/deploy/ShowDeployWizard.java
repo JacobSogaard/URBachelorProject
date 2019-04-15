@@ -16,6 +16,7 @@ public class ShowDeployWizard extends AbstractHandler {
 		WizardFactory wizardFactory = new WizardFactory();
 		Wizard wizard;
 		try {
+			System.out.println(event.getCommand().getName());
 			wizard = wizardFactory.getWizard(event.getCommand().getName());
 			openWizard(wizard, event);
 		} catch (NotDefinedException e) {

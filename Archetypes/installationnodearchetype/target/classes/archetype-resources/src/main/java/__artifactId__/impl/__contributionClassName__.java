@@ -8,7 +8,7 @@ import com.ur.urcap.api.domain.script.ScriptWriter;
 
 public class ${contributionClassName} implements InstallationNodeContribution {
 
-	public ${contributionClassName}(InstallationAPIProvider apiProvider, MyInstallationNodeView view,
+	public ${contributionClassName}(InstallationAPIProvider apiProvider, ${viewClassName} view,
 			DataModel model, CreationContext context) {
 		// TODO Auto-generated constructor stub
 	}

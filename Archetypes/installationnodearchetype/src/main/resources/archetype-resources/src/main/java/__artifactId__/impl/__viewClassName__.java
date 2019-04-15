@@ -7,7 +7,7 @@ import com.ur.urcap.api.contribution.installation.swing.SwingInstallationNodeVie
 
 public class ${viewClassName} implements SwingInstallationNodeView<${contributionClassName}> {
 
-	public MyInstallationNodeView(ViewAPIProvider apiProvider) {
+	public ${viewClassName}(ViewAPIProvider apiProvider) {
 		// TODO Auto-generated constructor stub
 	}
 

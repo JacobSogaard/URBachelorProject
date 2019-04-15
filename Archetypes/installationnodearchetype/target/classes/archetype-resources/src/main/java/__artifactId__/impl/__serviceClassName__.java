@@ -10,7 +10,7 @@ import com.ur.urcap.api.contribution.installation.swing.SwingInstallationNodeSer
 import com.ur.urcap.api.domain.data.DataModel;
 
 public class ${serviceClassName}
-		implements SwingInstallationNodeService<${contributionClassName}, MyInstallationNodeView> {
+		implements SwingInstallationNodeService<${contributionClassName}, ${viewClassName}> {
 
 	public ${serviceClassName}() {
 		// TODO Auto-generated constructor stub
@@ -29,13 +29,13 @@ public class ${serviceClassName}
 	}
 
 	@Override
-	public MyInstallationNodeView createView(ViewAPIProvider apiProvider) {
+	public ${viewClassName} createView(ViewAPIProvider apiProvider) {
 		// TODO Auto-generated method stub
 		return new ${viewClassName}(apiProvider);
 	}
 
 	@Override
-	public MyInstallationNodeContribution createInstallationNode(InstallationAPIProvider apiProvider,
+	public ${contributionClassName} createInstallationNode(InstallationAPIProvider apiProvider,
 			${viewClassName} view, DataModel model, CreationContext context) {
 		// TODO Auto-generated method stub
 		return new ${contributionClassName}(apiProvider, view, model, context);

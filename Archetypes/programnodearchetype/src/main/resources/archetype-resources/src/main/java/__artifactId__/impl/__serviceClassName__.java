@@ -11,7 +11,7 @@ import com.ur.urcap.api.domain.SystemAPI;
 import com.ur.urcap.api.domain.data.DataModel;
 
 
-public class ${serviceClassName} implements SwingProgramNodeService<testProgramNodeContribution, testProgramNodeView> {
+public class ${serviceClassName} implements SwingProgramNodeService<${contributionClassName}, ${viewClassName}> {
 
 	@Override
 	public String getId() {
@@ -33,13 +33,13 @@ public class ${serviceClassName} implements SwingProgramNodeService<testProgramN
 	}
 
 	@Override
-	public testProgramNodeView createView(ViewAPIProvider apiProvider) {
-		return new testProgramNodeView();
+	public ${viewClassName} createView(ViewAPIProvider apiProvider) {
+		return new ${viewClassName}();
 
 	}
 
 	@Override
-	public testProgramNodeContribution createNode(ProgramAPIProvider apiProvider, testProgramNodeView view,
+	public ${contributionClassName} createNode(ProgramAPIProvider apiProvider, ${viewClassName} view,
 			DataModel model, CreationContext context) {
 
 		return new testProgramNodeContribution(apiProvider, view, model);

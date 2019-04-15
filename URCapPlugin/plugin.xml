@@ -64,7 +64,7 @@
                   style="push">
             </command>
             <command
-                  commandId="URCapPlugin.deploy.deploytoursim"
+                  commandId="URCapPlugin.deploy.deploytovm"
                   label="Deploy to VM URSim"
                   style="push">
             </command>
@@ -118,8 +118,8 @@
       </command>
       <command
             defaultHandler="urcapplugin.toolbar.handler.deploy.ShowDeployWizard"
-            id="URCapPlugin.deploy.deploytoursim"
-            name="DeployToURSim">
+            id="URCapPlugin.deploy.deploytovm"
+            name="DeployToVM">
       </command>
    </extension>
 

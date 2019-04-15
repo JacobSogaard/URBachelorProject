@@ -8,6 +8,7 @@ import org.apache.maven.shared.invoker.InvocationRequest;
 import org.apache.maven.shared.invoker.InvocationResult;
 import org.apache.maven.shared.invoker.Invoker;
 import org.apache.maven.shared.invoker.MavenInvocationException;
+
 import modelClasses.URCapProjectModel;
 
 /**
@@ -42,9 +43,12 @@ public class URCapProjectGenerator {
 		}
 
 	}
+	
+	// TODO Deploy method
 
 	/**
 	 * Sets up the request to be made by maven to generate the URCap project
+	 * TODO Rename method to something less generic
 	 * @param projectModel
 	 */
 	private void setupRequest(URCapProjectModel projectModel) {

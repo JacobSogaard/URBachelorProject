@@ -1,7 +1,9 @@
 package deploy.vm;
 
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jface.dialogs.DialogSettings;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
@@ -39,7 +41,10 @@ public class DeployToVMWizard extends Wizard{
 	 */
 	@Override
 	public boolean performFinish() {
-		System.out.println("Finished deploy to VM wizard page");
+		//System.out.println("Finished deploy to VM wizard page");
+		//IDialogSettings settings = new DialogSettings("root");
+		//settings.put("VMHost", page1.getHost());
+		//settings.get
 		return true;
 	}
 

@@ -113,6 +113,10 @@ public class DeployToVMWizardPage1 extends WizardPage {
 			return;
 		}
 	}
+	
+	protected String getHost() {
+		return this.hostText.getText();
+	}
 
 
 	private boolean isAllFieldsSet() {

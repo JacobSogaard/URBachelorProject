@@ -9,8 +9,6 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import modelClasses.EmptyProjectModel;
-
 /**
  * Sets up the wizard for deploy to robot wizard page
  * Adds the pages to the wizard
