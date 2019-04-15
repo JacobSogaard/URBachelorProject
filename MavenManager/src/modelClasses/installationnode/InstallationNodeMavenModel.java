@@ -2,7 +2,8 @@ package modelClasses.installationnode;
 
 import java.util.Properties;
 
-import modelClasses.NodeModel;
+import modelClasses.IURCapMaven;
+import modelClasses.MavenModel;
 import modelClasses.URCapProjectModel;
 
 
@@ -16,20 +17,16 @@ import modelClasses.URCapProjectModel;
  * @author jacob
  *
  */
-public class InstallationNodeMavenModel extends URCapProjectModel {
+public class InstallationNodeMavenModel implements IURCapMaven {
 
-	private static final String ARCHYTYPE_ARTIFACTID = "installationnodearchetype";
-	private static final String ARCHYTYPE_VERSION = "1.0";
-	private InstallationNodeModel installationNode;
+	private InstallationNodeModel installationNodeModel;
+	private static final String ARCHETYPE_GROUPID = "com.ur.urcap";
+	private static final String ARCHETYPE_ARTIFACTID = "installationnodearchetype";
+	private static final String ARCHETYPE_VERSION = "1.0";
 
 	private Properties properties;
 	
-	/**
-	 * Empty constructor
-	 */
-	public InstallationNodeMavenModel() {
-		// TODO Auto-generated constructor stub
-	}
+	
 
 	/**
 	 * Constructor the set all class fields.
@@ -39,9 +36,13 @@ public class InstallationNodeMavenModel extends URCapProjectModel {
 	 * @param apiVersion
 	 * @param projectPath
 	 */
-	public InstallationNodeMavenModel(NodeModel installationNode) {
-		super(installationNode);
-		this.installationNode = (InstallationNodeModel) installationNode;
+	public InstallationNodeMavenModel(MavenModel installationNode) {
+		this.installationNodeModel = (InstallationNodeModel) installationNode;
+		this.installationNodeModel.setArchetypeGroupId(ARCHETYPE_GROUPID);
+		this.installationNodeModel.setArchetypeArtifactId(ARCHETYPE_ARTIFACTID);
+		this.installationNodeModel.setArchetypeVersion(ARCHETYPE_VERSION);
+		this.installationNodeModel.setArchetypeVersionAPI("1.5.0");
+		this.installationNodeModel.setMavenGoal("archetype:generate");
 		this.setProperties();
 
 	}
@@ -52,17 +53,17 @@ public class InstallationNodeMavenModel extends URCapProjectModel {
 	private void setProperties() {
 		this.properties = new Properties();
 		properties.setProperty("interactiveMode", "false");
-		properties.setProperty("archetypeGroupId", ARCHYTYPE_GROUPID);
-		properties.setProperty("archetypeArtifactId", ARCHYTYPE_ARTIFACTID);
-		properties.setProperty("archetypeVersion", ARCHYTYPE_VERSION);
-		properties.setProperty("package", this.installationNode.getGroupId());
-		properties.setProperty("groupId", this.installationNode.getGroupId());
-		properties.setProperty("artifactId", this.installationNode.getArtifactId());
-		properties.setProperty("contributionClassName", this.installationNode.getContributionClassName());
-		properties.setProperty("serviceClassName", this.installationNode.getServiceClassName());
-		properties.setProperty("viewClassName", this.installationNode.getViewClassName());
-		properties.setProperty("nodeTitle", this.installationNode.getTitle());
-		properties.setProperty("version", this.installationNode.getVersion());
+		properties.setProperty("archetypeGroupId", this.installationNodeModel.getArchetypeGroupId());
+		properties.setProperty("archetypeArtifactId", this.installationNodeModel.getArchetypeArtifactId());
+		properties.setProperty("archetypeVersion", ARCHETYPE_VERSION);
+		properties.setProperty("package", this.installationNodeModel.getProjectGroupId());
+		properties.setProperty("groupId", this.installationNodeModel.getProjectGroupId());
+		properties.setProperty("artifactId", this.installationNodeModel.getProjectArtifactId());
+		properties.setProperty("contributionClassName", this.installationNodeModel.getContributionClassName());
+		properties.setProperty("serviceClassName", this.installationNodeModel.getServiceClassName());
+		properties.setProperty("viewClassName", this.installationNodeModel.getViewClassName());
+		properties.setProperty("nodeTitle", this.installationNodeModel.getNodeTitle());
+		properties.setProperty("version", this.installationNodeModel.getProjectVersion());
 	}
 	
 	/**
@@ -72,6 +73,18 @@ public class InstallationNodeMavenModel extends URCapProjectModel {
 	@Override
 	public Properties getProperties() {
 		return this.properties;
+	}
+
+	@Override
+	public String getProjectPath() {
+		// TODO Auto-generated method stub
+		return this.installationNodeModel.getProjectPath();
+	}
+
+	@Override
+	public String getGoal() {
+		// TODO Auto-generated method stub
+		return this.installationNodeModel.getMavenGoal();
 	}
 	
 
