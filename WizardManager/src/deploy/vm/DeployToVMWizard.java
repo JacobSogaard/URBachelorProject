@@ -11,6 +11,8 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import deployModels.DeployURSimVM;
+
 /**
  * Sets up the wizard for deploy to URSim on VM wizard page
  * Adds the pages to the wizard
@@ -41,10 +43,8 @@ public class DeployToVMWizard extends Wizard{
 	 */
 	@Override
 	public boolean performFinish() {
-		//System.out.println("Finished deploy to VM wizard page");
-		//IDialogSettings settings = new DialogSettings("root");
-		//settings.put("VMHost", page1.getHost());
-		//settings.get
+		DeployURSimVM deploy = new DeployURSimVM(this.page1.getHost(), this.page1.getUsername(), this.page1.getPassword(), "");
+		deploy.deploy();
 		return true;
 	}
 
