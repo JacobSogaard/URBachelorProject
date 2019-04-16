@@ -18,6 +18,8 @@ public class DeployToRobotWizardPage1 extends WizardPage {
 	private GridLayout layout;
 	private final String HOST_TEXT = "localhost", USERNAME_TEXT = "root", PASSWORD_TEXT = "easybot";
 
+	
+	
 	protected DeployToRobotWizardPage1() {
 		super("Deploy to robot wizard page");
 		setTitle("Deploy to robot");
@@ -92,6 +94,18 @@ public class DeployToRobotWizardPage1 extends WizardPage {
 		this.passwordText.setLayoutData(gd);
 		setControl(container);// TODO Auto-generated method stub
 
+	}
+	
+	public String getHost() {
+		return this.hostText.getText();
+	}
+	
+	public String getUsername() {
+		return this.usernameText.getText();
+	}
+	
+	public String getPassword() {
+		return this.passwordText.getText();
 	}
 
 	private boolean isAllFieldsSet() {
