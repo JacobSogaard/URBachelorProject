@@ -1,0 +1,10 @@
+diff a/URCapPlugin/plugin.xml b/URCapPlugin/plugin.xml	(rejected hunks)
+@@ -85,7 +85,7 @@
+       </command>
+       <command
+             defaultHandler="urcapplugin.toolbar.handler.ShowWizard"
+-            id="referenceToMenuId"
++            id="referenceToMenuId2"
+             name="New URCap">
+       </command>
+       <command
