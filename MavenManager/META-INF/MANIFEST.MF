@@ -13,7 +13,8 @@ Export-Package: mavenGenerator,
  mavenImport,
  modelClasses,
  modelClasses.installationnode,
- modelClasses.programnode
+ modelClasses.programnode,
+ projectnatures
 Bundle-ClassPath: aether-api-1.7.jar,
  aether-impl-1.7.jar,
  aether-spi-1.7.jar,

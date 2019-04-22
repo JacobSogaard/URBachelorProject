@@ -110,6 +110,8 @@ public class MavenProjectImporter {
 				toImport.add(projectInfo);
 			} else {
 				IProject project = container.getProject();
+				ProjectNatureHandler natureHandler = new ProjectNatureHandler(project);
+				project = natureHandler.getProject();
 				project.open(null);
 
 			}

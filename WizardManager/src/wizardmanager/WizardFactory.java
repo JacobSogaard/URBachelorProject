@@ -1,6 +1,8 @@
 package wizardmanager;
 
 import programnode.ProgramNodeWizard;
+
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.wizard.Wizard;
 
 import deploy.local.DeployToLocalWizard;

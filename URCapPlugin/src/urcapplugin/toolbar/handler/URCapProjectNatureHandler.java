@@ -17,7 +17,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import urcapplugin.projectnatures.URCapProjectNature;
+import projectnatures.URCapProjectNature;
 
 /**
  * Handler for the URCap project nature. Credit:

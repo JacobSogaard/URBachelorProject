@@ -1,4 +1,4 @@
-package urcapplugin.projectnatures;
+package projectnatures;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectNature;
