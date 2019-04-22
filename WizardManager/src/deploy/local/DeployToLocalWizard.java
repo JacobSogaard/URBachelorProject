@@ -9,8 +9,6 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import deployModels.DeployURSimLocal;
-
 /**
  * Sets up the wizard for deploy to robot wizard page
  * Adds the pages to the wizard
@@ -41,9 +39,7 @@ public class DeployToLocalWizard extends Wizard{
 	 */
 	@Override
 	public boolean performFinish() {
-		
-		DeployURSimLocal deploy = new DeployURSimLocal(this.page1.getHostPath(), "");
-		deploy.deploy();
+		System.out.println("Finished deploy to local wizard");
 		return true;
 	}
 

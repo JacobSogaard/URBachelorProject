@@ -18,28 +18,11 @@ public class DeployToVMWizardPage1 extends WizardPage {
 
 	private Label hostLabel, usernameLabel, passwordLabel;
 	private Text hostText, usernameText, passwordText;
-	
-	
-	public String getHost() {
-		return hostText.getText();
-	}
-
-	public String getUsername() {
-		return usernameText.getText();
-	}
-
-	public String getPassword() {
-		return passwordText.getText();
-	}
-
-
 	private Button browseBTN;
 	private Composite container;
 	private GridLayout layout;
 	private final String HOST_TEXT = "", USERNAME_TEXT = "root", PASSWORD_TEXT = "easybot";
 
-	
-	
 	protected DeployToVMWizardPage1() {
 		super("Deploy to URSim on VM");
 		setTitle("Deploy to VM");
@@ -129,6 +112,10 @@ public class DeployToVMWizardPage1 extends WizardPage {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
+	}
+	
+	protected String getHost() {
+		return this.hostText.getText();
 	}
 
 
