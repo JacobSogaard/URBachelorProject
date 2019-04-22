@@ -34,6 +34,8 @@ import org.eclipse.m2e.core.project.MavenProjectInfo;
 import org.eclipse.m2e.core.project.ProjectImportConfiguration;
 import org.eclipse.ui.dialogs.IOverwriteQuery;
 
+import projectnature.ProjectNatureHandler;
+
 
 /**
  * Class to import existing maven project to eclipse workspace and shows the project in project explorer
@@ -110,6 +112,13 @@ public class MavenProjectImporter {
 				toImport.add(projectInfo);
 			} else {
 				IProject project = container.getProject();
+				
+				//Calling setting of urcap project nature.
+				ProjectNatureHandler natureHandler = new ProjectNatureHandler();
+				natureHandler.setNature(project);
+				
+				//opening project with urcap nature.
+				project = natureHandler.getProject();
 				project.open(null);
 
 			}
