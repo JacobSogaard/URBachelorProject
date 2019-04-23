@@ -46,8 +46,8 @@ public class URCapWizard extends Wizard {
 		
 		invoker.invokeMavenExecution(this.projectModel); //Generates project with object model made through NewURCapWizardPage
 		
-		//MavenProjectImporter importer = new MavenProjectImporter();
-		//importer.importProjectAsMavenProject(urcapSetupPage.getProjectModel().getProjectPath());
+		MavenProjectImporter importer = new MavenProjectImporter();
+		importer.importProjectAsMavenProject(urcapSetupPage.getProjectModel().getProjectPath());
 		
 		
 		shell.setCursor(null);
