@@ -17,6 +17,13 @@
    </license>
 
    <plugin
+         id="DeployManager"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="MavenManager"
          download-size="0"
          install-size="0"
@@ -25,13 +32,6 @@
 
    <plugin
          id="URCapPlugin"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="WizardManager"
          download-size="0"
          install-size="0"
          version="0.0.0"
