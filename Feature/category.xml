@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/URCapFeature_1.0.0.qualifier.jar" id="URCapFeature" version="1.0.0.qualifier">
+   <feature url="features/URCapFeature_1.0.0.jar" id="URCapFeature" version="1.0.0">
       <category name="URCapFeature"/>
    </feature>
    <category-def name="URCapFeature" label="URCapFeature"/>

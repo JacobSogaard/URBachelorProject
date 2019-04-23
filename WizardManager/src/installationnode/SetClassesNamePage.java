@@ -1,18 +1,11 @@
 package installationnode;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.ISelectionService;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 
 import wizardmanager.NodeWizard;
 
@@ -32,29 +25,20 @@ public class SetClassesNamePage extends NodeWizard {
 	private final String VIEW_INPUT_LABEL = "Installation node view";
 	private final String SERVICE_INPUT_LABEL = "Installation node service";
 	private final String CONTRIBUTION_INPUT_LABEL = "Installation node contribution";
-	private String viewInputText, serviceInputText, contributionInputText;
+	private String viewInputText, serviceInputText, contributionInputText, artifactId;
 	
 	
-	private String testpath = "";
+	
+	
 
-	private void init() {
-		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		ISelectionService selection = window.getSelectionService();
-		IStructuredSelection structured = (IStructuredSelection) selection.getSelection("org.eclipse.jdt.ui.PackageExplorer");
-
-		IFile file = (IFile) structured.getFirstElement();
-		IPath path = file.getLocation();
-		this.testpath = path.toPortableString();
-		
-
-	}
-
-	protected SetClassesNamePage() {
+	protected SetClassesNamePage(String artifactId, String path) {
 		super("Set Installation Node Classes Page");
-		//this.init();
-		setTitle("Setup Installation Node Classes");
+		this.artifactId = artifactId;
+		setTitle("Setup Installation Node Classes (TEST UPDATE)");
+;
+		
 		//setDescription("Set names of classes in installation node (Standard names recommended)");
-		setDescription(testpath);
+		setDescription(path);
 		setPageComplete(true);
 	}
 
@@ -115,9 +99,9 @@ public class SetClassesNamePage extends NodeWizard {
 	 * artifact id from project selected i project explorer.
 	 */
 	private void setInputFieldsText() {
-		this.viewInputText = "InstallationNodeView";
-		this.serviceInputText = "InstallationNodeService";
-		this.contributionInputText = "InstallationNodeContribution";
+		this.viewInputText = this.artifactId + "InstallationNodeView";
+		this.serviceInputText = this.artifactId + "InstallationNodeService";
+		this.contributionInputText = this.artifactId + "InstallationNodeContribution";
 	}
 
 	/**

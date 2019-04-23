@@ -22,7 +22,7 @@ public class DeployToRobot implements IDeploy{
 		return this.path;
 	}
 
-	@Override
+
 	public void setProjectPath(String path) {
 		this.path = path;
 		

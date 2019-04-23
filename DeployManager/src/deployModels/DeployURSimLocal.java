@@ -20,7 +20,7 @@ public class DeployURSimLocal implements IDeploy{
 		return this.projectPath;
 	}
 
-	@Override
+
 	public void setProjectPath(String path) {
 		this.projectPath = path;
 		
