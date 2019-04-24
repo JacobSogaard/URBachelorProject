@@ -14,8 +14,11 @@ import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
+
+import projectnature.ProjectNatureHandler;
 import wizardmanager.WizardFactory;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 
 /**
  * Class to open the program node wizard.
@@ -60,6 +63,10 @@ public class ShowNodeWizard extends AbstractHandler {
 				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
 		IJavaProject javaProject = (IJavaProject) structured.getFirstElement();
 		IProject project = javaProject.getProject();
+		
+		ProjectNatureHandler natureHandler = new ProjectNatureHandler();
+		natureHandler.setNature(project);
+		
 		try {
 			this.projectArtifactId = project.getDescription().getName();
 			String[] natures = project.getDescription().getNatureIds();

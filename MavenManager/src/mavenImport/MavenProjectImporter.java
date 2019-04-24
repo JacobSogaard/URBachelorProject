@@ -68,13 +68,23 @@ public class MavenProjectImporter {
 	public void importProjectAsMavenProject(String path) {
 
 		try {
+			NullProgressMonitor progress = new NullProgressMonitor();
 			this.importProject(path, new NullProgressMonitor());
+			
+			
+//			//opening project with urcap nature.
+//			this.project = natureHandler.getProject();
+			
 			
 		} catch (CoreException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
+		
+//		ProjectNatureHandler natureHandler = new ProjectNatureHandler();
+//		natureHandler.setNature(this.project);
 
 	}
 
@@ -103,7 +113,6 @@ public class MavenProjectImporter {
 		IWorkspaceRoot rootworkspace = ResourcesPlugin.getWorkspace().getRoot();
 		Collection<IProject> projectList = new LinkedHashSet<>();
 		Collection<MavenProjectInfo> toImport = new LinkedHashSet<>();
-
 		// Separate existing projects from new ones
 		for (MavenProjectInfo projectInfo : mavenProjects) {
 			File pom = projectInfo.getPomFile();
@@ -111,18 +120,12 @@ public class MavenProjectImporter {
 			if (container == null) {
 				toImport.add(projectInfo);
 			} else {
-				IProject project = container.getProject();
-				
-				//Calling setting of urcap project nature.
-				ProjectNatureHandler natureHandler = new ProjectNatureHandler();
-				natureHandler.setNature(project);
-				
-				//opening project with urcap nature.
-				project = natureHandler.getProject();
-				project.open(null);
+				this.project = container.getProject();
+				this.project.open(null);
 
 			}
 		}
+		
 
 	}
 

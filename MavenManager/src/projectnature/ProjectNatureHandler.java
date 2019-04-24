@@ -6,13 +6,15 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.ui.statushandlers.StatusManager;
 
 import nature.URCapNature;
 
 public class ProjectNatureHandler {
 	
 	private IProject project;
-
+    private static JavaCore jn;
 	public ProjectNatureHandler() {
 		// TODO Auto-generated constructor stub
 	}
@@ -26,7 +28,9 @@ public class ProjectNatureHandler {
 			String[] newNatures = new String[natures.length + 1];
 			System.arraycopy(natures, 0, newNatures, 0, natures.length);
 			newNatures[natures.length] = URCapNature.NATURE_ID;
-
+			//jn = new JavaCore();
+			//newNatures[natures.length+1] = jn.NATURE_ID;
+			
 			// validate the natures
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			IStatus status = workspace.validateNatureSet(newNatures);
