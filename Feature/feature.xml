@@ -1,20 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="URCapFeature"
-      label="URCapFeature"
+      label="URCap Feature"
       version="1.0.0.qualifier">
-
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
-   </description>
-
-   <copyright url="http://www.example.com/copyright">
-      [Enter Copyright Description here.]
-   </copyright>
-
-   <license url="http://www.example.com/license">
-      [Enter License Description here.]
-   </license>
 
    <requires>
       <import plugin="org.eclipse.core.runtime"/>
@@ -25,7 +13,7 @@
       <import plugin="org.eclipse.ui" version="3.111.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.ide" version="3.14.200" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jface" version="3.15.0" match="greaterOrEqual"/>
-      <import plugin="MavenManager" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="MavenManager"/>
       <import plugin="org.eclipse.osgi"/>
       <import plugin="org.eclipse.osgi.services"/>
       <import plugin="org.eclipse.ui.workbench"/>
@@ -54,14 +42,14 @@
          unpack="false"/>
 
    <plugin
-         id="URCapPlugin"
+         id="WizardManager"
          download-size="0"
          install-size="0"
          version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
-         id="WizardManager"
+         id="URCapPlugin"
          download-size="0"
          install-size="0"
          version="1.0.0.qualifier"

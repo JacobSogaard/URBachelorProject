@@ -26,51 +26,56 @@ import org.eclipse.jdt.core.IJavaProject;
 public class ShowNodeWizard extends AbstractHandler {
 
 	private String projectArtifactId = "No changed", projectPath;
+
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		System.out.println(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/" + "MyArtifactId");
-		this.selectedProject();
-		WizardFactory factory = new WizardFactory();
-		Wizard wizard;
+		if (this.selectedProject()) {
+			WizardFactory factory = new WizardFactory();
+			Wizard wizard;
 
-		try {
-			wizard = factory.getWizard(event.getCommand().getDescription(), this.projectArtifactId, this.projectPath);
-			WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
-			dialog.open();
+			try {
+				wizard = factory.getWizard(event.getCommand().getDescription(), this.projectArtifactId,
+						this.projectPath);
+				WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
+				dialog.open();
 
-		} catch (NullPointerException | NotDefinedException ex) {
-			System.err.println("No sutible wizard class found");
+			} catch (NullPointerException | NotDefinedException ex) {
+				System.err.println("No sutible wizard class found");
+			}
 		}
 
-	
 		return null;
 	}
-	
+
 	/**
-	 * Method to get the selection from package explorer
-	 * TODO: Add multiple null and type checks!
+	 * Method to get the selection from package explorer TODO: Add multiple null and
+	 * type checks!
 	 */
-	private void selectedProject() {
-	
+	private boolean selectedProject() {
+
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		ISelectionService selection = window.getSelectionService();
-		IStructuredSelection structured = (IStructuredSelection) selection.getSelection("org.eclipse.jdt.ui.PackageExplorer");
-		
-		//IFile file = (IFile) structured.getFirstElement();
-		//IPath path = file.getLocation();
-		//this.testpath = path.toPortableString();
+		IStructuredSelection structured = (IStructuredSelection) selection
+				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
 		IJavaProject javaProject = (IJavaProject) structured.getFirstElement();
 		IProject project = javaProject.getProject();
 		try {
 			this.projectArtifactId = project.getDescription().getName();
+			String[] natures = project.getDescription().getNatureIds();
+			for (String nature : natures) {
+				if (nature.equals("URCapProjectNature.urcapprojectnature")) {
+					return true;
+				}
+
+			}
 		} catch (CoreException e) {
 			// TODO Auto-generated catch block
-			this.projectArtifactId = "catch block";
 			e.printStackTrace();
-		} //gives null
-		
-		this.projectPath = project.getProject().getFullPath().toPortableString(); //works
-	
+		} // gives null
+
+		this.projectPath = project.getProject().getFullPath().toPortableString(); // works
+		return false;
 	}
 
 }
