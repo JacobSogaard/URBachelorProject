@@ -64,9 +64,6 @@ public class ShowNodeWizard extends AbstractHandler {
 		IJavaProject javaProject = (IJavaProject) structured.getFirstElement();
 		IProject project = javaProject.getProject();
 		
-		ProjectNatureHandler natureHandler = new ProjectNatureHandler();
-		natureHandler.setNature(project);
-		
 		try {
 			this.projectArtifactId = project.getDescription().getName();
 			String[] natures = project.getDescription().getNatureIds();

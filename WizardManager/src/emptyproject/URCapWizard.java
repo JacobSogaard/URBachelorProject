@@ -51,6 +51,7 @@ public class URCapWizard extends Wizard {
 		
 		
 		
+		
 		shell.setCursor(null);
 		waitCursor.dispose();				
 		return true;

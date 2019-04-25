@@ -36,10 +36,11 @@ import org.eclipse.ui.dialogs.IOverwriteQuery;
 
 import projectnature.ProjectNatureHandler;
 
-
 /**
- * Class to import existing maven project to eclipse workspace and shows the project in project explorer
- * Code used from: https://www.javatips.net/api/liferay-ide-master/maven/plugins/com.liferay.ide.maven.core/src/com/liferay/ide/maven/core/MavenUtil.java
+ * Class to import existing maven project to eclipse workspace and shows the
+ * project in project explorer Code used from:
+ * https://www.javatips.net/api/liferay-ide-master/maven/plugins/com.liferay.ide.maven.core/src/com/liferay/ide/maven/core/MavenUtil.java
+ * 
  * @author Thanya
  *
  */
@@ -63,34 +64,28 @@ public class MavenProjectImporter {
 
 	/**
 	 * Imports existing maven project from path to eclipse workspace
+	 * 
 	 * @param path Path of the maven project as String
 	 */
 	public void importProjectAsMavenProject(String path) {
 
 		try {
-			NullProgressMonitor progress = new NullProgressMonitor();
 			this.importProject(path, new NullProgressMonitor());
-			
-			
-//			//opening project with urcap nature.
-//			this.project = natureHandler.getProject();
-			
-			
+
 		} catch (CoreException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
-		
+
 //		ProjectNatureHandler natureHandler = new ProjectNatureHandler();
 //		natureHandler.setNature(this.project);
 
 	}
 
-	
 	/**
 	 * Imports project from a path. Uses the workspace root and path of project
+	 * 
 	 * @param location
 	 * @param monitor
 	 * @throws CoreException
@@ -122,10 +117,14 @@ public class MavenProjectImporter {
 			} else {
 				this.project = container.getProject();
 				this.project.open(null);
-
+				if(this.project.hasNature("org.eclipse.jdt.core.javanature") || this.project.hasNature("org.eclipse.m2e.core.maven2Nature")) {
+				ProjectNatureHandler handler = new ProjectNatureHandler();
+				handler.setNature(this.project);
+				}
 			}
 		}
-		
+
+
 
 	}
 
