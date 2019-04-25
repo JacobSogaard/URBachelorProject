@@ -20,13 +20,12 @@ import modelClasses.*;
 public class URCapWizard extends Wizard {
 
 	protected SetupURCapPage urcapSetupPage;
-	private URCapProjectModel projectInfo;
+	private IURCapMaven projectModel;
 	private static Cursor cursor = null;
 	//protected MyPageTwo two;
 
 	public URCapWizard() {
 		super();
-		this.projectInfo = new URCapProjectModel();
 		setNeedsProgressMonitor(true);
 	}
 
@@ -38,16 +37,19 @@ public class URCapWizard extends Wizard {
 
 	@Override
 	public boolean performFinish() {
-		MavenInvokerHandler urgen = new MavenInvokerHandler();
+		MavenInvokerHandler invoker = new MavenInvokerHandler();
+		this.projectModel = new URCapProjectModel(urcapSetupPage.getProjectModel());
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
 		Shell shell = getShell();
 		shell.setCursor(waitCursor);
 		
-		urgen.invokeMavenExecution(urcapSetupPage.getProjectModel()); //Generates project with object model made through NewURCapWizardPage
+		invoker.invokeMavenExecution(this.projectModel); //Generates project with object model made through NewURCapWizardPage
 		
 		MavenProjectImporter importer = new MavenProjectImporter();
 		importer.importProjectAsMavenProject(urcapSetupPage.getProjectModel().getProjectPath());
+		
+		
 		
 		
 		shell.setCursor(null);

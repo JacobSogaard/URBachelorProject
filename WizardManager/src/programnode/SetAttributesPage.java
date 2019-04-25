@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.*;;
 public class SetAttributesPage extends WizardPage {
 
 	private Text nodeId, nodeTitle;
-	private Label nodeIdLabel, nodeTitleLabel, generatingLabel;
+	private Label nodeIdLabel, nodeTitleLabel;
 	private Button setChildrenAllowedBTN;
 	private Composite container;
 	private GridLayout layout;
@@ -131,12 +131,6 @@ public class SetAttributesPage extends WizardPage {
 	 */
 	public String getNodeTitle() {
 		return this.nodeTitle.getText();
-	}
-	
-	public void setGeneratingLabel() {
-		
-		System.out.println("Generating...");
-		this.generatingLabel.setText("Generating...");
 	}
 	
 	

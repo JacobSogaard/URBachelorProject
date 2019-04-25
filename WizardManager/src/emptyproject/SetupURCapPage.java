@@ -27,19 +27,29 @@ import modelClasses.*;
 public class SetupURCapPage extends WizardPage {
 	private Text groupIdText, artifactIdText, directoryText, versionText;
 	private Composite container, browseContainer;
-	private int number = 0;
 	private String workspacePath;
-	private final String[] API_VERSIONS = { "1.0", "1.1", "1.2", "1.3", "1.4", "1.5" };
+	private final String[] API_VERSIONS = { "1.0.0", "1.1.0", "1.2.0", "1.3.0", "1.4.0", "1.5.0" };
 	private Combo comboDropDownApiVersion;
+	private MavenModel mavenModel;
 
+	private void createMavenModel() {
+		this.mavenModel = new URCapModel();
+		this.mavenModel.setArchetypeVersionAPI(this.comboDropDownApiVersion.getText());
+		this.mavenModel.setArchetypeVersion(this.comboDropDownApiVersion.getText());
+		this.mavenModel.setProjectGroupId(this.groupIdText.getText());
+		this.mavenModel.setProjectArtifactId(this.artifactIdText.getText());
+		this.mavenModel.setProjectPath(this.directoryText.getText());
+		this.mavenModel.setProjectVersion(this.versionText.getText());
+	}
+	
 	/**
 	 * Returns the project model which the new project should be generated from
 	 * 
 	 * @return
 	 */
-	public URCapProjectModel getProjectModel() {
-		return new URCapProjectModel(groupIdText.getText(), artifactIdText.getText(), versionText.getText(),
-				comboDropDownApiVersion.getText(), directoryText.getText());
+	public MavenModel getProjectModel() {
+		this.createMavenModel();
+		return this.mavenModel;
 	}
 
 	/**
@@ -208,6 +218,8 @@ public class SetupURCapPage extends WizardPage {
 	private boolean isAllFieldsSet() {
 		return !this.groupIdText.getText().isEmpty() && !this.artifactIdText.getText().isEmpty();
 	}
+	
+	
 
 	public IWizardPage getNextPage() {
 		Display.getDefault().asyncExec(new Runnable() {
