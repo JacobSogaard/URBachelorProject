@@ -50,6 +50,8 @@ public class URCapWizard extends Wizard {
 		importer.importProjectAsMavenProject(urcapSetupPage.getProjectModel().getProjectPath());
 		
 		
+		
+		
 		shell.setCursor(null);
 		waitCursor.dispose();				
 		return true;

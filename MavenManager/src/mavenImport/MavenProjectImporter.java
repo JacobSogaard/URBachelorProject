@@ -36,10 +36,11 @@ import org.eclipse.ui.dialogs.IOverwriteQuery;
 
 import projectnature.ProjectNatureHandler;
 
-
 /**
- * Class to import existing maven project to eclipse workspace and shows the project in project explorer
- * Code used from: https://www.javatips.net/api/liferay-ide-master/maven/plugins/com.liferay.ide.maven.core/src/com/liferay/ide/maven/core/MavenUtil.java
+ * Class to import existing maven project to eclipse workspace and shows the
+ * project in project explorer Code used from:
+ * https://www.javatips.net/api/liferay-ide-master/maven/plugins/com.liferay.ide.maven.core/src/com/liferay/ide/maven/core/MavenUtil.java
+ * 
  * @author Thanya
  *
  */
@@ -63,24 +64,28 @@ public class MavenProjectImporter {
 
 	/**
 	 * Imports existing maven project from path to eclipse workspace
+	 * 
 	 * @param path Path of the maven project as String
 	 */
 	public void importProjectAsMavenProject(String path) {
 
 		try {
 			this.importProject(path, new NullProgressMonitor());
-			
+
 		} catch (CoreException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
+//		ProjectNatureHandler natureHandler = new ProjectNatureHandler();
+//		natureHandler.setNature(this.project);
+
 	}
 
-	
 	/**
 	 * Imports project from a path. Uses the workspace root and path of project
+	 * 
 	 * @param location
 	 * @param monitor
 	 * @throws CoreException
@@ -103,7 +108,6 @@ public class MavenProjectImporter {
 		IWorkspaceRoot rootworkspace = ResourcesPlugin.getWorkspace().getRoot();
 		Collection<IProject> projectList = new LinkedHashSet<>();
 		Collection<MavenProjectInfo> toImport = new LinkedHashSet<>();
-
 		// Separate existing projects from new ones
 		for (MavenProjectInfo projectInfo : mavenProjects) {
 			File pom = projectInfo.getPomFile();
@@ -111,18 +115,16 @@ public class MavenProjectImporter {
 			if (container == null) {
 				toImport.add(projectInfo);
 			} else {
-				IProject project = container.getProject();
-				
-				//Calling setting of urcap project nature.
-				ProjectNatureHandler natureHandler = new ProjectNatureHandler();
-				natureHandler.setNature(project);
-				
-				//opening project with urcap nature.
-				project = natureHandler.getProject();
-				project.open(null);
-
+				this.project = container.getProject();
+				this.project.open(null);
+				if(this.project.hasNature("org.eclipse.jdt.core.javanature") || this.project.hasNature("org.eclipse.m2e.core.maven2Nature")) {
+				ProjectNatureHandler handler = new ProjectNatureHandler();
+				handler.setNature(this.project);
+				}
 			}
 		}
+
+
 
 	}
 
