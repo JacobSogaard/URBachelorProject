@@ -22,6 +22,9 @@ public class DeployToVMWizardPage1 extends WizardPage {
 	private Composite container;
 	private GridLayout layout;
 	private final String HOST_TEXT = "", USERNAME_TEXT = "root", PASSWORD_TEXT = "easybot";
+	private String hostLabelText = "IP address of virtual machine";
+	private String usernameLabelText = "Username";
+	private String passwordLabelText = "Password";
 
 	protected DeployToVMWizardPage1() {
 		super("Deploy to URSim on VM");
@@ -39,7 +42,7 @@ public class DeployToVMWizardPage1 extends WizardPage {
 
 		// Sets host input
 		this.hostLabel = new Label(container, SWT.NONE);
-		this.hostLabel.setText("Install host:");
+		this.hostLabel.setText(this.hostLabelText);
 		this.hostText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		this.hostText.setText(this.HOST_TEXT);
 		this.hostText.addKeyListener(new KeyListener() {
@@ -57,7 +60,7 @@ public class DeployToVMWizardPage1 extends WizardPage {
 
 		// Sets username input
 		this.usernameLabel = new Label(container, SWT.NONE);
-		this.usernameLabel.setText("Username:");
+		this.usernameLabel.setText(this.usernameLabelText);
 		this.usernameText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		this.usernameText.setText(this.USERNAME_TEXT);
 		this.usernameText.addKeyListener(new KeyListener() {
@@ -74,7 +77,7 @@ public class DeployToVMWizardPage1 extends WizardPage {
 		});
 		
 		this.passwordLabel = new Label(container, SWT.NONE);
-		this.passwordLabel.setText("Password:");
+		this.passwordLabel.setText(this.passwordLabelText);
 		this.passwordText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		this.passwordText.setText(this.PASSWORD_TEXT);
 		this.passwordText.addKeyListener(new KeyListener() {
