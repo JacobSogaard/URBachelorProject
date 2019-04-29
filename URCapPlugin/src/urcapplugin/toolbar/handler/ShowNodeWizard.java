@@ -63,6 +63,7 @@ public class ShowNodeWizard extends AbstractHandler {
 				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
 		IJavaProject javaProject = (IJavaProject) structured.getFirstElement();
 		IProject project = javaProject.getProject();
+	
 		
 		try {
 			this.projectArtifactId = project.getDescription().getName();

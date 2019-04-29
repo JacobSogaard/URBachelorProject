@@ -80,6 +80,7 @@
             locationURI="popup:org.eclipse.ui.projectConfigure">
          <command
                commandId="URCapPlugin.projectnature.command"
+               icon="icons/ur.jpg"
                style="push">
             <visibleWhen
                   checkEnabled="false">
@@ -148,7 +149,7 @@
       <definition
             id="URCapPlugin.hasNature">
             <adapt
-            	type="org.eclipse.jdt.core.IJavaProject">
+            	type="org.eclipse.core.resources.IProject">
             	<test
             		property="org.eclipse.core.resources.projectNature"
             		value="URCapProjectNature.urcapprojectnature">
