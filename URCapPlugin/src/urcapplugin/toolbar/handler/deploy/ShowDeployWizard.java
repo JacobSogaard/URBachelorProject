@@ -20,7 +20,6 @@ public class ShowDeployWizard extends AbstractHandler {
 			wizard = wizardFactory.getWizard(event.getCommand().getName(), "", "");
 			openWizard(wizard, event);
 		} catch (NotDefinedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

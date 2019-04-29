@@ -1,5 +1,6 @@
 package urcapplugin.toolbar.handler;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -40,7 +41,6 @@ public class ConvertToURCapHandler extends AbstractHandler{
                     String[] newNatures = new String[natures.length + 1];
                     System.arraycopy(natures, 0, newNatures, 0, natures.length);
 
-                    // add our new "com.example.project.examplenature" id
                     newNatures[natures.length] = URCapNature.NATURE_ID;
 
                     // validate the natures
@@ -49,6 +49,8 @@ public class ConvertToURCapHandler extends AbstractHandler{
 
                     // only apply new nature, if the status is ok
                     if (status.getCode() == IStatus.OK) {
+                    	//Flip array of natures so URCap nature is first, and UR icon is show on project in explorer
+                    	ArrayUtils.reverse(newNatures); 
                         description.setNatureIds(newNatures);
                         project.setDescription(description, null);
                     }

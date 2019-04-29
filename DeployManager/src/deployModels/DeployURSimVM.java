@@ -19,7 +19,6 @@ public class DeployURSimVM implements IURCapMaven {
 	
 //	@Override
 //	public String getProjectPath() {
-//		// TODO Auto-generated method stub
 //		return this.path;
 //	}
 
@@ -30,7 +29,6 @@ public class DeployURSimVM implements IURCapMaven {
 
 //	@Override
 //	public Properties getProperties() {
-//		// TODO Auto-generated method stub
 //		return this.properties;
 //	}
 
@@ -44,26 +42,22 @@ public class DeployURSimVM implements IURCapMaven {
 
 //	@Override
 //	public String getGoal() {
-//		// TODO Auto-generated method stub
 //		return GOAL;
 //	}
 
 
 	@Override
 	public Properties getProperties() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getProjectPath() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getGoal() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

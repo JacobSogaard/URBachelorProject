@@ -40,7 +40,6 @@ public class MavenInvokerHandler {
 		try {
 			InvocationResult result = invoker.execute(request);
 		} catch (MavenInvocationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

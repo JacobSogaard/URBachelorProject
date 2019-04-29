@@ -18,7 +18,6 @@ public class DeployToRobot implements IDeploy{
 	
 	@Override
 	public String getProjectPath() {
-		// TODO Auto-generated method stub
 		return this.path;
 	}
 
@@ -30,7 +29,6 @@ public class DeployToRobot implements IDeploy{
 
 	@Override
 	public Properties getProperties() {
-		// TODO Auto-generated method stub
 		return this.properties;
 	}
 
@@ -44,7 +42,6 @@ public class DeployToRobot implements IDeploy{
 
 	@Override
 	public String getGoal() {
-		// TODO Auto-generated method stub
 		return GOAL;
 	}
 	

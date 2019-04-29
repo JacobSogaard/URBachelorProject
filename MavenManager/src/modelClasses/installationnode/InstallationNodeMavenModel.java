@@ -77,13 +77,11 @@ public class InstallationNodeMavenModel implements IURCapMaven {
 
 	@Override
 	public String getProjectPath() {
-		// TODO Auto-generated method stub
 		return this.installationNodeModel.getProjectPath();
 	}
 
 	@Override
 	public String getGoal() {
-		// TODO Auto-generated method stub
 		return this.installationNodeModel.getMavenGoal();
 	}
 	

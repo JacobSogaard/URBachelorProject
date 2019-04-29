@@ -28,7 +28,6 @@ public class ProjectNatureHandler{
 	private static JavaCore jn;
 
 	public ProjectNatureHandler() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public void setNature(IProject project) {
@@ -52,7 +51,6 @@ public class ProjectNatureHandler{
 				project1.setDescription(description, null);
 			}
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

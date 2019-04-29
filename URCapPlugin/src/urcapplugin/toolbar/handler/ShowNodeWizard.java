@@ -75,7 +75,6 @@ public class ShowNodeWizard extends AbstractHandler {
 
 			}
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} // gives null
 

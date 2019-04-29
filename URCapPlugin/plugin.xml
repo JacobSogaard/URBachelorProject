@@ -157,5 +157,13 @@
             </adapt>
       </definition>
    </extension>
+   <extension
+         point="org.eclipse.ui.ide.projectNatureImages">
+      <image
+            icon="icons/ur8x8.jpg"
+            id="URCapProjectNature.urcapprojectnature.image"
+            natureId="URCapProjectNature.urcapprojectnature">
+      </image>
+   </extension>
 
 </plugin>

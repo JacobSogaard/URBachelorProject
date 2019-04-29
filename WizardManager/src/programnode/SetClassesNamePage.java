@@ -18,10 +18,11 @@ import wizardmanager.NodeWizard;
 /**
  * Wizard page to set the class names for service, view and contribution class, on a program node. 
  * @author jacob
- *
  */
 public class SetClassesNamePage extends NodeWizard{
 
+	
+	//TODO reconsider variable names here and in other wizard classes, tends to be hard to navigate
 	private Text viewClassName, serviceClassName, contributionClassName;
 	private Label viewInputLabel, serviceInputLabel, contributionInputLabel;
 	private Composite container;

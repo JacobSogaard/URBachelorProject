@@ -57,14 +57,13 @@ public class DeployToLocalWizardPage1 extends WizardPage {
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 		});
 
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		this.browseText.setLayoutData(gd);
-		setControl(container);// TODO Auto-generated method stub
+		setControl(container);
 
 	}
 

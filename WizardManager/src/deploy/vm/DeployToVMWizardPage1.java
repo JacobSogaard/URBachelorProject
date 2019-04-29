@@ -99,7 +99,7 @@ public class DeployToVMWizardPage1 extends WizardPage {
 		this.hostText.setLayoutData(gd);
 		this.usernameText.setLayoutData(gd);
 		this.passwordText.setLayoutData(gd);
-		setControl(container);// TODO Auto-generated method stub
+		setControl(container);
 
 	}
 	

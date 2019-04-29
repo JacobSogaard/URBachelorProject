@@ -8,7 +8,6 @@ public abstract class NodeWizard extends WizardPage {
 
 	protected NodeWizard(String pageName) {
 		super(pageName);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
