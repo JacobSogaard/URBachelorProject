@@ -33,7 +33,7 @@ public class ShowNodeWizard extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		System.out.println(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/" + "MyArtifactId");
-		if (this.selectedProject()) {
+		//if (this.selectedProject()) {
 			WizardFactory factory = new WizardFactory();
 			Wizard wizard;
 
@@ -46,7 +46,7 @@ public class ShowNodeWizard extends AbstractHandler {
 			} catch (NullPointerException | NotDefinedException ex) {
 				System.err.println("No sutible wizard class found");
 			}
-		}
+		//}
 
 		return null;
 	}

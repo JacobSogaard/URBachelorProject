@@ -1,6 +1,8 @@
 package installationnode;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -18,14 +20,15 @@ import wizardmanager.NodeWizard;
  */
 public class SetClassesNamePage extends NodeWizard {
 
-	private Text viewClassName, serviceClassName, contributionClassName;
-	private Label viewInputLabel, serviceInputLabel, contributionInputLabel;
+	private Text viewClassName, serviceClassName, contributionClassName, nodeName;
+	private Label viewInputLabel, serviceInputLabel, contributionInputLabel, nodeNameLabel;
 	private Composite container;
 	private GridLayout layout;
 	private final String VIEW_INPUT_LABEL = "Installation node view";
 	private final String SERVICE_INPUT_LABEL = "Installation node service";
 	private final String CONTRIBUTION_INPUT_LABEL = "Installation node contribution";
-	private String viewInputText, serviceInputText, contributionInputText, artifactId;
+	private final String NODE_INPUT_LABEL = "Node name";
+	private String viewInputText, serviceInputText, contributionInputText, artifactId, nodeNameText;
 	
 	
 	
@@ -34,11 +37,8 @@ public class SetClassesNamePage extends NodeWizard {
 	protected SetClassesNamePage(String artifactId, String path) {
 		super("Set Installation Node Classes Page");
 		this.artifactId = artifactId;
-		setTitle("Setup Installation Node Classes (TEST UPDATE)");
-;
-		
-		//setDescription("Set names of classes in installation node (Standard names recommended)");
-		setDescription(path);
+		setTitle("Setup Installation Node Classes");
+		setDescription("Set names of classes in installation node (Standard names recommended)");
 		setPageComplete(true);
 	}
 
@@ -54,15 +54,27 @@ public class SetClassesNamePage extends NodeWizard {
 
 		this.setInputFieldsText();
 
+		this.nodeNameLabel = new Label(container, SWT.NONE);
+		this.nodeName = new Text(container, SWT.BORDER | SWT.SINGLE);
+		createInputForm(this.nodeName, this.nodeNameText, this.nodeNameLabel, NODE_INPUT_LABEL, false);
+		this.nodeName.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				viewClassName.setText(nodeName.getText() + "InstallationNodeView");
+				serviceClassName.setText(nodeName.getText() + "InstallationNodeService");
+				contributionClassName.setText(nodeName.getText() + "InstallationNodeContribution");
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		// Set view input and label
 		this.viewInputLabel = new Label(container, SWT.NONE);
 		this.viewClassName = new Text(container, SWT.BORDER | SWT.SINGLE);
-
-		// IWorkbenchWindow window =
-		// PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		// ISelection selection =
-		// window.getSelectionService().getSelection("org.eclipse.jdt.ui.PackageExplorer");
-
 		createInputForm(this.viewClassName, this.viewInputText, this.viewInputLabel, VIEW_INPUT_LABEL, false);
 
 		// Set service input and label
@@ -77,6 +89,8 @@ public class SetClassesNamePage extends NodeWizard {
 		createInputForm(this.contributionClassName, this.contributionInputText, this.contributionInputLabel,
 				CONTRIBUTION_INPUT_LABEL, false);
 
+		
+		this.setClassnamesEnables(false);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		this.setAllLayout(gd);
 		setControl(container);
@@ -92,6 +106,7 @@ public class SetClassesNamePage extends NodeWizard {
 		this.viewClassName.setLayoutData(gd);
 		this.serviceClassName.setLayoutData(gd);
 		this.contributionClassName.setLayoutData(gd);
+		this.nodeName.setLayoutData(gd);
 	}
 
 	/**
@@ -99,9 +114,18 @@ public class SetClassesNamePage extends NodeWizard {
 	 * artifact id from project selected i project explorer.
 	 */
 	private void setInputFieldsText() {
+		this.nodeNameText = this.artifactId;
 		this.viewInputText = this.artifactId + "InstallationNodeView";
 		this.serviceInputText = this.artifactId + "InstallationNodeService";
 		this.contributionInputText = this.artifactId + "InstallationNodeContribution";
+		
+	}
+	
+	private void setClassnamesEnables(boolean enabled) {
+		this.viewClassName.setEnabled(enabled);
+		this.serviceClassName.setEnabled(enabled);
+		this.contributionClassName.setEnabled(enabled);
+	
 	}
 
 	/**
@@ -111,7 +135,7 @@ public class SetClassesNamePage extends NodeWizard {
 	@Override
 	public boolean canFlipToNextPage() {
 		return (!this.viewClassName.getText().isEmpty() && !this.serviceClassName.getText().isEmpty()
-				&& !this.contributionClassName.getText().isEmpty());
+				&& !this.contributionClassName.getText().isEmpty()) && !this.nodeName.getText().isEmpty();
 	}
 
 	/**
