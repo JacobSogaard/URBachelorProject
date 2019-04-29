@@ -85,10 +85,6 @@ public class DeployToLocalWizardPage1 extends WizardPage {
 			return;
 		}
 	}
-	
-	public String getHostPath() {
-		return this.browseText.getText();
-	}
 
 	private boolean isAllFieldsSet() {
 		return true;

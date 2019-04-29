@@ -27,9 +27,13 @@ public class InstallationNodeWizard extends Wizard{
 	private SetClassesNamePage setClassesPage;
 	private SetAttributesPage setAttributesPage;
 	private IURCapMaven nodeModel;
-
-	public InstallationNodeWizard() {
+	private String artifactId, path;
+	
+	
+	public InstallationNodeWizard(String artifactId, String path) {
 		super();
+		this.artifactId = artifactId;
+		this.path = path;
 		setNeedsProgressMonitor(true);
 	}
 	
@@ -38,7 +42,7 @@ public class InstallationNodeWizard extends Wizard{
 	 */
 	@Override
 	public void addPages() {
-		this.setClassesPage = new SetClassesNamePage();
+		this.setClassesPage = new SetClassesNamePage(this.artifactId, this.path); //TODO Remember to remove path here!
 		this.setAttributesPage = new SetAttributesPage();
 		addPage(this.setClassesPage);
 		addPage(this.setAttributesPage);
@@ -57,14 +61,14 @@ public class InstallationNodeWizard extends Wizard{
 		String viewClassName = this.setClassesPage.getViewClassname();
 		String contributionClassName = this.setClassesPage.getContributionClassname();
 		String nodeTitle = this.setAttributesPage.getNodeTitle();
-		String projectPath = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/" + "MyArtifactId";  //TODO change to project artifact id here
+		String projectPath = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + this.path;  //TODO change to project artifact id here
 		
 		MavenModel mavenModel = new InstallationNodeModel(serviceClassName, contributionClassName, viewClassName, nodeTitle);
 		
 		
 		mavenModel.setProjectPath(projectPath);
 		mavenModel.setProjectGroupId("MyGroupId");
-		mavenModel.setProjectArtifactId("MyArtifactId");
+		mavenModel.setProjectArtifactId(this.artifactId);
 		mavenModel.setProjectVersion("1.0");
 		
 		this.nodeModel = new InstallationNodeMavenModel(mavenModel);

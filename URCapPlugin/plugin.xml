@@ -85,7 +85,7 @@
       </command>
       <command
             defaultHandler="urcapplugin.toolbar.handler.ShowWizard"
-            id="referenceToMenuId2"
+            id="referenceToMenuId"
             name="New URCap">
       </command>
       <command
@@ -121,23 +121,6 @@
             id="URCapPlugin.deploy.deploytovm"
             name="DeployToVM">
       </command>
-   </extension>
-   <extension
-         id="URCapProjectNature"
-         name="URCap Project Nature"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run
-               class="urcapplugin.projectnatures.URCapProjectNature">
-         </run>
-      </runtime>
-   </extension>
-   <extension
-         point="org.eclipse.ui.handlers">
-      <handler
-            class="urcapplugin.toolbar.handler.URCapProjectNatureHandler"
-            commandId="referenceToMenuId">
-      </handler>
    </extension>
 
 </plugin>

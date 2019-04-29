@@ -2,24 +2,37 @@ package deployModels;
 
 import java.util.Properties;
 
-import mavenGenerator.MavenInvokerHandler;
+import modelClasses.IURCapMaven;
 
-public class DeployURSimVM implements IDeploy {
+public class DeployURSimVM implements IURCapMaven {
 
-	
-	private String ipaddress, username, password, path;
+	private String ipaddress, username, password, path, goal;
 	private Properties properties;
 	private static final String GOAL = "install -P ursimvm";
-	private MavenInvokerHandler invoker;
 	
-	public DeployURSimVM(String ipaddress, String username, String password, String path) {
+	public DeployURSimVM(String ipaddress, String username, String password) {
 		this.ipaddress = ipaddress;
 		this.username = username;
 		this.password = password;
-		this.path = path;
 		this.setProperties();
-		this.invoker = new MavenInvokerHandler();
 	}
+	
+//	@Override
+//	public String getProjectPath() {
+//		// TODO Auto-generated method stub
+//		return this.path;
+//	}
+
+	public void setProjectPath(String path) {
+		this.path = path;
+		
+	}
+
+//	@Override
+//	public Properties getProperties() {
+//		// TODO Auto-generated method stub
+//		return this.properties;
+//	}
 
 	private void setProperties() {
 		this.properties = new Properties();
@@ -29,36 +42,29 @@ public class DeployURSimVM implements IDeploy {
 		
 	}
 
+//	@Override
+//	public String getGoal() {
+//		// TODO Auto-generated method stub
+//		return GOAL;
+//	}
+
 
 	@Override
 	public Properties getProperties() {
 		// TODO Auto-generated method stub
-		return this.properties;
+		return null;
 	}
 
 	@Override
 	public String getProjectPath() {
 		// TODO Auto-generated method stub
-		return this.path;
-	}
-	
-
-	public void setProjectPath(String path) {
-		this.path = path;
-		
+		return null;
 	}
 
 	@Override
 	public String getGoal() {
 		// TODO Auto-generated method stub
-		return GOAL;
-	}
-
-
-	@Override
-	public void deploy() {
-		invoker.invokeMavenExecution(this);
-		
+		return null;
 	}
 	
 

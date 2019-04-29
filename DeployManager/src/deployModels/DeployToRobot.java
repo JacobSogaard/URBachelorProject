@@ -2,14 +2,11 @@ package deployModels;
 
 import java.util.Properties;
 
-import mavenGenerator.MavenInvokerHandler;
-
 public class DeployToRobot implements IDeploy{
 
 	private String ipaddress, username, password, path;
 	private Properties properties;
 	private static final String GOAL = "install -P local";
-	private MavenInvokerHandler invoker;
 	
 	public DeployToRobot(String ipaddress, String username, String password, String path) {
 		this.ipaddress = ipaddress;
@@ -17,7 +14,6 @@ public class DeployToRobot implements IDeploy{
 		this.password = password;
 		this.path = path;
 		this.setProperties();
-		this.invoker = new MavenInvokerHandler();
 	}
 	
 	@Override
@@ -54,7 +50,7 @@ public class DeployToRobot implements IDeploy{
 	
 	@Override
 	public void deploy() {
-		this.invoker.invokeMavenExecution(this);
+		
 	}
 
 }

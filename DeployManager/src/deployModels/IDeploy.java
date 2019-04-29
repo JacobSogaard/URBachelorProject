@@ -1,14 +1,15 @@
 package deployModels;
 
-import modelClasses.IURCapMaven;
+import java.util.Properties;
 
+import modelClasses.IURCapMaven;
 
 /**
  * Interface for all deploy classes.
  * @author jacob
  *
  */
-public interface IDeploy extends IURCapMaven {
+public interface IDeploy extends IURCapMaven{
 	void deploy();
 	
 }
