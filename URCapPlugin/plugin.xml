@@ -75,6 +75,22 @@
             </command>
          </menu>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.projectConfigure">
+         <command
+               commandId="URCapPlugin.projectnature.command"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <not>
+                  <reference
+                        definitionId="URCapPlugin.hasNature">
+                  </reference>
+               </not>
+            </visibleWhen>
+         </command>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
@@ -121,6 +137,24 @@
             id="URCapPlugin.deploy.deploytovm"
             name="DeployToVM">
       </command>
+      <command
+            defaultHandler="urcapplugin.toolbar.handler.ConvertToURCapHandler"
+            id="URCapPlugin.projectnature.command"
+            name="Convert To URCap Project">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="URCapPlugin.hasNature">
+            <adapt
+            	type="org.eclipse.jdt.core.IJavaProject">
+            	<test
+            		property="org.eclipse.core.resources.projectNature"
+            		value="URCapProjectNature.urcapprojectnature">
+            	</test>
+            </adapt>
+      </definition>
    </extension>
 
 </plugin>

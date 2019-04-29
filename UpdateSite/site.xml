@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/URCapFeature_1.0.0.201904250841.jar" id="URCapFeature" version="1.0.0.201904250841"/>
+   <feature url="features/URCapFeature_1.0.0.201904291024.jar" id="URCapFeature" version="1.0.0.201904291024">
+      <category name="urcap"/>
+   </feature>
    <category-def name="urcap" label="URCap"/>
 </site>

@@ -56,7 +56,7 @@ public class ShowNodeWizard extends AbstractHandler {
 	 * type checks!
 	 */
 	private boolean selectedProject() {
-
+		
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		ISelectionService selection = window.getSelectionService();
 		IStructuredSelection structured = (IStructuredSelection) selection
