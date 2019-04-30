@@ -117,14 +117,15 @@ public class MavenProjectImporter {
 			} else {
 				this.project = container.getProject();
 				this.project.open(null);
-				if(this.project.hasNature("org.eclipse.jdt.core.javanature") || this.project.hasNature("org.eclipse.m2e.core.maven2Nature")) {
-				ProjectNatureHandler handler = new ProjectNatureHandler();
-				handler.setNature(this.project);
+				if (this.project.hasNature("org.eclipse.jdt.core.javanature")
+						|| this.project.hasNature("org.eclipse.m2e.core.maven2Nature")) {
+					ProjectNatureHandler handler = new ProjectNatureHandler();
+					handler.setNature(this.project);
 				}
 			}
 		}
-
-
+		
+		
 
 	}
 

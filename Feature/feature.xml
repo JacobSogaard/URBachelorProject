@@ -5,15 +5,19 @@
       version="1.0.0.qualifier">
 
    <requires>
-      <import plugin="MavenManager" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.core.resources" version="3.13.200" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.m2e.core" version="1.11.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.core" version="3.16.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jface"/>
       <import plugin="org.eclipse.ui" version="3.111.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.runtime" version="3.15.100" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.m2e.core" version="1.11.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.workbench"/>
-      <import plugin="org.eclipse.jdt.core" version="3.16.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.expressions" version="3.6.200" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.ide" version="3.14.200" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jface" version="3.15.0" match="greaterOrEqual"/>
+      <import plugin="MavenManager" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.osgi"/>
       <import plugin="org.eclipse.osgi.services"/>
    </requires>
@@ -23,6 +27,20 @@
          download-size="0"
          install-size="0"
          version="1.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="MavenManager"
+         download-size="0"
+         install-size="0"
+         version="1.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="URCapPlugin"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
@@ -37,20 +55,6 @@
          download-size="0"
          install-size="0"
          version="1.0.0.qualifier"
-         unpack="false"/>
-
-   <plugin
-         id="URCapPlugin"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         unpack="false"/>
-
-   <plugin
-         id="MavenManager"
-         download-size="0"
-         install-size="0"
-         version="1.0.0"
          unpack="false"/>
 
 </feature>

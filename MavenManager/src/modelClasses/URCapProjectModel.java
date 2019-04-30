@@ -22,7 +22,6 @@ public class URCapProjectModel implements IURCapMaven {
 	 * Empty constructor
 	 */
 	public URCapProjectModel() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -83,7 +82,6 @@ public class URCapProjectModel implements IURCapMaven {
 
 	@Override
 	public String getGoal() {
-		// TODO Auto-generated method stub
 		return this.mavenModel.getMavenGoal();
 	}
 	

@@ -21,6 +21,7 @@ public class DeployToLocalWizardPage1 extends WizardPage {
 	private Button browseBTN;
 	private Composite container;
 	private GridLayout layout;
+	private String browseLabelText = "Path to URSim";
 
 	protected DeployToLocalWizardPage1() {
 		super("Deploy to local wizardpage");
@@ -38,7 +39,7 @@ public class DeployToLocalWizardPage1 extends WizardPage {
 
 		// Label, text field and button for browse to location of URSim location
 		this.browseLabel = new Label(container, SWT.BORDER | SWT.SINGLE);
-		this.browseLabel.setText("Path to URSim");
+		this.browseLabel.setText(this.browseLabelText);
 		this.browseLabel.setEnabled(false);
 		this.browseText = new Text(container, SWT.BORDER | SWT.SINGLE);
 
@@ -56,14 +57,13 @@ public class DeployToLocalWizardPage1 extends WizardPage {
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 		});
 
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		this.browseText.setLayoutData(gd);
-		setControl(container);// TODO Auto-generated method stub
+		setControl(container);
 
 	}
 

@@ -16,7 +16,6 @@ public class DeployURSimLocal implements IDeploy{
 	
 	@Override
 	public String getProjectPath() {
-		// TODO Auto-generated method stub
 		return this.projectPath;
 	}
 
@@ -28,7 +27,6 @@ public class DeployURSimLocal implements IDeploy{
 
 	@Override
 	public Properties getProperties() {
-		// TODO Auto-generated method stub
 		return this.properties;
 	}
 
@@ -39,7 +37,6 @@ public class DeployURSimLocal implements IDeploy{
 
 	@Override
 	public String getGoal() {
-		// TODO Auto-generated method stub
 		return GOAL;
 	}
 	

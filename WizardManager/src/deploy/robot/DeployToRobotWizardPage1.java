@@ -17,6 +17,9 @@ public class DeployToRobotWizardPage1 extends WizardPage {
 	private Composite container;
 	private GridLayout layout;
 	private final String HOST_TEXT = "localhost", USERNAME_TEXT = "root", PASSWORD_TEXT = "easybot";
+	private String installHostLabelText = "Robot IP address";
+	private String usernameLabelText = "Username";
+	private String passwordLabelText = "Password";
 
 	protected DeployToRobotWizardPage1() {
 		super("Deploy to robot wizard page");
@@ -34,7 +37,7 @@ public class DeployToRobotWizardPage1 extends WizardPage {
 
 		// Sets host input
 		this.hostLabel = new Label(container, SWT.NONE);
-		this.hostLabel.setText("Install host:");
+		this.hostLabel.setText(this.installHostLabelText);
 		this.hostText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		this.hostText.setText(this.HOST_TEXT);
 		this.hostText.addKeyListener(new KeyListener() {
@@ -52,7 +55,7 @@ public class DeployToRobotWizardPage1 extends WizardPage {
 
 		// Sets username input
 		this.usernameLabel = new Label(container, SWT.NONE);
-		this.usernameLabel.setText("Username:");
+		this.usernameLabel.setText(this.usernameLabelText);
 		this.usernameText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		this.usernameText.setText(this.USERNAME_TEXT);
 		this.usernameText.addKeyListener(new KeyListener() {
@@ -70,7 +73,7 @@ public class DeployToRobotWizardPage1 extends WizardPage {
 
 		// Sets username input
 		this.passwordLabel = new Label(container, SWT.NONE);
-		this.passwordLabel.setText("Password:");
+		this.passwordLabel.setText(this.passwordLabelText);
 		this.passwordText = new Text(container, SWT.BORDER | SWT.PASSWORD);
 		this.passwordText.setText(this.USERNAME_TEXT);
 		this.usernameText.addKeyListener(new KeyListener() {
@@ -90,7 +93,7 @@ public class DeployToRobotWizardPage1 extends WizardPage {
 		this.hostText.setLayoutData(gd);
 		this.usernameText.setLayoutData(gd);
 		this.passwordText.setLayoutData(gd);
-		setControl(container);// TODO Auto-generated method stub
+		setControl(container);
 
 	}
 

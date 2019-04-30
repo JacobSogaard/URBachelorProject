@@ -4,11 +4,16 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+/**
+ * Superclass for wizard pages for the node installations. Has a method to create the input forms with label and a text field.
+ * TODO Consider what else might fit here. Some variables from the classes might be a good idea here. 
+ * @author jacob
+ *
+ */
 public abstract class NodeWizard extends WizardPage {
 
 	protected NodeWizard(String pageName) {
 		super(pageName);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

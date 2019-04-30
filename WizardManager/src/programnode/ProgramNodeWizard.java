@@ -27,10 +27,12 @@ public class ProgramNodeWizard extends Wizard{
 	private SetClassesNamePage setClassesPage;
 	private SetAttributesPage setAttributesPage;
 	private IURCapMaven nodeModel;
+	private String artifactId;
 
-	public ProgramNodeWizard() {
+	public ProgramNodeWizard(String artifactId) {
 		super();
 		setNeedsProgressMonitor(true);
+		this.artifactId = artifactId;
 	}
 	
 	/**
@@ -38,7 +40,7 @@ public class ProgramNodeWizard extends Wizard{
 	 */
 	@Override
 	public void addPages() {
-		this.setClassesPage = new SetClassesNamePage();
+		this.setClassesPage = new SetClassesNamePage(this.artifactId);
 		this.setAttributesPage = new SetAttributesPage();
 		addPage(this.setClassesPage);
 		addPage(this.setAttributesPage);

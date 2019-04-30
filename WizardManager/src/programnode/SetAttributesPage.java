@@ -27,7 +27,7 @@ public class SetAttributesPage extends WizardPage {
 	protected SetAttributesPage() {
 		super("Set Program Node Attributed Page");
 		setTitle("Set Program Node Attributes");
-		setDescription("DESCRIPTION");
+		setDescription("Set ID, title and allow child nodes for program node.");
 		setPageComplete(false);
 		
 		

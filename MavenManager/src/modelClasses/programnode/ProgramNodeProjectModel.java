@@ -28,7 +28,6 @@ public class ProgramNodeProjectModel implements IURCapMaven {
 	 * Empty constructor
 	 */
 	public ProgramNodeProjectModel() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

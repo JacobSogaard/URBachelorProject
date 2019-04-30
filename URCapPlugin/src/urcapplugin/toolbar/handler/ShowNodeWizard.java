@@ -28,12 +28,12 @@ import org.eclipse.jdt.core.JavaCore;
  */
 public class ShowNodeWizard extends AbstractHandler {
 
-	private String projectArtifactId = "No changed", projectPath;
+	private String projectArtifactId = "", projectPath;
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		System.out.println(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/" + "MyArtifactId");
-		if (this.selectedProject()) {
+		//if (this.selectedProject()) {
 			WizardFactory factory = new WizardFactory();
 			Wizard wizard;
 
@@ -46,7 +46,7 @@ public class ShowNodeWizard extends AbstractHandler {
 			} catch (NullPointerException | NotDefinedException ex) {
 				System.err.println("No sutible wizard class found");
 			}
-		}
+		//}
 
 		return null;
 	}
@@ -56,13 +56,14 @@ public class ShowNodeWizard extends AbstractHandler {
 	 * type checks!
 	 */
 	private boolean selectedProject() {
-
+		
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		ISelectionService selection = window.getSelectionService();
 		IStructuredSelection structured = (IStructuredSelection) selection
 				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
 		IJavaProject javaProject = (IJavaProject) structured.getFirstElement();
 		IProject project = javaProject.getProject();
+	
 		
 		try {
 			this.projectArtifactId = project.getDescription().getName();
@@ -74,7 +75,6 @@ public class ShowNodeWizard extends AbstractHandler {
 
 			}
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} // gives null
 

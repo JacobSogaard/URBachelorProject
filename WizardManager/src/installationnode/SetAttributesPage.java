@@ -24,7 +24,7 @@ public class SetAttributesPage extends WizardPage {
 	protected SetAttributesPage() {
 		super("Set Installation Node Attributed Page");
 		setTitle("Set Installation Node Attributes");
-		setDescription("DESCRIPTION");
+		setDescription("Set title for installation node.");
 		setPageComplete(false);
 		
 		

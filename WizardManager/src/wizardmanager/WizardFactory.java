@@ -20,7 +20,7 @@ import installationnode.InstallationNodeWizard;
  */
 public class WizardFactory {
 	/**
-	 * Get wizard of specied string type. Types a set as the description on the extension point command. Ex: "ProgramNode" for the program node menu item
+	 * Get wizard of specified string type. Types a set as the description on the extension point command. Ex: "ProgramNode" for the program node menu item
 	 * Remember to null check when calling the method, since default return is null. 
 	 * @param wizardType
 	 * @return
@@ -29,11 +29,11 @@ public class WizardFactory {
 		System.out.println("WIZARD: " + wizardType);
 		switch (wizardType) {
 		case "ProgramNode":
-			return new ProgramNodeWizard();
+			return new ProgramNodeWizard(projectArtifactId);
 		case "InstallationNode":
 			return new InstallationNodeWizard(projectArtifactId, projectPath);
 		case "ToolbarNode":
-			// TODO Contribution node not yes implemented
+			// TODO Contribution node not yet implemented
 			return null;
 		case "DeployToRobot":
 			return new DeployToRobotWizard();
