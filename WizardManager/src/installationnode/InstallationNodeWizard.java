@@ -42,7 +42,7 @@ public class InstallationNodeWizard extends Wizard{
 	 */
 	@Override
 	public void addPages() {
-		this.setClassesPage = new SetClassesNamePage(this.artifactId, this.path); //TODO Remember to remove path here!
+		this.setClassesPage = new SetClassesNamePage(this.artifactId); //TODO Remember to remove path here!
 		this.setAttributesPage = new SetAttributesPage();
 		addPage(this.setClassesPage);
 		addPage(this.setAttributesPage);

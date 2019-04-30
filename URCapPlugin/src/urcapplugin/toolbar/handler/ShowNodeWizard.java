@@ -28,7 +28,7 @@ import org.eclipse.jdt.core.JavaCore;
  */
 public class ShowNodeWizard extends AbstractHandler {
 
-	private String projectArtifactId = "No changed", projectPath;
+	private String projectArtifactId = "", projectPath;
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {

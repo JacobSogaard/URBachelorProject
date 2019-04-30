@@ -19,5 +19,4 @@ Automatic-Module-Name: URCapPlugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: urcapplugin,
  urcapplugin.toolbar.handler
-Import-Package: org.apache.commons.lang
 

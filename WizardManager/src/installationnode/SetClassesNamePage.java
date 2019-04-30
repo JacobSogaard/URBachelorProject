@@ -14,7 +14,6 @@ import wizardmanager.NodeWizard;
 /**
  * Wizard page to set the class names for service, view and contribution class,
  * on a program node.
- * 
  * @author jacob
  *
  */
@@ -28,18 +27,18 @@ public class SetClassesNamePage extends NodeWizard {
 	private final String SERVICE_INPUT_LABEL = "Installation node service";
 	private final String CONTRIBUTION_INPUT_LABEL = "Installation node contribution";
 	private final String NODE_INPUT_LABEL = "Node name";
-	private String viewInputText, serviceInputText, contributionInputText, artifactId, nodeNameText;
+	private String viewInputText, serviceInputText, artifactId, contributionInputText, nodeNameText;
 	
 	
 	
 	
 
-	protected SetClassesNamePage(String artifactId, String path) {
+	protected SetClassesNamePage(String artifactId) {
 		super("Set Installation Node Classes Page");
-		this.artifactId = artifactId;
 		setTitle("Setup Installation Node Classes");
 		setDescription("Set names of classes in installation node (Standard names recommended)");
 		setPageComplete(true);
+		this.artifactId = artifactId;
 	}
 
 	/**
@@ -89,7 +88,7 @@ public class SetClassesNamePage extends NodeWizard {
 				CONTRIBUTION_INPUT_LABEL, false);
 
 		
-		this.setClassnamesEnables(false);
+		this.setClassnamesEnabled(true);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		this.setAllLayout(gd);
 		setControl(container);
@@ -120,7 +119,7 @@ public class SetClassesNamePage extends NodeWizard {
 		
 	}
 	
-	private void setClassnamesEnables(boolean enabled) {
+	private void setClassnamesEnabled(boolean enabled) {
 		this.viewClassName.setEnabled(enabled);
 		this.serviceClassName.setEnabled(enabled);
 		this.contributionClassName.setEnabled(enabled);
@@ -134,7 +133,7 @@ public class SetClassesNamePage extends NodeWizard {
 	@Override
 	public boolean canFlipToNextPage() {
 		return (!this.viewClassName.getText().isEmpty() && !this.serviceClassName.getText().isEmpty()
-				&& !this.contributionClassName.getText().isEmpty()) && !this.nodeName.getText().isEmpty();
+				&& !this.contributionClassName.getText().isEmpty() && !this.nodeName.getText().isEmpty());
 	}
 
 	/**

@@ -23,21 +23,23 @@ public class SetClassesNamePage extends NodeWizard{
 
 	
 	//TODO reconsider variable names here and in other wizard classes, tends to be hard to navigate
-	private Text viewClassName, serviceClassName, contributionClassName;
-	private Label viewInputLabel, serviceInputLabel, contributionInputLabel;
+	private Text viewClassName, serviceClassName, contributionClassName, nodeName;
+	private Label viewInputLabel, serviceInputLabel, contributionInputLabel, nodeNameLabel;
 	private Composite container;
 	private GridLayout layout;
 	private final String VIEW_INPUT_LABEL = "Program node view";
 	private final String SERVICE_INPUT_LABEL = "Program node service";
 	private final String CONTRIBUTION_INPUT_LABEL = "Program node contribution";
-	private String viewInputText, serviceInputText, contributionInputText;
+	private final String NODE_INPUT_LABEL = "Node name";
+	private String viewInputText, serviceInputText, contributionInputText, artifactId, nodeNameText;
 	
 	
-	protected SetClassesNamePage() {
+	protected SetClassesNamePage(String artifactId) {
 		super("Set Program Node Classes Page");
 		setTitle("Setup Program Node Classes");
 		setDescription("Set names of classes in program node (Standard names recommended)");
 		setPageComplete(true);
+		this.artifactId = artifactId;
 	}
 
 	/**
@@ -52,13 +54,27 @@ public class SetClassesNamePage extends NodeWizard{
 		
 		this.setInputFieldsText();
 		
+		this.nodeNameLabel = new Label(container, SWT.NONE);
+		this.nodeName = new Text(container, SWT.BORDER | SWT.SINGLE);
+		createInputForm(this.nodeName, this.nodeNameText, this.nodeNameLabel, NODE_INPUT_LABEL, false);
+		this.nodeName.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				viewClassName.setText(nodeName.getText() + "ProgramNodeView");
+				serviceClassName.setText(nodeName.getText() + "ProgramNodeService");
+				contributionClassName.setText(nodeName.getText() + "ProgramNodeContribution");
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				
+			}
+		});
+		
 		//Set view input and label
 		this.viewInputLabel = new Label(container, SWT.NONE);
 		this.viewClassName = new Text(container, SWT.BORDER | SWT.SINGLE);
-		
-		//IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		//ISelection selection = window.getSelectionService().getSelection("org.eclipse.jdt.ui.PackageExplorer");
-		
 		createInputForm(this.viewClassName, this.viewInputText, this.viewInputLabel, VIEW_INPUT_LABEL, false);
 		
 		//Set service input and label
@@ -71,6 +87,7 @@ public class SetClassesNamePage extends NodeWizard{
 		this.contributionClassName = new Text(container, SWT.BORDER | SWT.SINGLE);
 		createInputForm(this.contributionClassName, this.contributionInputText, this.contributionInputLabel, CONTRIBUTION_INPUT_LABEL, false);
 	
+		this.setClassnamesEnabled(true);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		this.setAllLayout(gd);
 		setControl(container);
@@ -83,6 +100,7 @@ public class SetClassesNamePage extends NodeWizard{
 	 * @param gd
 	 */
 	private void setAllLayout(GridData gd) {
+		this.nodeName.setLayoutData(gd);
 		this.viewClassName.setLayoutData(gd);
 		this.serviceClassName.setLayoutData(gd);
 		this.contributionClassName.setLayoutData(gd);
@@ -94,9 +112,17 @@ public class SetClassesNamePage extends NodeWizard{
 	 * Should be refactored to get artifact id from project selected i project explorer. 
 	 */
 	private void setInputFieldsText() {
-		this.viewInputText = "ProgramNodeView";
-		this.serviceInputText = "ProgramNodeService";
-		this.contributionInputText = "ProgramNodeContribution";
+		this.nodeNameText = this.artifactId;
+		this.viewInputText = this.artifactId + "ProgramNodeView";
+		this.serviceInputText = this.artifactId + "ProgramNodeService";
+		this.contributionInputText = this.artifactId + "ProgramNodeContribution";
+	}
+	
+	private void setClassnamesEnabled(boolean enabled) {
+		this.viewClassName.setEnabled(enabled);
+		this.serviceClassName.setEnabled(enabled);
+		this.contributionClassName.setEnabled(enabled);
+	
 	}
 	
 	/**
