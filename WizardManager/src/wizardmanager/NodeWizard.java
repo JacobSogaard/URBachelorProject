@@ -38,6 +38,7 @@ public abstract class NodeWizard extends WizardPage {
 	 * Verify no spaces
 	 * Verify not empty
 	 * Sets warning messages for the different cases. Change 2 in setMessage() to 3 for an error icon instead of warning
+	 * @return - true if input field is not empty, first letter is capitalized and does not contain any whitespaces. False otherwise
 	 */
 	public boolean verifyInput(String input) {		
 		if (input.isEmpty()) {
@@ -46,7 +47,7 @@ public abstract class NodeWizard extends WizardPage {
 		}
 		
 		if (!input.substring(0, 1).toUpperCase().equals(input.substring(0, 1))) {
-			setMessage("Type name is discouraged. By convention, Java type names usually start with an uppercase letter", 2);
+			setMessage("Type name is discouraged. By convention, Java type names usually start with an uppercase letter", 2); //This message is taken directly from the eclipse warning for same type of error
 			return false;
 		}
 		
