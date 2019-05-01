@@ -67,7 +67,7 @@ public class InstallationNodeWizard extends Wizard{
 		
 		
 		mavenModel.setProjectPath(projectPath);
-		mavenModel.setProjectGroupId("MyGroupId");
+		mavenModel.setProjectGroupId("MyGroupId"); // TODO change this to real group id from POM
 		mavenModel.setProjectArtifactId(this.artifactId);
 		mavenModel.setProjectVersion("1.0");
 		

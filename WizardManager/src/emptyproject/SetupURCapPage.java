@@ -23,15 +23,17 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import modelClasses.*;
+import wizardmanager.NodeWizard;
 
-public class SetupURCapPage extends WizardPage {
+public class SetupURCapPage extends NodeWizard {
 	private Text groupIdText, artifactIdText, directoryText, versionText;
 	private Composite container, browseContainer;
 	private String workspacePath;
 	private final String[] API_VERSIONS = { "1.0.0", "1.1.0", "1.2.0", "1.3.0", "1.4.0", "1.5.0" };
 	private Combo comboDropDownApiVersion;
 	private MavenModel mavenModel;
-
+	private boolean isArtifactIdValid;
+	
 	private void createMavenModel() {
 		this.mavenModel = new URCapModel();
 		this.mavenModel.setArchetypeVersionAPI(this.comboDropDownApiVersion.getText());
@@ -81,6 +83,21 @@ public class SetupURCapPage extends WizardPage {
 		Label artifactIdLabel = new Label(container, SWT.NONE);
 		artifactIdText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		this.createFormWithMessage(artifactIdLabel, "Artifact Id", artifactIdText, "Artifact id");
+		artifactIdText.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				isArtifactIdValid = verifyInput(artifactIdText.getText());
+				setPageComplete(isAllFieldsSet());
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 		// Label and dropdown for selection of api version
 		Label apiVersionLabel = new Label(container, SWT.NONE);
@@ -215,7 +232,7 @@ public class SetupURCapPage extends WizardPage {
 	}
 
 	private boolean isAllFieldsSet() {
-		return !this.groupIdText.getText().isEmpty() && !this.artifactIdText.getText().isEmpty();
+		return !this.groupIdText.getText().isEmpty() && isArtifactIdValid;
 	}
 	
 	
