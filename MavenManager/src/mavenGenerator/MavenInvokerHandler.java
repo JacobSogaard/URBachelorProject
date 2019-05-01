@@ -56,10 +56,13 @@ public class MavenInvokerHandler {
 		request.setGoals(Collections.singletonList(projectModel.getGoal()));
 		request.setBatchMode(true);
 		request.setProperties(projectModel.getProperties());
+		
 
 		this.checkMavenEnvironmentVariable();
 
 	}
+	
+	
 
 	/**
 	 * Check for Maven environment variable on host computer.
