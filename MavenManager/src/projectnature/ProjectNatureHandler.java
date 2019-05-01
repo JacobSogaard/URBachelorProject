@@ -11,6 +11,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdapterManager;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
@@ -30,7 +31,7 @@ public class ProjectNatureHandler{
 	public ProjectNatureHandler() {
 	}
 
-	public void setNature(IProject project) {
+	public void setNature(IProject project, IProgressMonitor monitor) {
 		IProject project1  = project;// get project...
 		IProjectDescription description;
 		try {
@@ -48,7 +49,8 @@ public class ProjectNatureHandler{
 			System.out.println("status: " + status.getMessage());
 			if (status.getCode() == IStatus.OK) {
 				description.setNatureIds(newNatures);
-				project1.setDescription(description, null);
+				//project1.setDescription(description, null);
+				project1.setDescription(description, monitor);
 			}
 		} catch (CoreException e) {
 			e.printStackTrace();

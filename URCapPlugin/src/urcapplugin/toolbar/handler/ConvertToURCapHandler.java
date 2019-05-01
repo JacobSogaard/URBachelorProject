@@ -35,6 +35,7 @@ public class ConvertToURCapHandler extends AbstractHandler{
             if (resourceAdapter != null) {
                 IResource resource = resourceAdapter;
                 IProject project = resource.getProject();
+          
                 try {
                     IProjectDescription description = project.getDescription();
                     String[] natures = description.getNatureIds();
@@ -50,7 +51,7 @@ public class ConvertToURCapHandler extends AbstractHandler{
                     // only apply new nature, if the status is ok
                     if (status.getCode() == IStatus.OK) {
                     	//Flip array of natures so URCap nature is first, and UR icon is show on project in explorer
-                    	ArrayUtils.reverse(newNatures); 
+                    	//ArrayUtils.reverse(newNatures); 
                         description.setNatureIds(newNatures);
                         project.setDescription(description, null);
                     }
@@ -61,6 +62,7 @@ public class ConvertToURCapHandler extends AbstractHandler{
                 }
             }
         }
+        
 
         return Status.OK_STATUS;
 	}

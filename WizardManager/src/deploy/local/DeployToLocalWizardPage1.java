@@ -1,5 +1,11 @@
 package deploy.local;
 
+import java.util.Date;
+
+import org.eclipse.osgi.service.datalocation.Location;
+
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.dialogs.DialogSettings;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -9,6 +15,7 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Label;
@@ -17,17 +24,20 @@ import org.eclipse.swt.widgets.Text;
 public class DeployToLocalWizardPage1 extends WizardPage {
 
 	private Label browseLabel;
-	private Text browseText;
+	private Combo browseText;
 	private Button browseBTN;
 	private Composite container;
 	private GridLayout layout;
 	private String browseLabelText = "Path to URSim";
+	private DialogSettings dialogSettings;
 
 	protected DeployToLocalWizardPage1() {
 		super("Deploy to local wizardpage");
 		setTitle("Deploy to local URSim");
 		setDescription("Set path for local URSim");
 		setPageComplete(false);
+		this.dialogSettings = new DialogSettings("vmlocations");
+		
 	}
 
 	@Override
@@ -41,9 +51,11 @@ public class DeployToLocalWizardPage1 extends WizardPage {
 		this.browseLabel = new Label(container, SWT.BORDER | SWT.SINGLE);
 		this.browseLabel.setText(this.browseLabelText);
 		this.browseLabel.setEnabled(false);
-		this.browseText = new Text(container, SWT.BORDER | SWT.SINGLE);
-
+		
+		
+		this.browseText = new Combo(container, SWT.DROP_DOWN | SWT.BORDER);
 		this.browseText.setText("");
+		
 		this.browseBTN = new Button(container, SWT.PUSH);
 		this.browseBTN.setBounds(40, 50, 50, 20);
 		this.browseBTN.setText("Browse");
@@ -84,6 +96,11 @@ public class DeployToLocalWizardPage1 extends WizardPage {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
+	}
+	
+	public void storeVMLocation() {
+		
+		//dialogSettings.put("vmlocation", this.dialog);
 	}
 
 	private boolean isAllFieldsSet() {

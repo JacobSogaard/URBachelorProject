@@ -1,5 +1,7 @@
 package installationnode;
 
+import java.util.*;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -28,6 +30,7 @@ public class SetClassesNamePage extends NodeWizard {
 	private final String CONTRIBUTION_INPUT_LABEL = "Installation node contribution";
 	private final String NODE_INPUT_LABEL = "Node name";
 	private String viewInputText, serviceInputText, artifactId, contributionInputText, nodeNameText;
+	private boolean canFlip;
 	
 	
 	
@@ -37,7 +40,7 @@ public class SetClassesNamePage extends NodeWizard {
 		super("Set Installation Node Classes Page");
 		setTitle("Setup Installation Node Classes");
 		setDescription("Set names of classes in installation node (Standard names recommended)");
-		setPageComplete(true);
+		//setPageComplete(true);
 		this.artifactId = artifactId;
 	}
 
@@ -63,6 +66,8 @@ public class SetClassesNamePage extends NodeWizard {
 				viewClassName.setText(nodeName.getText() + "InstallationNodeView");
 				serviceClassName.setText(nodeName.getText() + "InstallationNodeService");
 				contributionClassName.setText(nodeName.getText() + "InstallationNodeContribution");
+				canFlip = verifyInput(nodeName.getText()); 
+				getContainer().updateButtons();
 			}
 			
 			@Override
@@ -88,7 +93,7 @@ public class SetClassesNamePage extends NodeWizard {
 				CONTRIBUTION_INPUT_LABEL, false);
 
 		
-		this.setClassnamesEnabled(true);
+		this.setClassnamesEnabled(false);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		this.setAllLayout(gd);
 		setControl(container);
@@ -125,15 +130,16 @@ public class SetClassesNamePage extends NodeWizard {
 		this.contributionClassName.setEnabled(enabled);
 	
 	}
+	
+
 
 	/**
-	 * Checks to see if the next button should be active. Check if the input fields
-	 * are empty.
+	 * Checks to see if the next button should be active. 
 	 */
 	@Override
 	public boolean canFlipToNextPage() {
-		return (!this.viewClassName.getText().isEmpty() && !this.serviceClassName.getText().isEmpty()
-				&& !this.contributionClassName.getText().isEmpty() && !this.nodeName.getText().isEmpty());
+		
+		return this.canFlip;
 	}
 
 	/**

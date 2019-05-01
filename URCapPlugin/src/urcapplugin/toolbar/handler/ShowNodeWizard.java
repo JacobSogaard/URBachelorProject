@@ -30,9 +30,11 @@ public class ShowNodeWizard extends AbstractHandler {
 
 	private String projectArtifactId = "", projectPath;
 
+	
+	
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		System.out.println(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/" + "MyArtifactId");
+		System.out.println(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/" + "MyArtifactId"); //TODO changes to dynamic artifact id
 		//if (this.selectedProject()) {
 			WizardFactory factory = new WizardFactory();
 			Wizard wizard;

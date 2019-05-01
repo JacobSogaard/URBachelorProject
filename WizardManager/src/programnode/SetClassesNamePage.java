@@ -32,6 +32,7 @@ public class SetClassesNamePage extends NodeWizard{
 	private final String CONTRIBUTION_INPUT_LABEL = "Program node contribution";
 	private final String NODE_INPUT_LABEL = "Node name";
 	private String viewInputText, serviceInputText, contributionInputText, artifactId, nodeNameText;
+	private boolean canFlip;
 	
 	
 	protected SetClassesNamePage(String artifactId) {
@@ -64,6 +65,8 @@ public class SetClassesNamePage extends NodeWizard{
 				viewClassName.setText(nodeName.getText() + "ProgramNodeView");
 				serviceClassName.setText(nodeName.getText() + "ProgramNodeService");
 				contributionClassName.setText(nodeName.getText() + "ProgramNodeContribution");
+				canFlip = verifyInput(nodeName.getText()); 
+				getContainer().updateButtons();
 			}
 			
 			@Override
@@ -130,8 +133,7 @@ public class SetClassesNamePage extends NodeWizard{
 	 */
 	@Override
 	public boolean canFlipToNextPage() {		
-		 return (!this.viewClassName.getText().isEmpty() && !this.serviceClassName.getText().isEmpty()
-				&& !this.contributionClassName.getText().isEmpty());
+		 return this.canFlip;
 	}
 	
 	/**

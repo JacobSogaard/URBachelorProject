@@ -32,5 +32,31 @@ public abstract class NodeWizard extends WizardPage {
 			text.setText(message);
 		}
 	}
+	
+	/**
+	 * Verify first letter is capital
+	 * Verify no spaces
+	 * Verify not empty
+	 * Sets warning messages for the different cases. Change 2 in setMessage() to 3 for an error icon instead of warning
+	 */
+	public boolean verifyInput(String input) {		
+		if (input.isEmpty()) {
+			setMessage("Node name is empty", 2);
+			return false;
+		}
+		
+		if (!input.substring(0, 1).toUpperCase().equals(input.substring(0, 1))) {
+			setMessage("Type name is discouraged. By convention, Java type names usually start with an uppercase letter", 2);
+			return false;
+		}
+		
+		if (input.contains(" ")) {
+			setMessage("Class name cannot contain whitespace", 2);
+			return false;	
+		}
+		
+		setMessage(null); //Sets message back to description
+		return true;
+	}
 
 }
