@@ -1,6 +1,7 @@
 package urcapplugin.toolbar.handler;
 
 import java.io.Console;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -34,6 +35,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.xml.sax.SAXException;
 
 import nature.URCapNature;
+
 
 public class ConvertToURCapHandler extends AbstractHandler {
 	@Override
