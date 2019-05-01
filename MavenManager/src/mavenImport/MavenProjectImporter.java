@@ -126,31 +126,18 @@ public class MavenProjectImporter {
 			} else {
 				// IProjectDescription description = project.getDescription();
 
-				submonitor = SubMonitor.convert(monitor, 50);
-				project = container.getProject();
-				// project.create(description, submonitor.split(50));
-				if (project.getName().equals(name)) {
-					project.open(submonitor.split(50));
-					System.out.println("----------------" + project.getName() + "--------------------");
-					if (submonitor.isCanceled()) {
-						System.out.println("CANCELLED!!");
-					}
-					System.out.println("AFTER IF");
-					System.out.println("set nature");
-					ProjectNatureHandler handler = new ProjectNatureHandler();
-					handler.setNature(project, monitor);
-				}
-				// submonitor.done();
+				ProjectNatureHandler handler = new ProjectNatureHandler();
+				handler.setNature(project, monitor);
+			}
+			// submonitor.done();
 
 //				if (this.project.hasNature("org.eclipse.jdt.core.javanature")
 //						|| this.project.hasNature("org.eclipse.m2e.core.maven2Nature")) {
 //					ProjectNatureHandler handler = new ProjectNatureHandler();
 //					handler.setNature(this.project);
 //				}
-			}
 		}
-
-
+	}
 
 	}
 
