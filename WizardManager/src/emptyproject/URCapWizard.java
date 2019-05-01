@@ -1,5 +1,7 @@
 package emptyproject;
 
+import org.eclipse.core.internal.resources.refresh.win32.Convert;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.BusyIndicator;
@@ -48,7 +50,7 @@ public class URCapWizard extends Wizard {
 		
 		MavenProjectImporter importer = new MavenProjectImporter();
 		importer.importProjectAsMavenProject(urcapSetupPage.getProjectModel().getProjectPath());
-		
+
 		
 		
 		
