@@ -54,8 +54,7 @@ public class ShowNodeWizard extends AbstractHandler {
 	}
 
 	/**
-	 * Method to get the selection from package explorer TODO: Add multiple null and
-	 * type checks!
+	 * Method to get the selection from package explorer TODO: Add null and type checks!
 	 */
 	private boolean selectedProject() {
 		
