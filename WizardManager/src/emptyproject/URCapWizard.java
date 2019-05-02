@@ -14,8 +14,9 @@ import mavenImport.MavenProjectImporter;
 import modelClasses.*;
 
 /**
- * Class which handles pages in wizard.
- * Each page should have it's own class and instances of the should be created here. 
+ * Class which handles pages in wizard. Each page should have it's own class and
+ * instances of the should be created here.
+ * 
  * @author jacob
  *
  */
@@ -24,7 +25,7 @@ public class URCapWizard extends Wizard {
 	protected SetupURCapPage urcapSetupPage;
 	private IURCapMaven projectModel;
 	private static Cursor cursor = null;
-	//protected MyPageTwo two;
+	// protected MyPageTwo two;
 
 	public URCapWizard() {
 		super();
@@ -42,20 +43,18 @@ public class URCapWizard extends Wizard {
 		MavenInvokerHandler invoker = new MavenInvokerHandler();
 		this.projectModel = new URCapProjectModel(urcapSetupPage.getProjectModel());
 		Display display = Display.getDefault();
-		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
+		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);
 		Shell shell = getShell();
 		shell.setCursor(waitCursor);
-		
-		invoker.invokeMavenExecution(this.projectModel); //Generates project with object model made through NewURCapWizardPage
-		
+
+		invoker.invokeMavenExecution(this.projectModel); // Generates project with object model made through
+															// NewURCapWizardPage
+
 		MavenProjectImporter importer = new MavenProjectImporter();
 		importer.importProjectAsMavenProject(urcapSetupPage.getProjectModel().getProjectPath());
 
-		
-		
-		
 		shell.setCursor(null);
-		waitCursor.dispose();				
+		waitCursor.dispose();
 		return true;
 	}
 }

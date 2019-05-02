@@ -135,10 +135,11 @@ public class MavenProjectImporter {
 			if (container == null) {
 				toImport.add(projectInfo);
 			} else {
-				// IProjectDescription description = project.getDescription();
-
+				this.project = container.getProject();
 				ProjectNatureHandler handler = new ProjectNatureHandler();
-				handler.setNature(project, monitor);
+				handler.setNature(this.project);
+				this.project.open(null);
+
 			}
 			// submonitor.done();
 
@@ -167,5 +168,4 @@ public class MavenProjectImporter {
 			}
 		}
 	}
-
 }
