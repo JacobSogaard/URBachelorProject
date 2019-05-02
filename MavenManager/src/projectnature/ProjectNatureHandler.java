@@ -31,7 +31,7 @@ public class ProjectNatureHandler{
 	public ProjectNatureHandler() {
 	}
 
-	public void setNature(IProject project, IProgressMonitor monitor) {
+	public void setNature(IProject project) {
 		IProject project1  = project;// get project...
 		IProjectDescription description;
 		try {
@@ -49,8 +49,8 @@ public class ProjectNatureHandler{
 			System.out.println("status: " + status.getMessage());
 			if (status.getCode() == IStatus.OK) {
 				description.setNatureIds(newNatures);
-				//project1.setDescription(description, null);
-				project1.setDescription(description, monitor);
+			
+				project1.setDescription(description, null);
 			}
 		} catch (CoreException e) {
 			e.printStackTrace();

@@ -27,11 +27,6 @@ public class DeployURSimVM implements IURCapMaven {
 		
 	}
 
-//	@Override
-//	public Properties getProperties() {
-//		return this.properties;
-//	}
-
 	private void setProperties() {
 		this.properties = new Properties();
 		this.properties.setProperty("ursimvm.install.host", this.ipaddress);
@@ -39,11 +34,6 @@ public class DeployURSimVM implements IURCapMaven {
 		this.properties.setProperty("ursimvm.install.password", this.password);
 		
 	}
-
-//	@Override
-//	public String getGoal() {
-//		return GOAL;
-//	}
 
 
 	@Override
