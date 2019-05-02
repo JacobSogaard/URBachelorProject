@@ -3,12 +3,15 @@ package installationnode;
 import java.util.*;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import wizardmanager.NodeWizard;
@@ -167,6 +170,21 @@ public class SetClassesNamePage extends NodeWizard {
 	 */
 	public String getContributionClassname() {
 		return this.contributionClassName.getText();
+	}
+	
+	@Override
+	public void performHelp() 
+	{
+		
+	    Shell shell = new Shell(getShell());
+	    shell.setText("Installation ");
+	    shell.setLayout(new FillLayout());
+	    Browser browser = new Browser(shell, SWT.NONE);
+	    browser.setUrl("https://plus.universal-robots.com/getting-started/principle-of-installation-node-integration/");
+	    browser.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+	    shell.open();
+	  
+	
 	}
 
 }
