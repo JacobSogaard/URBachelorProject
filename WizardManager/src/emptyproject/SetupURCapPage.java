@@ -32,8 +32,8 @@ import wizardmanager.NodeWizard;
 public class SetupURCapPage extends NodeWizard {
 	private Text groupIdText, artifactIdText, directoryText, versionText;
 	private Composite container, browseContainer;
-	private String workspacePath, groupIdToolTip, ArtifactIdToolTip;
-	private final String[] API_VERSIONS = { "1.0.0", "1.1.0", "1.2.0", "1.3.0", "1.4.0", "1.5.0" };
+	private String workspacePath, groupIdToolTip, artifactIdToolTip, apiVersionToolTip, versionToolTip;
+	private final String[] API_VERSIONS = { "1.0.0", "1.1.0", "1.2.0", "1.3.0", "1.4.0", "1.5.0", "1.6.0"};
 	private Combo comboDropDownApiVersion;
 	private MavenModel mavenModel;
 	private boolean isArtifactIdValid;
@@ -69,6 +69,8 @@ public class SetupURCapPage extends NodeWizard {
 		setDescription("Define name and location of URCap project");
 		this.setGroupIdToolTip();
 		this.setArtifactIdToolTip();
+		this.setApiVersionToolTip();
+		this.setVersionToolTip();
 	}
 
 	@Override
@@ -88,7 +90,7 @@ public class SetupURCapPage extends NodeWizard {
 
 		// Label and text field for artifact id
 		Label artifactIdLabel = new Label(container, SWT.NONE);
-		artifactIdLabel.setToolTipText(this.ArtifactIdToolTip);
+		artifactIdLabel.setToolTipText(this.artifactIdToolTip);
 		artifactIdText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		this.createFormWithMessage(artifactIdLabel, "Artifact Id", artifactIdText, "Artifact id");
 		artifactIdText.addKeyListener(new KeyListener() {
@@ -115,11 +117,13 @@ public class SetupURCapPage extends NodeWizard {
 			comboDropDownApiVersion.add(api);
 		}
 		comboDropDownApiVersion.select(comboDropDownApiVersion.getItemCount() - 1);
+		apiVersionLabel.setToolTipText(this.apiVersionToolTip);
 
 		this.emptyLabel();
 
 		// Label and text field for setting the ur cap version number
 		Label versionNumberLabel = new Label(container, SWT.NONE);
+		versionNumberLabel.setToolTipText(this.versionToolTip);
 		versionNumberLabel.setText("Version number");
 		versionText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		versionText.setText("1.0");
@@ -261,13 +265,20 @@ public class SetupURCapPage extends NodeWizard {
 	}
 	
 	private void setGroupIdToolTip() {
-		this.groupIdToolTip = "tooltip replacement for groupid";
+		this.groupIdToolTip = "Uniquely identifies your project across all projects. A group ID should follow Java's package name rules. This means it starts with a reversed domain name you control. For example: com.mycompany.myurcap";
 	}
 	
 	private void setArtifactIdToolTip() {
-		this.ArtifactIdToolTip = "tooltip replacement for artifact id";
+		this.artifactIdToolTip = "Unique name of this URCap.";
 	}
 	
+	private void setApiVersionToolTip() {
+		this.apiVersionToolTip = "UR API version number. Latest is recommended";
+	}
+	
+	private void setVersionToolTip() {
+		this.versionToolTip = "Version of URCap. The version is also defined in the POM file.";
+	}
 	
 
 	public IWizardPage getNextPage() {
