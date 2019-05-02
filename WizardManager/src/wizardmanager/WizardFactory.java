@@ -25,13 +25,13 @@ public class WizardFactory {
 	 * @param wizardType
 	 * @return
 	 */
-	public Wizard getWizard(String wizardType, String projectArtifactId, String projectPath) {
+	public Wizard getWizard(String wizardType, String projectArtifactId, String projectPath, String groupId) {
 		System.out.println("WIZARD: " + wizardType);
 		switch (wizardType) {
 		case "ProgramNode":
-			return new ProgramNodeWizard(projectArtifactId);
+			return new ProgramNodeWizard(projectArtifactId, projectPath, groupId);
 		case "InstallationNode":
-			return new InstallationNodeWizard(projectArtifactId, projectPath);
+			return new InstallationNodeWizard(projectArtifactId, projectPath, groupId);
 		case "ToolbarNode":
 			// TODO Toolbar node not yet implemented
 			return null;

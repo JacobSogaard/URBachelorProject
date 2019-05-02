@@ -27,13 +27,14 @@ public class InstallationNodeWizard extends Wizard{
 	private SetClassesNamePage setClassesPage;
 	private SetAttributesPage setAttributesPage;
 	private IURCapMaven nodeModel;
-	private String artifactId, path;
+	private String artifactId, path, groupId;
 	
 	
-	public InstallationNodeWizard(String artifactId, String path) {
+	public InstallationNodeWizard(String artifactId, String path, String groupId) {
 		super();
 		this.artifactId = artifactId;
 		this.path = path;
+		this.groupId = groupId;
 		setNeedsProgressMonitor(true);
 	}
 	
@@ -61,14 +62,14 @@ public class InstallationNodeWizard extends Wizard{
 		String viewClassName = this.setClassesPage.getViewClassname();
 		String contributionClassName = this.setClassesPage.getContributionClassname();
 		String nodeTitle = this.setAttributesPage.getNodeTitle();
-		String projectPath = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + this.path;  //TODO change to project artifact id here
+		String artifactId = this.setClassesPage.getArtifactId(); //In case of changes nodename
 		
 		MavenModel mavenModel = new InstallationNodeModel(serviceClassName, contributionClassName, viewClassName, nodeTitle);
 		
 		
-		mavenModel.setProjectPath(projectPath);
-		mavenModel.setProjectGroupId("MyGroupId"); // TODO change this to real group id from POM
-		mavenModel.setProjectArtifactId(this.artifactId);
+		mavenModel.setProjectPath(this.path);
+		mavenModel.setProjectGroupId(this.groupId); // TODO change this to real group id from POM
+		mavenModel.setProjectArtifactId(artifactId);
 		mavenModel.setProjectVersion("1.0");
 		
 		this.nodeModel = new InstallationNodeMavenModel(mavenModel);

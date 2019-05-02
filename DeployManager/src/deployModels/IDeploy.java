@@ -1,7 +1,5 @@
 package deployModels;
 
-import java.util.Properties;
-
 import modelClasses.IURCapMaven;
 
 /**

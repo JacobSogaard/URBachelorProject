@@ -41,10 +41,13 @@ public class ShowNodeWizard extends AbstractHandler {
 		if (this.projectVerifier.selectedProject()) {
 			WizardFactory factory = new WizardFactory();
 			Wizard wizard;
-
+			PomFileReader pomReader = new PomFileReader();
+			
+			String groupId = pomReader.getGroupId(this.projectVerifier.getProjectPath());
+			
 			try {
 				wizard = factory.getWizard(event.getCommand().getDescription(), this.projectVerifier.getProjectArtifactId(),
-						this.projectVerifier.getProjectPath());
+						this.projectVerifier.getProjectPath(), groupId);
 				WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
 				dialog.setHelpAvailable(true);
 				dialog.open();

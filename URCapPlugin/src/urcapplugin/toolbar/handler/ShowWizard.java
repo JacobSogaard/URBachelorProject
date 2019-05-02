@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osgi.framework.BundleContext;
 
+import deployModels.*;
 import emptyproject.URCapWizard;
 
 
@@ -24,8 +25,6 @@ import emptyproject.URCapWizard;
 public class ShowWizard extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {	
-		
-
 		URCapWizard wizard = new URCapWizard();
 		WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
 		dialog.setHelpAvailable(true);

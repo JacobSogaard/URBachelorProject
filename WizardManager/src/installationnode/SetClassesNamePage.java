@@ -172,6 +172,14 @@ public class SetClassesNamePage extends NodeWizard {
 		return this.contributionClassName.getText();
 	}
 	
+	/**
+	 * Get input in node name text field. Should be used as artifact id
+	 * @return - String with content of node name text field in set classes wizard
+	 */
+	public String getArtifactId() {
+		return this.nodeName.getText();
+	}
+	
 	@Override
 	public void performHelp() 
 	{

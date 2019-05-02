@@ -127,15 +127,14 @@ public class MavenProjectImporter {
 
 		for (MavenProjectInfo projectInfo : mavenProjects) {
 			File pom = projectInfo.getPomFile();
-			IContainer container = rootworkspace.getContainerForLocation(new Path(pom.getAbsolutePath())); // Does this
-																											// work?
+			IContainer container = rootworkspace.getContainerForLocation(new Path(pom.getAbsolutePath()));
 			if (container == null) {
 				toImport.add(projectInfo);
 			} else {
-				this.project = container.getProject();
+				project = container.getProject();
 				ProjectNatureHandler handler = new ProjectNatureHandler();
-				handler.setNature(this.project);
-				this.project.open(null);
+				handler.setNature(project);
+				project.open(null);
 
 			}
 		}

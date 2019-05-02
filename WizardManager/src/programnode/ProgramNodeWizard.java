@@ -27,12 +27,15 @@ public class ProgramNodeWizard extends Wizard{
 	private SetClassesNamePage setClassesPage;
 	private SetAttributesPage setAttributesPage;
 	private IURCapMaven nodeModel;
-	private String artifactId;
+	private String artifactId, groupId, path;
 
-	public ProgramNodeWizard(String artifactId) {
+	public ProgramNodeWizard(String artifactId, String path, String groupId) {
 		super();
 		setNeedsProgressMonitor(true);
 		this.artifactId = artifactId;
+		this.path = path;
+		this.groupId = groupId;
+		
 	}
 	
 	/**
@@ -61,12 +64,10 @@ public class ProgramNodeWizard extends Wizard{
 		//boolean setChildrenAllowed = this.setAttributesPage.isChildrenAllowed(); //TODO create method is attributes page
 		boolean setChildrenAllowed = true;
 		
-		String projectPath = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/" + "MyArtifactId";
-		
 		MavenModel mavenModel = new ProgramNodeModel(nodeTitle, nodeId, setChildrenAllowed, serviceClassName, contributionClassName, viewClassName);
-		mavenModel.setProjectPath(projectPath);
-		mavenModel.setProjectGroupId("MyGroupId");
-		mavenModel.setProjectArtifactId("MyArtifactId");
+		mavenModel.setProjectPath(this.path);
+		mavenModel.setProjectGroupId(this.groupId);
+		mavenModel.setProjectArtifactId(this.artifactId);
 		mavenModel.setProjectVersion("1.0");
 		
 		this.nodeModel = new ProgramNodeProjectModel(mavenModel);
@@ -83,7 +84,7 @@ public class ProgramNodeWizard extends Wizard{
 		shell.setCursor(waitCursor);
 		
 		prgen.invokeMavenExecution(this.nodeModel);	
-		//Import project here!
+		
 		shell.setCursor(null);
 		waitCursor.dispose();
 		

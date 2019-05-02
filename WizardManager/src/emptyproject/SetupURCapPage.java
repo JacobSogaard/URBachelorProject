@@ -246,23 +246,7 @@ public class SetupURCapPage extends NodeWizard {
 	private boolean isAllFieldsSet() {
 		return !this.groupIdText.getText().isEmpty() && isArtifactIdValid;
 	}
-	
-	@Override
-	public void performHelp() 
-	{
-		
-	    Shell shell = new Shell(getShell());
-	    shell.setText("My Custom Help !!");
-	    shell.setLayout(new FillLayout());
 
-	    Text help = new Text(shell, SWT.NONE);
-	    help.setText("This is what you get from the help section");
-	    help.pack();
-
-	    shell.open();
-	  
-	
-	}
 	
 	private void setGroupIdToolTip() {
 		this.groupIdToolTip = "Uniquely identifies your project across all projects. A group ID should follow Java's package name rules. This means it starts with a reversed domain name you control. For example: com.mycompany.myurcap";
