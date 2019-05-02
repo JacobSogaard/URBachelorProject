@@ -51,7 +51,7 @@ public class URCapWizard extends Wizard {
 															// NewURCapWizardPage
 
 		MavenProjectImporter importer = new MavenProjectImporter();
-		importer.importProjectAsMavenProject(urcapSetupPage.getProjectModel().getProjectPath());
+		  importer.importProjectAsMavenProject(urcapSetupPage.getProjectModel().getProjectPath(), this.urcapSetupPage.getArtifactId());
 
 		shell.setCursor(null);
 		waitCursor.dispose();
