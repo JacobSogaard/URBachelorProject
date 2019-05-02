@@ -98,6 +98,10 @@ public class DeployToLocalWizardPage1 extends WizardPage {
 		}
 	}
 	
+	public String getURSimPath() {
+		return this.browseText.getText();
+	}
+	
 	public void storeVMLocation() {
 		
 		//dialogSettings.put("vmlocation", this.dialog);

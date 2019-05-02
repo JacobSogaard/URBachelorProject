@@ -33,14 +33,14 @@ public class WizardFactory {
 		case "InstallationNode":
 			return new InstallationNodeWizard(projectArtifactId, projectPath);
 		case "ToolbarNode":
-			// TODO Contribution node not yet implemented
+			// TODO Toolbar node not yet implemented
 			return null;
 		case "DeployToRobot":
-			return new DeployToRobotWizard();
+			return new DeployToRobotWizard(projectPath);
 		case "DeployLocal":
-			return new DeployToLocalWizard();
+			return new DeployToLocalWizard(projectPath);
 		case "DeployToVM":
-			return new DeployToVMWizard();
+			return new DeployToVMWizard(projectPath);
 		default:
 			return null;
 		}

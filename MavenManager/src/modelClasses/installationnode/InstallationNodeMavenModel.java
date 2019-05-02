@@ -26,8 +26,6 @@ public class InstallationNodeMavenModel implements IURCapMaven {
 
 	private Properties properties;
 	
-	
-
 	/**
 	 * Constructor the set all class fields.
 	 * @param groupID

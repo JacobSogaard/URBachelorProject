@@ -17,6 +17,8 @@ Require-Bundle: org.eclipse.core.resources;bundle-version="3.13.200",
  org.eclipse.ui.ide;bundle-version="3.14.200"
 Automatic-Module-Name: URCapPlugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: urcapplugin,
- urcapplugin.toolbar.handler
+Export-Package: Verifier,
+ urcapplugin,
+ urcapplugin.toolbar.handler,
+ urcapplugin.toolbar.handler.deploy
 

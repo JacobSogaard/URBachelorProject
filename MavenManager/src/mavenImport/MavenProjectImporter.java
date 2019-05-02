@@ -83,19 +83,16 @@ public class MavenProjectImporter {
 	 * 
 	 * @param path Path of the maven project as String
 	 */
-	public void importProjectAsMavenProject(String path, String name) {
+	public void importProjectAsMavenProject(String path) {
 
 		try {
-			this.importProject(path, name, new NullProgressMonitor());
+			this.importProject(path, new NullProgressMonitor());
 
 		} catch (CoreException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
-//		ProjectNatureHandler natureHandler = new ProjectNatureHandler();
-//		natureHandler.setNature(this.project);
 
 	}
 
@@ -107,7 +104,7 @@ public class MavenProjectImporter {
 	 * @throws CoreException
 	 * @throws InterruptedException
 	 */
-	private void importProject(String location, String name, IProgressMonitor monitor)
+	private void importProject(String location, IProgressMonitor monitor)
 			throws CoreException, InterruptedException {
 
 		MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
@@ -135,18 +132,12 @@ public class MavenProjectImporter {
 			if (container == null) {
 				toImport.add(projectInfo);
 			} else {
-				// IProjectDescription description = project.getDescription();
-
+				this.project = container.getProject();
 				ProjectNatureHandler handler = new ProjectNatureHandler();
-				handler.setNature(project, monitor);
-			}
-			// submonitor.done();
+				handler.setNature(this.project);
+				this.project.open(null);
 
-//				if (this.project.hasNature("org.eclipse.jdt.core.javanature")
-//						|| this.project.hasNature("org.eclipse.m2e.core.maven2Nature")) {
-//					ProjectNatureHandler handler = new ProjectNatureHandler();
-//					handler.setNature(this.project);
-//				}
+			}
 		}
 	}
 
@@ -167,5 +158,4 @@ public class MavenProjectImporter {
 			}
 		}
 	}
-
 }

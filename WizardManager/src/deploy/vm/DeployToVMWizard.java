@@ -11,6 +11,10 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import deployModels.DeployToRobot;
+import deployModels.DeployURSimVM;
+import deployModels.IDeploy;
+
 /**
  * Sets up the wizard for deploy to URSim on VM wizard page
  * Adds the pages to the wizard
@@ -19,10 +23,12 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class DeployToVMWizard extends Wizard{
 	private DeployToVMWizardPage1 page1;
+	private String path;
 	
-	public DeployToVMWizard() {
+	public DeployToVMWizard(String path) {
 		super();
 		setNeedsProgressMonitor(true);
+		this.path = path;
 	}
 
 	
@@ -41,10 +47,8 @@ public class DeployToVMWizard extends Wizard{
 	 */
 	@Override
 	public boolean performFinish() {
-		//System.out.println("Finished deploy to VM wizard page");
-		//IDialogSettings settings = new DialogSettings("root");
-		//settings.put("VMHost", page1.getHost());
-		//settings.get
+		IDeploy model = new DeployURSimVM(this.page1.getIp(), this.page1.getUsername(), this.page1.getPassword(), this.path);
+		model.deploy();
 		return true;
 	}
 
