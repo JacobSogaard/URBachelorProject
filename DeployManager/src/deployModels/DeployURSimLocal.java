@@ -2,6 +2,8 @@ package deployModels;
 
 import java.util.Properties;
 
+import mavenGenerator.MavenInvokerHandler;
+
 public class DeployURSimLocal implements IDeploy{
 
 	private String URSimpath, projectPath, goal;
@@ -42,7 +44,8 @@ public class DeployURSimLocal implements IDeploy{
 	
 	@Override
 	public void deploy() {
-		
+		MavenInvokerHandler invoker = new MavenInvokerHandler();
+		invoker.invokeMavenExecution(this);
 	}
 
 }

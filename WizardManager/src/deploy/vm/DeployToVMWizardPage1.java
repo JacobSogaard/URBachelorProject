@@ -125,5 +125,17 @@ public class DeployToVMWizardPage1 extends WizardPage {
 	private boolean isAllFieldsSet() {
 		return true;
 	}
+	
+	public String getIp() {
+		return this.hostText.getText();
+	}
+	
+	public String getUsername() {
+		return this.usernameText.getText();
+	}
+	
+	public String getPassword() {
+		return this.passwordText.getText();
+	}
 
 }

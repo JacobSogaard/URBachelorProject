@@ -9,6 +9,10 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import deployModels.DeployToRobot;
+import deployModels.DeployURSimLocal;
+import deployModels.IDeploy;
+
 /**
  * Sets up the wizard for deploy to robot wizard page
  * Adds the pages to the wizard
@@ -17,10 +21,12 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class DeployToRobotWizard extends Wizard{
 	private DeployToRobotWizardPage1 page1;
+	private String path;
 	
-	public DeployToRobotWizard() {
+	public DeployToRobotWizard(String path) {
 		super();
 		setNeedsProgressMonitor(true);
+		this.path = path;
 	}
 
 	
@@ -39,7 +45,8 @@ public class DeployToRobotWizard extends Wizard{
 	 */
 	@Override
 	public boolean performFinish() {
-		System.out.println("Finished deploy to robot wizard");
+		IDeploy model = new DeployToRobot(this.page1.getIp(), this.page1.getUsername(), this.page1.getPassword(), this.path);
+		model.deploy();
 		return true;
 	}
 

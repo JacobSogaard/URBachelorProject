@@ -9,6 +9,11 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import deployModels.DeployURSimLocal;
+import deployModels.IDeploy;
+import mavenGenerator.MavenInvokerHandler;
+import modelClasses.IURCapMaven;
+
 /**
  * Sets up the wizard for deploy to robot wizard page
  * Adds the pages to the wizard
@@ -17,10 +22,12 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class DeployToLocalWizard extends Wizard{
 	private DeployToLocalWizardPage1 page1;
+	private String path;
 	
-	public DeployToLocalWizard() {
+	public DeployToLocalWizard(String path) {
 		super();
 		setNeedsProgressMonitor(true);
+		this.path = path;
 	}
 
 	
@@ -39,7 +46,8 @@ public class DeployToLocalWizard extends Wizard{
 	 */
 	@Override
 	public boolean performFinish() {
-		System.out.println("Finished deploy to local wizard");
+		IDeploy model = new DeployURSimLocal(this.page1.getURSimPath(), this.path);
+		model.deploy();
 		return true;
 	}
 
