@@ -8,10 +8,12 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -20,7 +22,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.handlers.HandlerUtil;
 
 import modelClasses.*;
 import wizardmanager.NodeWizard;
@@ -28,7 +32,7 @@ import wizardmanager.NodeWizard;
 public class SetupURCapPage extends NodeWizard {
 	private Text groupIdText, artifactIdText, directoryText, versionText;
 	private Composite container, browseContainer;
-	private String workspacePath;
+	private String workspacePath, groupIdToolTip, ArtifactIdToolTip;
 	private final String[] API_VERSIONS = { "1.0.0", "1.1.0", "1.2.0", "1.3.0", "1.4.0", "1.5.0" };
 	private Combo comboDropDownApiVersion;
 	private MavenModel mavenModel;
@@ -63,6 +67,8 @@ public class SetupURCapPage extends NodeWizard {
 		super("First Page");
 		setTitle("New URCap project");
 		setDescription("Define name and location of URCap project");
+		this.setGroupIdToolTip();
+		this.setArtifactIdToolTip();
 	}
 
 	@Override
@@ -76,11 +82,13 @@ public class SetupURCapPage extends NodeWizard {
 
 		// Set label and text field for group id
 		Label groupIdLabel = new Label(container, SWT.NONE);
+		groupIdLabel.setToolTipText(this.groupIdToolTip);
 		this.groupIdText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		this.createFormWithMessage(groupIdLabel, "Group id", groupIdText, "com.example.mycompany");
 
 		// Label and text field for artifact id
 		Label artifactIdLabel = new Label(container, SWT.NONE);
+		artifactIdLabel.setToolTipText(this.ArtifactIdToolTip);
 		artifactIdText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		this.createFormWithMessage(artifactIdLabel, "Artifact Id", artifactIdText, "Artifact id");
 		artifactIdText.addKeyListener(new KeyListener() {
@@ -227,12 +235,37 @@ public class SetupURCapPage extends NodeWizard {
 		return selected;
 	}
 
-	public String getText1() {
-		return groupIdText.getText();
+	public String getArtifactId() {
+		return this.artifactIdText.getText();
 	}
-
+	
 	private boolean isAllFieldsSet() {
 		return !this.groupIdText.getText().isEmpty() && isArtifactIdValid;
+	}
+	
+	@Override
+	public void performHelp() 
+	{
+		
+	    Shell shell = new Shell(getShell());
+	    shell.setText("My Custom Help !!");
+	    shell.setLayout(new FillLayout());
+
+	    Text help = new Text(shell, SWT.NONE);
+	    help.setText("This is what you get from the help section");
+	    help.pack();
+
+	    shell.open();
+	  
+	
+	}
+	
+	private void setGroupIdToolTip() {
+		this.groupIdToolTip = "tooltip replacement for groupid";
+	}
+	
+	private void setArtifactIdToolTip() {
+		this.ArtifactIdToolTip = "tooltip replacement for artifact id";
 	}
 	
 	

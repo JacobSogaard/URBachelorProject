@@ -43,6 +43,7 @@ public class ShowNodeWizard extends AbstractHandler {
 				wizard = factory.getWizard(event.getCommand().getDescription(), this.projectArtifactId,
 						this.projectPath);
 				WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
+				dialog.setHelpAvailable(true);
 				dialog.open();
 
 			} catch (NullPointerException | NotDefinedException ex) {
