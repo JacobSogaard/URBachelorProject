@@ -2,6 +2,7 @@ package Verifier;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISelectionService;
@@ -10,7 +11,8 @@ import org.eclipse.ui.PlatformUI;
 
 public class ProjectSelectionVerifier {
 	
-	private String projectArtifactId = "", projectPath;
+	private String projectArtifactId = "", projectPath = "";
+	private IPath ipath;
 
 	public ProjectSelectionVerifier() {
 		// TODO Auto-generated constructor stub
@@ -31,6 +33,7 @@ public class ProjectSelectionVerifier {
 
 		try {
 			this.setProjectArtifactId(project.getDescription().getName());
+			this.setIPath(project.getLocation());
 			String[] natures = project.getDescription().getNatureIds();
 			for (String nature : natures) {
 				if (nature.equals("URCapProjectNature.urcapprojectnature")) {
@@ -42,7 +45,7 @@ public class ProjectSelectionVerifier {
 			e.printStackTrace();
 		} // gives null
 
-		this.setProjectPath(project.getProject().getFullPath().toPortableString()); // works
+		
 		return false;
 	}
 
@@ -60,6 +63,14 @@ public class ProjectSelectionVerifier {
 
 	private void setProjectPath(String projectPath) {
 		this.projectPath = projectPath;
+	}
+	
+	private void setIPath(IPath path) {
+		this.ipath = path;
+	}
+	
+	public IPath getPath() {
+		return this.ipath;
 	}
 	
 	

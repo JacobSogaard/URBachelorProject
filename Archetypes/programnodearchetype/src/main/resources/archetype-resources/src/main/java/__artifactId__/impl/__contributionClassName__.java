@@ -1,4 +1,4 @@
-package ${groupId}.${artifactId};
+package ${groupId}.${artifactId}.impl;
 
 
 import com.ur.urcap.api.contribution.ProgramNodeContribution;

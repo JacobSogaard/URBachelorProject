@@ -116,7 +116,7 @@ public class SetupURCapPage extends NodeWizard {
 		for (String api : API_VERSIONS) {
 			comboDropDownApiVersion.add(api);
 		}
-		comboDropDownApiVersion.select(comboDropDownApiVersion.getItemCount() - 1);
+		comboDropDownApiVersion.select(comboDropDownApiVersion.getItemCount() - 2);
 		apiVersionLabel.setToolTipText(this.apiVersionToolTip);
 
 		this.emptyLabel();

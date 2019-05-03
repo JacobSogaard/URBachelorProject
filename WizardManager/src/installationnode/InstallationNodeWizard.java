@@ -62,14 +62,13 @@ public class InstallationNodeWizard extends Wizard{
 		String viewClassName = this.setClassesPage.getViewClassname();
 		String contributionClassName = this.setClassesPage.getContributionClassname();
 		String nodeTitle = this.setAttributesPage.getNodeTitle();
-		String artifactId = this.setClassesPage.getArtifactId(); //In case of changes nodename
 		
 		MavenModel mavenModel = new InstallationNodeModel(serviceClassName, contributionClassName, viewClassName, nodeTitle);
 		
 		
 		mavenModel.setProjectPath(this.path);
 		mavenModel.setProjectGroupId(this.groupId); // TODO change this to real group id from POM
-		mavenModel.setProjectArtifactId(artifactId);
+		mavenModel.setProjectArtifactId(this.artifactId);
 		mavenModel.setProjectVersion("1.0");
 		
 		this.nodeModel = new InstallationNodeMavenModel(mavenModel);
@@ -84,7 +83,7 @@ public class InstallationNodeWizard extends Wizard{
 		shell.setCursor(waitCursor);
 		
 		prgen.invokeMavenExecution(this.nodeModel);	
-		//Import project here!
+		
 		shell.setCursor(null);
 		waitCursor.dispose();
 		

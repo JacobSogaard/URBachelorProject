@@ -43,21 +43,25 @@ public class PomFileReader {
 	 * @param projectPath - Path for root of project as String
 	 * @return - Returns the group id of POM file as a String. Null if non was found. 
 	 */
-	public String getGroupId(String projectPath) {
+	public String getGroupId(IPath projectPath) {
 		String groupId;
 		if (projectPath != null) {
-			String pomFilePath = projectPath + "/pom.xml";
+			String pomFilePath = projectPath.toString() + "/pom.xml";
+			
 			File file = new File(pomFilePath);
 		
 			try {
-				groupId = this.readXMLFile(file, "urcap.install.host");
+				groupId = this.readXMLFile(file, "groupId");
+				if (groupId == null) {
+					return "nullgroupId";
+				}
 				return groupId;
 			} catch (SAXException | IOException | ParserConfigurationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return "nullprojectPath";
 		
 		
 	}
