@@ -152,6 +152,14 @@ public class MavenProjectImporter {
 	}
 
 	
+	/**
+	 * Scans for maven projects using pom file in
+	 * the defined path.
+	 * @param results
+	 * @param infos
+	 * @param projectName
+	 * @return
+	 */
 	private String findChildMavenProjects(List<MavenProjectInfo> results, Collection<MavenProjectInfo> infos,
 			String projectName) {
 

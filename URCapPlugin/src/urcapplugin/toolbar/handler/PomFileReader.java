@@ -9,9 +9,14 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.core.runtime.IPath;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class PomFileReader {
+
+	String nodeName;
+
 	/**
 	 * This method reads the pom file on a specific path of a project and validate
 	 * if the project is an URCap.
@@ -28,7 +33,11 @@ public class PomFileReader {
 			File file = new File(pomFilePath);
 
 			try {
-				isURCapProject = this.readXMLFile(file, "urcap.install.host") != null;
+				if (this.readXMLFile(file, "urcap.install.host") != null) {
+					isURCapProject = true;
+				} else {
+					isURCapProject = false;
+				}
 			} catch (SAXException | IOException | ParserConfigurationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -37,19 +46,21 @@ public class PomFileReader {
 		return isURCapProject;
 
 	}
-	
+
 	/**
 	 * Get group id of pom file on specified path
+	 * 
 	 * @param projectPath - Path for root of project as String
-	 * @return - Returns the group id of POM file as a String. Null if non was found. 
+	 * @return - Returns the group id of POM file as a String. Null if non was
+	 *         found.
 	 */
 	public String getGroupId(IPath projectPath) {
 		String groupId;
 		if (projectPath != null) {
 			String pomFilePath = projectPath.toString() + "/pom.xml";
-			
+
 			File file = new File(pomFilePath);
-		
+
 			try {
 				groupId = this.readXMLFile(file, "groupId");
 				if (groupId == null) {
@@ -62,31 +73,38 @@ public class PomFileReader {
 			}
 		}
 		return "nullprojectPath";
-		
-		
+
 	}
 
 	/**
 	 * Reads the pom.xml file and validate if a URCap related property exists.
 	 * 
 	 * @param pomFile
-	 * @return true if a URCap related property is defined inside pom.xml.
+	 * @return result if a URCap related property is defined inside pom.xml.
 	 * @throws SAXException
 	 * @throws IOException
 	 * @throws ParserConfigurationException
 	 */
 
-	private String readXMLFile(File pomFile, String tagName) throws SAXException, IOException, ParserConfigurationException {
+	private String readXMLFile(File pomFile, String tagName)
+			throws SAXException, IOException, ParserConfigurationException {
+
+		String result = null;
+
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		Document doc = builder.parse(pomFile);
 
 		doc.getDocumentElement().normalize();
 
-		return doc.getElementsByTagName(tagName).item(0).getTextContent();
-	
+		NodeList nodeList = doc.getElementsByTagName(tagName);
+
+		if (nodeList.getLength() > 0) {
+			result = doc.getElementsByTagName(tagName).item(0).getTextContent();
+		}
+
+		return result;
 
 	}
-	
-	
+
 }
