@@ -64,8 +64,14 @@ public class ConvertToURCapHandler extends AbstractHandler {
 						String[] natures = description.getNatureIds();
 						String[] newNatures = new String[natures.length + 1];
 						System.arraycopy(natures, 0, newNatures, 0, natures.length);
-
-						newNatures[natures.length] = URCapNature.NATURE_ID;
+						
+						
+						//Trying to set URCap nature as the first nature.
+						String copyNature = newNatures[0];
+						newNatures[0] = URCapNature.NATURE_ID;
+						newNatures[natures.length] = copyNature;
+						
+						//newNatures[natures.length] = URCapNature.NATURE_ID;
 
 						// validate the natures
 						IWorkspace workspace = ResourcesPlugin.getWorkspace();
