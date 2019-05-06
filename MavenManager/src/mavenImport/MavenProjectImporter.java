@@ -83,10 +83,12 @@ public class MavenProjectImporter {
 	 * 
 	 * @param path Path of the maven project as String
 	 */
-	public void importProjectAsMavenProject(String path) {
+	public String importProjectAsMavenProject(String path, String name) {
+
+		String resultMessage = "";
 
 		try {
-			this.importProject(path, new NullProgressMonitor());
+			resultMessage = this.importProject(path, name, new NullProgressMonitor());
 
 		} catch (CoreException e) {
 			e.printStackTrace();
@@ -94,18 +96,22 @@ public class MavenProjectImporter {
 			e.printStackTrace();
 		}
 
+		return resultMessage;
+
 	}
 
 	/**
 	 * Imports project from a path. Uses the workspace root and path of project
 	 * 
 	 * @param location
-	 * @param monitor
+	 * @param monitors
 	 * @throws CoreException
 	 * @throws InterruptedException
 	 */
-	private void importProject(String location, IProgressMonitor monitor)
+	private String importProject(String location, String name, IProgressMonitor monitor)
 			throws CoreException, InterruptedException {
+
+		String resultMessage = "";
 
 		MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
 		File root = ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile();
@@ -114,7 +120,9 @@ public class MavenProjectImporter {
 		scanner.run(monitor);
 		List<MavenProjectInfo> projects = scanner.getProjects();
 		List<MavenProjectInfo> mavenProjects = new ArrayList<MavenProjectInfo>();
-		findChildMavenProjects(mavenProjects, projects);
+
+		resultMessage = findChildMavenProjects(mavenProjects, projects, name);
+
 		ProjectImportConfiguration importConfiguration = new ProjectImportConfiguration();
 		IProjectConfigurationManager projectConfigurationManager = MavenPlugin.getProjectConfigurationManager();
 		List<IMavenProjectImportResult> importedprojects = projectConfigurationManager.importProjects(mavenProjects,
@@ -122,39 +130,55 @@ public class MavenProjectImporter {
 
 		IWorkspaceRoot rootworkspace = ResourcesPlugin.getWorkspace().getRoot();
 		Collection<IProject> projectList = new LinkedHashSet<>();
-		Collection<MavenProjectInfo> toImport = new LinkedHashSet<>();
-		// Separate existing projects from new ones
 
 		for (MavenProjectInfo projectInfo : mavenProjects) {
 			File pom = projectInfo.getPomFile();
 			IContainer container = rootworkspace.getContainerForLocation(new Path(pom.getAbsolutePath()));
-			if (container == null) {
-				toImport.add(projectInfo);
-			} else {
+			if (container != null) {
 				project = container.getProject();
-				ProjectNatureHandler handler = new ProjectNatureHandler();
-				handler.setNature(project);
 				project.open(null);
-
+			} else {
+				resultMessage = "No project to import found!";
 			}
-		}
-	}
 
-	
+		}
+
+		return resultMessage;
+
+	}
 
 	public IProject getProject() {
 		return project;
 	}
 
-	private static void findChildMavenProjects(List<MavenProjectInfo> results, Collection<MavenProjectInfo> infos) {
+	
+	/**
+	 * Scans for maven projects using pom file in
+	 * the defined path.
+	 * @param results
+	 * @param infos
+	 * @param projectName
+	 * @return
+	 */
+	private String findChildMavenProjects(List<MavenProjectInfo> results, Collection<MavenProjectInfo> infos,
+			String projectName) {
+
+		String message = "";
+
 		for (MavenProjectInfo info : infos) {
-			results.add(info);
+			if (info.getPomFile().getAbsolutePath().contains(projectName)) {
+				results.add(info);
+				message = "The project: " + projectName + "has been added";
+				Collection<MavenProjectInfo> children = info.getProjects();
 
-			Collection<MavenProjectInfo> children = info.getProjects();
-
-			if (!children.isEmpty()) {
-				findChildMavenProjects(results, children);
+				if (!children.isEmpty()) {
+					findChildMavenProjects(results, children, projectName);
+				}
+			} else {
+				message = "No project to import with the name " + projectName;
 			}
 		}
+
+		return message;
 	}
 }

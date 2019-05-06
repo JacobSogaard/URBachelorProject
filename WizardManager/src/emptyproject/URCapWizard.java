@@ -2,12 +2,14 @@ package emptyproject;
 
 import org.eclipse.core.internal.resources.refresh.win32.Convert;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.handlers.HandlerUtil;
 
 import mavenGenerator.MavenInvokerHandler;
 import mavenImport.MavenProjectImporter;
@@ -48,10 +50,12 @@ public class URCapWizard extends Wizard {
 		shell.setCursor(waitCursor);
 
 		invoker.invokeMavenExecution(this.projectModel); // Generates project with object model made through
-															// NewURCapWizardPage
 
 		MavenProjectImporter importer = new MavenProjectImporter();
-		importer.importProjectAsMavenProject(urcapSetupPage.getProjectModel().getProjectPath());
+		String message = importer.importProjectAsMavenProject(urcapSetupPage.getProjectModel().getProjectPath(),
+				urcapSetupPage.getProjectModel().getProjectArtifactId());
+
+		MessageDialog.openInformation(shell, "Import project message", message);
 
 		shell.setCursor(null);
 		waitCursor.dispose();
