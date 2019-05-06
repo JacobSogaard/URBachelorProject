@@ -94,7 +94,7 @@ public class SetClassesNamePage extends NodeWizard{
 		this.contributionClassName = new Text(container, SWT.BORDER | SWT.SINGLE);
 		createInputForm(this.contributionClassName, this.contributionInputText, this.contributionInputLabel, CONTRIBUTION_INPUT_LABEL, false);
 	
-		this.setClassnamesEnabled(true);
+		this.setClassnamesEnabled(false);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		this.setAllLayout(gd);
 		setControl(container);

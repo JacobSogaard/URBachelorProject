@@ -73,31 +73,13 @@ public class ConvertToURCapHandler extends AbstractHandler {
 						throw new ExecutionException(e.getMessage(), e);
 					}
 				} else {
-					MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "Message",
+					MessageDialog.openWarning(HandlerUtil.getActiveShell(event), "WARNING",
 							"The Project is not an URCap project and therefore it cannot be converted.");
 				}
 			}
 		}
 
 		return Status.OK_STATUS;
-	}
-
-	/**
-	 * Check if the selected project already has an URCap nature.
-	 * 
-	 * @param projectNatures
-	 * @param event
-	 * @return
-	 */
-	private boolean checkURCapNatureAlreadyExists(String[] projectNatures, ExecutionEvent event) {
-
-		for (int i = 0; i < projectNatures.length; i++) {
-			if (projectNatures[i] == URCapNature.NATURE_ID) {
-				return true;
-			}
-		}
-		return false;
-
 	}
 
 }

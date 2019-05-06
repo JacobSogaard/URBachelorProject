@@ -16,8 +16,8 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import Verifier.ProjectSelectionVerifier;
 import projectnature.ProjectNatureHandler;
+import verifier.ProjectSelectionVerifier;
 import wizardmanager.WizardFactory;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
