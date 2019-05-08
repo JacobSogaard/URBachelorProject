@@ -11,8 +11,7 @@ public class ${serviceClassname} implements SwingToolbarService {
 
 	@Override
 	public Icon getIcon() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ImageIcon(getClass().getResource("${icon}"));
 	}
 
 	@Override

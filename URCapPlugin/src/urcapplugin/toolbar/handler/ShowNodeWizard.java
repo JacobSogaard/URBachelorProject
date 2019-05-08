@@ -31,6 +31,7 @@ import org.eclipse.jdt.core.JavaCore;
 public class ShowNodeWizard extends AbstractHandler {
 
 	private ProjectSelectionVerifier projectVerifier = new ProjectSelectionVerifier();
+	private String artifactId = "", path = "";
 
 	public ShowNodeWizard() {
 		// TODO Auto-generated constructor stub
@@ -38,28 +39,38 @@ public class ShowNodeWizard extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		if (this.projectVerifier.selectedProject()) {
+		//if (this.projectVerifier.selectedProject()) {
 			WizardFactory factory = new WizardFactory();
 			Wizard wizard;
 			PomFileReader pomReader = new PomFileReader();
-			
 			String groupId = pomReader.getGroupId(this.projectVerifier.getPath());
+			this.setWizardParameters();
 			
 			try {
-				wizard = factory.getWizard(event.getCommand().getDescription(), this.projectVerifier.getProjectArtifactId(),
-						this.projectVerifier.getPath().toString(), groupId);
+				wizard = factory.getWizard(event.getCommand().getDescription(), this.artifactId,
+						this.path, groupId);
 				WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
 				dialog.setHelpAvailable(true);
 				dialog.open();
 
 			} catch (NullPointerException | NotDefinedException ex) {
-				System.err.println("No sutible wizard class found");
+				System.err.println("No sutible wizard class found: " + ex);
 			}
-		} else {
-			MessageDialog.openError(HandlerUtil.getActiveShell(event), "WARNING!", "This is not an URCap project. Please convert it to a URCap project by right-click -> configure -> convert to URCap");
-		}
+		//} else {
+		//	MessageDialog.openError(HandlerUtil.getActiveShell(event), "WARNING!", "This is not an URCap project. Please convert it to a URCap project by right-click -> configure -> convert to URCap");
+		//}
 
 		return null;
+	}
+	
+	private void setWizardParameters() {
+		if (this.projectVerifier.getProjectArtifactId() != null) {
+			this.artifactId = this.projectVerifier.getProjectArtifactId();
+		}
+		
+		if (this.projectVerifier.getPath() != null) {
+			this.path = this.projectVerifier.getPath().toString();
+		}
 	}
 
 

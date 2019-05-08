@@ -17,5 +17,6 @@
   <requiredProperties>
     <requiredProperty key="serviceClassname" />
     <requiredProperty key="contributionClassname" />
+    <requiredProperty key="icon"/>
   </requiredProperties>
 </archetype-descriptor>
