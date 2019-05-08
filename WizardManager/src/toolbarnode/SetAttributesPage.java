@@ -87,8 +87,8 @@ public class SetAttributesPage extends WizardPage {
 	private void browseFile() {
 		FileDialog fd = new FileDialog(container.getShell(), SWT.OPEN);
 		fd.setText("Open");
-		//String[] filterExt = { "png" };
-		//fd.setFilterExtensions(filterExt);
+		String[] filterExt = { "*.png", "*.tif", "*.jpg", "*.gif", "*.jpeg",  };
+		fd.setFilterExtensions(filterExt);
 		
 		try {
 			this.browseText.setText(fd.open());
