@@ -11,6 +11,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -34,7 +35,7 @@ public class ShowNodeWizard extends AbstractHandler {
 	private String artifactId = "", path = "";
 
 	public ShowNodeWizard() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override
@@ -56,8 +57,10 @@ public class ShowNodeWizard extends AbstractHandler {
 			} catch (NullPointerException | NotDefinedException ex) {
 				System.err.println("No sutible wizard class found: " + ex);
 			}
+
 		} else {
-			MessageDialog.openError(HandlerUtil.getActiveShell(event), "WARNING!", "This is not an URCap project. Please convert it to a URCap project by right-click -> configure -> convert to URCap");
+			MessageDialog.openError(HandlerUtil.getActiveShell(event), "WARNING!",
+					"This is not an URCap project. Please convert it to a URCap project by right-click -> configure -> convert to URCap");
 		}
 
 		return null;
@@ -72,7 +75,5 @@ public class ShowNodeWizard extends AbstractHandler {
 			this.path = this.projectVerifier.getPath().toString();
 		}
 	}
-
-
 
 }

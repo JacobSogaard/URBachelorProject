@@ -64,7 +64,7 @@ public class ConvertToURCapHandler extends AbstractHandler {
 							description.setNatureIds(newNatures);
 							project.setDescription(description, null);
 							MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "Message",
-									"Project was successfully converted to a URCap project.");
+									"Project was successfully converted to a URCap project." + "\n" + "Please right-click the project and Refresh the project to see result.");
 
 						}
 						return status;
