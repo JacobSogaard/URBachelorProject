@@ -4,21 +4,16 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class DeployToVMWizardPage1 extends WizardPage {
+public class DeployToVMWizardPage extends WizardPage {
 
 	private Label hostLabel, usernameLabel, passwordLabel;
 	private Text hostText, usernameText, passwordText;
-	private Button browseBTN;
 	private Composite container;
 	private GridLayout layout;
 	private final String HOST_TEXT = "", USERNAME_TEXT = "root", PASSWORD_TEXT = "easybot";
@@ -26,7 +21,7 @@ public class DeployToVMWizardPage1 extends WizardPage {
 	private String usernameLabelText = "Username";
 	private String passwordLabelText = "Password";
 
-	protected DeployToVMWizardPage1() {
+	protected DeployToVMWizardPage() {
 		super("Deploy to URSim on VM");
 		setTitle("Deploy to VM");
 		setDescription("Set information for deploying to URSim on VM");
@@ -101,20 +96,6 @@ public class DeployToVMWizardPage1 extends WizardPage {
 		this.passwordText.setLayoutData(gd);
 		setControl(container);
 
-	}
-	
-	private void browseFile() {
-		DirectoryDialog fd = new DirectoryDialog(container.getShell(), SWT.OPEN);
-		fd.setText("Open");
-		fd.setFilterPath("");
-		// String[] filterExt = { "*.*" };
-		// fd.setFilterExtensions(filterExt);
-		
-		try {
-			this.passwordText.setText(fd.open());
-		} catch (IllegalArgumentException ex) {
-			return;
-		}
 	}
 	
 	protected String getHost() {

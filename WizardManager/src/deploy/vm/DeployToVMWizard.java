@@ -1,18 +1,8 @@
 package deploy.vm;
 
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.dialogs.DialogSettings;
-import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Cursor;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 
-import deployModels.DeployToRobot;
 import deployModels.DeployURSimVM;
 import deployModels.IDeploy;
 
@@ -24,13 +14,13 @@ import deployModels.IDeploy;
  *
  */
 public class DeployToVMWizard extends Wizard {
-	private DeployToVMWizardPage1 page1;
-	private String path, artifactID;
+	private DeployToVMWizardPage deployVMWizard;
+	private String projectPath, artifactID;
 
 	public DeployToVMWizard(String path, String projectArtifactId) {
 		super();
 		setNeedsProgressMonitor(true);
-		this.path = path;
+		this.projectPath = path;
 		this.artifactID = projectArtifactId;
 	}
 
@@ -39,8 +29,8 @@ public class DeployToVMWizard extends Wizard {
 	 */
 	@Override
 	public void addPages() {
-		page1 = new DeployToVMWizardPage1();
-		addPage(page1);
+		deployVMWizard = new DeployToVMWizardPage();
+		addPage(deployVMWizard);
 	}
 
 	/**
@@ -49,8 +39,8 @@ public class DeployToVMWizard extends Wizard {
 	 */
 	@Override
 	public boolean performFinish() {
-		IDeploy model = new DeployURSimVM(this.page1.getIp(), this.page1.getUsername(), this.page1.getPassword(),
-				this.path, this.artifactID);
+		IDeploy model = new DeployURSimVM(this.deployVMWizard.getIp(), this.deployVMWizard.getUsername(), this.deployVMWizard.getPassword(),
+				this.projectPath, this.artifactID);
 
 		String resultMessage = model.deploy();
 

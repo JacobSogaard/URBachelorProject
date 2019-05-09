@@ -9,13 +9,12 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.core.runtime.IPath;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class PomFileReader {
 
-	String nodeName;
+	private String nodeName;
 
 	/**
 	 * This method reads the pom file on a specific path of a project and validate

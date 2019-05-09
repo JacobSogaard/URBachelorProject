@@ -1,15 +1,7 @@
 package toolbarnode;
 
-import java.util.Date;
-
-import org.eclipse.osgi.service.datalocation.Location;
-
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.jface.dialogs.DialogSettings;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -17,10 +9,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 
 public class SetAttributesPage extends WizardPage {
 
@@ -64,7 +54,7 @@ public class SetAttributesPage extends WizardPage {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				browseFile();
-				setPageComplete(true);
+				setPageComplete(isAllFieldsSet());
 
 			}
 

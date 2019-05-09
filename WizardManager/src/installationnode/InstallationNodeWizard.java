@@ -1,10 +1,7 @@
 package installationnode;
 
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
@@ -28,13 +25,13 @@ public class InstallationNodeWizard extends Wizard {
 	private SetClassesNamePage setClassesPage;
 	private SetAttributesPage setAttributesPage;
 	private IURCapMaven nodeModel;
-	private String artifactId, path, groupId;
+	private String artifactId, projectPath, groupId;
 	private IMavenHandler mavenHandler;
 
 	public InstallationNodeWizard(String artifactId, String path, String groupId) {
 		super();
 		this.artifactId = artifactId;
-		this.path = path;
+		this.projectPath = path;
 		this.groupId = groupId;
 		this.mavenHandler = new MavenInvokerHandler();
 		setNeedsProgressMonitor(true);
@@ -45,7 +42,7 @@ public class InstallationNodeWizard extends Wizard {
 	 */
 	@Override
 	public void addPages() {
-		this.setClassesPage = new SetClassesNamePage(this.artifactId); // TODO Remember to remove path here!
+		this.setClassesPage = new SetClassesNamePage(this.artifactId); 
 		this.setAttributesPage = new SetAttributesPage();
 		addPage(this.setClassesPage);
 		addPage(this.setAttributesPage);
@@ -57,7 +54,6 @@ public class InstallationNodeWizard extends Wizard {
 	 */
 	@Override
 	public boolean performFinish() {
-		// this.setAttributesPage.setGeneratingLabel(); //does not work
 
 		String serviceClassName = this.setClassesPage.getServiceClassname();
 		String viewClassName = this.setClassesPage.getViewClassname();
@@ -67,8 +63,8 @@ public class InstallationNodeWizard extends Wizard {
 		MavenModel mavenModel = new InstallationNodeModel(serviceClassName, contributionClassName, viewClassName,
 				nodeTitle);
 
-		mavenModel.setProjectPath(this.path);
-		mavenModel.setProjectGroupId(this.groupId); // TODO change this to real group id from POM
+		mavenModel.setProjectPath(this.projectPath);
+		mavenModel.setProjectGroupId(this.groupId); 
 		mavenModel.setProjectArtifactId(this.artifactId);
 		mavenModel.setProjectVersion("1.0");
 
@@ -80,7 +76,7 @@ public class InstallationNodeWizard extends Wizard {
 		Shell shell = getShell();
 		shell.setCursor(waitCursor);
 
-		//Executes the maven command and checks whether it has been a succes or not.
+		//Executes the maven command and checks whether it has been a success or not.
 		String invokeMessage = mavenHandler.invokeGenerator(this.nodeModel);
 		if (invokeMessage != "") {
 			MessageDialog.openWarning(shell, "Maven Execution Message", invokeMessage);

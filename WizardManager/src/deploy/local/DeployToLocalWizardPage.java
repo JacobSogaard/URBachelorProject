@@ -1,15 +1,7 @@
 package deploy.local;
 
-import java.util.Date;
-
-import org.eclipse.osgi.service.datalocation.Location;
-
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.jface.dialogs.DialogSettings;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -19,9 +11,8 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 
-public class DeployToLocalWizardPage1 extends WizardPage {
+public class DeployToLocalWizardPage extends WizardPage {
 
 	private Label browseLabel;
 	private Combo browseText;
@@ -29,14 +20,14 @@ public class DeployToLocalWizardPage1 extends WizardPage {
 	private Composite container;
 	private GridLayout layout;
 	private String browseLabelText = "Path to URSim";
-	private DialogSettings dialogSettings;
 
-	protected DeployToLocalWizardPage1() {
+
+	protected DeployToLocalWizardPage() {
 		super("Deploy to local wizardpage");
 		setTitle("Deploy to local URSim");
 		setDescription("Set path for local URSim");
 		setPageComplete(false);
-		this.dialogSettings = new DialogSettings("vmlocations");
+
 		
 	}
 
@@ -88,8 +79,6 @@ public class DeployToLocalWizardPage1 extends WizardPage {
 		DirectoryDialog fd = new DirectoryDialog(container.getShell(), SWT.OPEN);
 		fd.setText("Open");
 		fd.setFilterPath("");
-		// String[] filterExt = { "*.*" };
-		// fd.setFilterExtensions(filterExt);
 		
 		try {
 			this.browseText.setText(fd.open());
@@ -98,16 +87,12 @@ public class DeployToLocalWizardPage1 extends WizardPage {
 		}
 	}
 	
-	public String getURSimPath() {
+	protected String getURSimPath() {
 		String windowPath = this.browseText.getText();
 		windowPath.replace("\\", "\\\\");
 		return windowPath;
 	}
 	
-	public void storeVMLocation() {
-		
-		//dialogSettings.put("vmlocation", this.dialog);
-	}
 
 	private boolean isAllFieldsSet() {
 		return true;

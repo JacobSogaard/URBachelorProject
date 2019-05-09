@@ -1,37 +1,28 @@
 package emptyproject;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.handlers.HandlerUtil;
 
-import modelClasses.*;
+import modelClasses.MavenModel;
+import modelClasses.URCapModel;
 import wizardmanager.NodeWizard;
 
 public class SetupURCapPage extends NodeWizard {
 	private Text groupIdText, artifactIdText, directoryText, versionText;
-	private Composite container, browseContainer;
+	private Composite container;
 	private String workspacePath, groupIdToolTip, artifactIdToolTip, apiVersionToolTip, versionToolTip;
 	private final String[] API_VERSIONS = { "1.0.0", "1.1.0", "1.2.0", "1.3.0", "1.4.0", "1.5.0", "1.6.0"};
 	private Combo comboDropDownApiVersion;
@@ -77,7 +68,6 @@ public class SetupURCapPage extends NodeWizard {
 	public void createControl(Composite parent) {
 		this.workspacePath = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString();
 		container = new Composite(parent, SWT.NONE);
-		browseContainer = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
 		container.setLayout(layout);
 		layout.numColumns = 3;
@@ -169,17 +159,24 @@ public class SetupURCapPage extends NodeWizard {
 			}
 		});
 
-		// Sets the grid properly so textfilds fill the page
+		
+		setGridData();
+		// Required to avoid an error in the system
+		setControl(container);
+		setPageComplete(false);
+
+	}
+
+	/**
+	 * Sets the grid properly so text fields fill the page.
+	 */
+	private void setGridData() {
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		groupIdText.setLayoutData(gd);
 		artifactIdText.setLayoutData(gd);
 		comboDropDownApiVersion.setLayoutData(gd);
 		directoryText.setLayoutData(gd);
 		versionText.setLayoutData(gd);
-		// Required to avoid an error in the system
-		setControl(container);
-		setPageComplete(false);
-
 	}
 
 	/**
@@ -213,7 +210,7 @@ public class SetupURCapPage extends NodeWizard {
 	}
 
 	/**
-	 * Empty label used to counter the 3 collumns needed for the browse location
+	 * Empty label used to counter the 3 columns needed for the browse location
 	 * part of wizard, so the part with only 2 columns have their own line
 	 */
 	private void emptyLabel() {
@@ -231,8 +228,6 @@ public class SetupURCapPage extends NodeWizard {
 		DirectoryDialog fd = new DirectoryDialog(container.getShell(), SWT.OPEN);
 		fd.setText("Open");
 		fd.setFilterPath("");
-		// String[] filterExt = { "*.*" };
-		// fd.setFilterExtensions(filterExt);
 		String selected = fd.open();
 		this.directoryText.setText(selected);
 
@@ -266,12 +261,6 @@ public class SetupURCapPage extends NodeWizard {
 	
 
 	public IWizardPage getNextPage() {
-		Display.getDefault().asyncExec(new Runnable() {
-			public void run() {
-				// ... do any work that updates the screen ...
-			}
-		});
-
 		return super.getNextPage();
 	}
 

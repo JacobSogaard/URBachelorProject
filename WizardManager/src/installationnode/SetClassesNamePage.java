@@ -1,7 +1,5 @@
 package installationnode;
 
-import java.util.*;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.KeyEvent;
@@ -43,7 +41,6 @@ public class SetClassesNamePage extends NodeWizard {
 		super("Set Installation Node Classes Page");
 		setTitle("Setup Installation Node Classes");
 		setDescription("Set names of classes in installation node (Standard names recommended)");
-		//setPageComplete(true);
 		this.artifactId = artifactId;
 	}
 

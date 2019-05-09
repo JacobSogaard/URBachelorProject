@@ -1,10 +1,7 @@
 package toolbarnode;
 
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
@@ -14,9 +11,6 @@ import mavenGenerator.IMavenHandler;
 import mavenGenerator.MavenInvokerHandler;
 import modelClasses.IURCapMaven;
 import modelClasses.MavenModel;
-import modelClasses.URCapProjectModel;
-import modelClasses.programnode.ProgramNodeModel;
-import modelClasses.programnode.ProgramNodeProjectModel;
 import modelClasses.toolbarnode.ToolbarNodeModel;
 import modelClasses.toolbarnode.ToolbarNodeProjectModel;
 
@@ -32,14 +26,14 @@ public class ToolbarNodeWizard extends Wizard {
 	private SetAttributesPage setAttributesPage;
 
 	private IURCapMaven nodeModel;
-	private String artifactId, groupId, path;
+	private String artifactId, groupId, projectPath;
 	private IMavenHandler mavenHandler;
 
 	public ToolbarNodeWizard(String artifactId, String path, String groupId) {
 		super();
 		setNeedsProgressMonitor(true);
 		this.artifactId = artifactId;
-		this.path = path;
+		this.projectPath = path;
 		this.groupId = groupId;
 		this.mavenHandler = new MavenInvokerHandler();
 
@@ -66,11 +60,9 @@ public class ToolbarNodeWizard extends Wizard {
 		String contributionClassName = this.setClassesPage.getContributionClassname();
 		String iconPath = this.setAttributesPage.getIconPath();
 		iconPath = iconPath.replace("\\", "\\\\");
-		// boolean setChildrenAllowed = this.setAttributesPage.isChildrenAllowed();
-		// //TODO create method is attributes page
 
 		MavenModel mavenModel = new ToolbarNodeModel(iconPath, serviceClassName, contributionClassName);
-		mavenModel.setProjectPath(this.path);
+		mavenModel.setProjectPath(this.projectPath);
 		mavenModel.setProjectGroupId(this.groupId);
 		mavenModel.setProjectArtifactId(this.artifactId);
 		mavenModel.setProjectVersion("1.0");

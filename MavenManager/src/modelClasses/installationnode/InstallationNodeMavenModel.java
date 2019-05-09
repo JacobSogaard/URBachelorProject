@@ -4,7 +4,6 @@ import java.util.Properties;
 
 import modelClasses.IURCapMaven;
 import modelClasses.MavenModel;
-import modelClasses.URCapProjectModel;
 
 
 
@@ -39,7 +38,6 @@ public class InstallationNodeMavenModel implements IURCapMaven {
 		this.installationNodeModel.setArchetypeGroupId(ARCHETYPE_GROUPID);
 		this.installationNodeModel.setArchetypeArtifactId(ARCHETYPE_ARTIFACTID);
 		this.installationNodeModel.setArchetypeVersion(ARCHETYPE_VERSION);
-		this.installationNodeModel.setArchetypeVersionAPI("1.5.0");
 		this.installationNodeModel.setMavenGoal("archetype:generate");
 		this.setProperties();
 

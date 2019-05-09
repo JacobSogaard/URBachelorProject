@@ -1,17 +1,9 @@
 package deploy.robot;
 
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Cursor;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 
 import deployModels.DeployToRobot;
-import deployModels.DeployURSimLocal;
 import deployModels.IDeploy;
 
 /**
@@ -22,13 +14,13 @@ import deployModels.IDeploy;
  *
  */
 public class DeployToRobotWizard extends Wizard {
-	private DeployToRobotWizardPage1 page1;
-	private String path, artifactID;
+	private DeployToRobotWizardPage deployRobotWizard;
+	private String projectPath, artifactID;
 
 	public DeployToRobotWizard(String path, String projectArtifactId) {
 		super();
 		setNeedsProgressMonitor(true);
-		this.path = path;
+		this.projectPath = path;
 		this.artifactID = projectArtifactId;
 	}
 
@@ -37,8 +29,8 @@ public class DeployToRobotWizard extends Wizard {
 	 */
 	@Override
 	public void addPages() {
-		page1 = new DeployToRobotWizardPage1();
-		addPage(page1);
+		deployRobotWizard = new DeployToRobotWizardPage();
+		addPage(deployRobotWizard);
 	}
 
 	/**
@@ -47,8 +39,8 @@ public class DeployToRobotWizard extends Wizard {
 	 */
 	@Override
 	public boolean performFinish() {
-		IDeploy model = new DeployToRobot(this.page1.getIp(), this.page1.getUsername(), this.page1.getPassword(),
-				this.path, this.artifactID);
+		IDeploy model = new DeployToRobot(this.deployRobotWizard.getIp(), this.deployRobotWizard.getUsername(), this.deployRobotWizard.getPassword(),
+				this.projectPath, this.artifactID);
 		String resultMessage = model.deploy();
 
 		MessageDialog.openInformation(this.getShell(), "Deploy Message", resultMessage);

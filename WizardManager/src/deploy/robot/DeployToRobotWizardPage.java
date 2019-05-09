@@ -10,7 +10,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class DeployToRobotWizardPage1 extends WizardPage {
+public class DeployToRobotWizardPage extends WizardPage {
 
 	private Label hostLabel, usernameLabel, passwordLabel;
 	private Text hostText, usernameText, passwordText;
@@ -21,7 +21,7 @@ public class DeployToRobotWizardPage1 extends WizardPage {
 	private String usernameLabelText = "Username";
 	private String passwordLabelText = "Password";
 
-	protected DeployToRobotWizardPage1() {
+	protected DeployToRobotWizardPage() {
 		super("Deploy to robot wizard page");
 		setTitle("Deploy to robot");
 		setDescription("Set information for deploying to UR robot");
@@ -74,8 +74,8 @@ public class DeployToRobotWizardPage1 extends WizardPage {
 		// Sets username input
 		this.passwordLabel = new Label(container, SWT.NONE);
 		this.passwordLabel.setText(this.passwordLabelText);
-		this.passwordText = new Text(container, SWT.BORDER | SWT.PASSWORD);
-		this.passwordText.setText(this.USERNAME_TEXT);
+		this.passwordText = new Text(container, SWT.BORDER | SWT.NONE);
+		this.passwordText.setText(this.PASSWORD_TEXT);
 		this.usernameText.addKeyListener(new KeyListener() {
 
 			@Override

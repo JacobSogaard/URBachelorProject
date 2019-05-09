@@ -4,17 +4,10 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.common.NotDefinedException;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Plugin;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.osgi.framework.BundleContext;
 
-import deployModels.*;
-import emptyproject.URCapWizard;
 import wizardmanager.IWizardFactory;
 import wizardmanager.WizardFactory;
 

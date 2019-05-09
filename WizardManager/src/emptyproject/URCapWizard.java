@@ -1,20 +1,16 @@
 package emptyproject;
 
-import org.eclipse.core.internal.resources.refresh.win32.Convert;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.handlers.HandlerUtil;
 
 import mavenGenerator.IMavenHandler;
 import mavenGenerator.MavenInvokerHandler;
-import mavenImport.MavenProjectImporter;
-import modelClasses.*;
+import modelClasses.IURCapMaven;
+import modelClasses.URCapProjectModel;
 
 /**
  * Class which handles pages in wizard. Each page should have it's own class and
@@ -29,8 +25,6 @@ public class URCapWizard extends Wizard {
 	protected SetupURCapPage urcapSetupPage;
 	private IURCapMaven projectModel;
 	private IMavenHandler mavenHandler;
-	private static Cursor cursor = null;
-	// protected MyPageTwo two;
 
 	public URCapWizard() {
 		super();
