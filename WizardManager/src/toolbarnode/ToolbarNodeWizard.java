@@ -2,6 +2,7 @@ package toolbarnode;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
@@ -61,6 +62,7 @@ public class ToolbarNodeWizard extends Wizard{
 		String serviceClassName = this.setClassesPage.getServiceClassname();
 		String contributionClassName = this.setClassesPage.getContributionClassname();
 		String iconPath = this.setAttributesPage.getIconPath();
+		iconPath = iconPath.replace("\\", "\\\\");
 		//boolean setChildrenAllowed = this.setAttributesPage.isChildrenAllowed(); //TODO create method is attributes page
 		
 		
@@ -83,7 +85,13 @@ public class ToolbarNodeWizard extends Wizard{
 		Shell shell = getShell();
 		shell.setCursor(waitCursor);
 		
-		prgen.invokeMavenExecution(this.nodeModel);	
+		//Executes the maven command and checks whether it has been a succes or not.
+		String invokeMessage= prgen.invokeMavenExecution(this.nodeModel);
+		if(invokeMessage != "") {
+		MessageDialog.openWarning(shell, "Maven Execution Message", invokeMessage);
+		}else {
+			MessageDialog.openInformation(shell, "Toolbar node message", "The toolbar node has succesfully been added to the project!" + "\n" + "Please right-click the project and Refresh the project to see result.");
+		}
 		
 		shell.setCursor(null);
 		waitCursor.dispose();

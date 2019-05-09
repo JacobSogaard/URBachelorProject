@@ -99,7 +99,9 @@ public class DeployToLocalWizardPage1 extends WizardPage {
 	}
 	
 	public String getURSimPath() {
-		return this.browseText.getText();
+		String windowPath = this.browseText.getText();
+		windowPath.replace("\\", "\\\\");
+		return windowPath;
 	}
 	
 	public void storeVMLocation() {

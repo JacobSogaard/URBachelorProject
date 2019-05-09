@@ -48,6 +48,7 @@ public class DeployToLocalWizard extends Wizard {
 	 */
 	@Override
 	public boolean performFinish() {
+		
 		IDeploy model = new DeployURSimLocal(this.page1.getURSimPath(), this.path, this.artifactID);
 		String resultMessage = model.deploy();
 

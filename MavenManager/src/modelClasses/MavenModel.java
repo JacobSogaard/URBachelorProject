@@ -77,6 +77,7 @@ public abstract class MavenModel {
 	}
 
 	public String getProjectPath() {
+		projectPath.replace("\\", "\\\\");
 		return projectPath;
 	}
 
