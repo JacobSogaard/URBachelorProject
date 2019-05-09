@@ -101,6 +101,7 @@ public class PomFileReader {
 
 		if (nodeList.getLength() > 0) {
 			result = doc.getElementsByTagName(tagName).item(0).getTextContent();
+
 		}
 
 		return result;

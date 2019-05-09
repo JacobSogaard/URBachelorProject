@@ -64,7 +64,7 @@ public class DeployToLocalWizardPage1 extends WizardPage {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				browseFile();
-
+				setPageComplete(isAllFieldsSet());
 			}
 
 			@Override

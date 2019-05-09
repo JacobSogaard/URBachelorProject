@@ -8,15 +8,16 @@ import modelClasses.URCapProjectModel;
 
 public class DeployURSimVM implements IDeploy {
 
-	private String ipaddress, username, password, path, goal, projectPath;
+	private String ipaddress, username, password, path, goal, projectPath, artifactID;
 	private Properties properties;
 	private static final String GOAL = "install -P ursimvm";
 	
-	public DeployURSimVM(String ipaddress, String username, String password, String projectPath) {
+	public DeployURSimVM(String ipaddress, String username, String password, String projectPath, String artifactID) {
 		this.ipaddress = ipaddress;
 		this.username = username;
 		this.password = password;
 		this.projectPath = projectPath;
+		this.artifactID = artifactID;
 		this.setProperties();
 	}
 	
@@ -51,10 +52,11 @@ public class DeployURSimVM implements IDeploy {
 	}
 
 	@Override
-	public void deploy() {
+	public String deploy() {
 		MavenInvokerHandler invoker = new MavenInvokerHandler();
-		invoker.invokeMavenExecution(this);
+		String message = invoker.invokeMavenExecutionDeploy(this,this.artifactID);
 		
+		return message;
 	}
 	
 

@@ -36,11 +36,11 @@ public class WizardFactory {
 			// TODO Toolbar node not yet implemented
 			return null;
 		case "DeployToRobot":
-			return new DeployToRobotWizard(projectPath);
+			return new DeployToRobotWizard(projectPath,projectArtifactId);
 		case "DeployLocal":
-			return new DeployToLocalWizard(projectPath);
+			return new DeployToLocalWizard(projectPath,projectArtifactId);
 		case "DeployToVM":
-			return new DeployToVMWizard(projectPath);
+			return new DeployToVMWizard(projectPath,projectArtifactId);
 		default:
 			return null;
 		}

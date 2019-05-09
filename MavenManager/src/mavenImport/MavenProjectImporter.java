@@ -138,7 +138,7 @@ public class MavenProjectImporter {
 				project = container.getProject();
 				project.open(null);
 			} else {
-				resultMessage = "No project to import found!";
+				resultMessage = "Found no project to import";
 			}
 
 		}
@@ -168,15 +168,13 @@ public class MavenProjectImporter {
 		for (MavenProjectInfo info : infos) {
 			if (info.getPomFile().getAbsolutePath().contains(projectName)) {
 				results.add(info);
-				message = "The project: " + projectName + "has been added";
+				message = "The project: " + projectName + " has been added to your package explorer";
 				Collection<MavenProjectInfo> children = info.getProjects();
 
 				if (!children.isEmpty()) {
 					findChildMavenProjects(results, children, projectName);
 				}
-			} else {
-				message = "No project to import with the name " + projectName;
-			}
+			} 
 		}
 
 		return message;

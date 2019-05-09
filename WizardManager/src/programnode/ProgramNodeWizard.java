@@ -2,6 +2,7 @@ package programnode;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
@@ -75,15 +76,18 @@ public class ProgramNodeWizard extends Wizard{
 		//Generate the program node classes using the program node model.
 		MavenInvokerHandler prgen = new MavenInvokerHandler();
 		
-		
-		
-		
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
 		Shell shell = getShell();
 		shell.setCursor(waitCursor);
 		
-		prgen.invokeMavenExecution(this.nodeModel);	
+		//Executes the maven command and checks whether it has been a succes or not.
+		String invokeMessage= prgen.invokeMavenExecution(this.nodeModel);
+		if(invokeMessage != "") {
+		MessageDialog.openWarning(shell, "Maven Execution Message", invokeMessage);
+		}else {
+			MessageDialog.openInformation(shell, "Program node message", "The program node has succesfully been added to the project!" + "\n" + "Please right-click the project and Refresh the project to see result.");
+		}
 		
 		shell.setCursor(null);
 		waitCursor.dispose();
