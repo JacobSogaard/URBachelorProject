@@ -8,6 +8,7 @@ import org.eclipse.jface.wizard.Wizard;
 import deploy.local.DeployToLocalWizard;
 import deploy.robot.DeployToRobotWizard;
 import deploy.vm.DeployToVMWizard;
+import emptyproject.URCapWizard;
 import installationnode.InstallationNodeWizard;
 
 
@@ -20,15 +21,18 @@ import installationnode.InstallationNodeWizard;
  * @author jacob
  *
  */
-public class WizardFactory {
+public class WizardFactory implements IWizardFactory {
 	/**
 	 * Get wizard of specified string type. Types a set as the description on the extension point command. Ex: "ProgramNode" for the program node menu item
 	 * Remember to null check when calling the method, since default return is null. 
 	 * @param wizardType
 	 * @return - New wizard of the specified wizard. If no wizard type match, return null.
 	 */
+	@Override
 	public Wizard getWizard(String wizardType, String projectArtifactId, String projectPath, String groupId) {
 		switch (wizardType) {
+		case "EmptyProject":
+			return new URCapWizard();
 		case "ProgramNode":
 			return new ProgramNodeWizard(projectArtifactId, projectPath, groupId);
 		case "InstallationNode":

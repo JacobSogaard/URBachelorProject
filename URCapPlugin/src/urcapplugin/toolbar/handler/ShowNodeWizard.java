@@ -19,6 +19,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 import projectnature.ProjectNatureHandler;
 import verifier.ProjectSelectionVerifier;
+import wizardmanager.IWizardFactory;
 import wizardmanager.WizardFactory;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -41,7 +42,7 @@ public class ShowNodeWizard extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		if (this.projectVerifier.selectedProject()) {
-			WizardFactory factory = new WizardFactory();
+			IWizardFactory factory = new WizardFactory();
 			Wizard wizard;
 			PomFileReader pomReader = new PomFileReader();
 			String groupId = pomReader.getGroupId(this.projectVerifier.getPath());
