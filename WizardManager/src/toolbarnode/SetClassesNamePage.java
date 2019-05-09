@@ -113,8 +113,8 @@ public class SetClassesNamePage extends NodeWizard{
 	 */
 	private void setInputFieldsText() {
 		this.nodeNameText = this.artifactId;
-		this.serviceInputText = this.artifactId + "ProgramNodeService";
-		this.contributionInputText = this.artifactId + "ProgramNodeContribution";
+		this.serviceInputText = this.artifactId + "ToolbarNodeService";
+		this.contributionInputText = this.artifactId + "ToolbarNodeContribution";
 	}
 	
 	private void setClassnamesEnabled(boolean enabled) {
