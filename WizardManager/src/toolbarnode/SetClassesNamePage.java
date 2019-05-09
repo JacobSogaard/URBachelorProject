@@ -65,8 +65,8 @@ public class SetClassesNamePage extends NodeWizard{
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				serviceClassName.setText(nodeName.getText() + "ProgramNodeService");
-				contributionClassName.setText(nodeName.getText() + "ProgramNodeContribution");
+				serviceClassName.setText(nodeName.getText() + "ToolbarNodeService");
+				contributionClassName.setText(nodeName.getText() + "ToolbarNodeContribution");
 				canFlip = verifyInput(nodeName.getText()); 
 				getContainer().updateButtons();
 			}

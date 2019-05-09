@@ -39,7 +39,7 @@ public class ShowNodeWizard extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		//if (this.projectVerifier.selectedProject()) {
+		if (this.projectVerifier.selectedProject()) {
 			WizardFactory factory = new WizardFactory();
 			Wizard wizard;
 			PomFileReader pomReader = new PomFileReader();
@@ -56,9 +56,9 @@ public class ShowNodeWizard extends AbstractHandler {
 			} catch (NullPointerException | NotDefinedException ex) {
 				System.err.println("No sutible wizard class found: " + ex);
 			}
-		//} else {
-		//	MessageDialog.openError(HandlerUtil.getActiveShell(event), "WARNING!", "This is not an URCap project. Please convert it to a URCap project by right-click -> configure -> convert to URCap");
-		//}
+		} else {
+			MessageDialog.openError(HandlerUtil.getActiveShell(event), "WARNING!", "This is not an URCap project. Please convert it to a URCap project by right-click -> configure -> convert to URCap");
+		}
 
 		return null;
 	}

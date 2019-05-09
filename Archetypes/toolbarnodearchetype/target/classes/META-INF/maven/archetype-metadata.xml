@@ -15,8 +15,8 @@
     </fileSet>   
   </fileSets>
   <requiredProperties>
-    <requiredProperty key="serviceClassname" />
-    <requiredProperty key="contributionClassname" />
+    <requiredProperty key="serviceClassName" />
+    <requiredProperty key="contributionClassName" />
     <requiredProperty key="icon"/>
   </requiredProperties>
 </archetype-descriptor>

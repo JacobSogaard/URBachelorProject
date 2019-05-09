@@ -64,6 +64,7 @@ public class SetAttributesPage extends WizardPage {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				browseFile();
+				setPageComplete(true);
 
 			}
 
@@ -97,13 +98,8 @@ public class SetAttributesPage extends WizardPage {
 		}
 	}
 	
-	public String getURSimPath() {
+	public String getIconPath() {
 		return this.browseText.getText();
-	}
-	
-	public void storeVMLocation() {
-		
-		//dialogSettings.put("vmlocation", this.dialog);
 	}
 
 	private boolean isAllFieldsSet() {

@@ -28,7 +28,6 @@ public class WizardFactory {
 	 * @return - New wizard of the specified wizard. If no wizard type match, return null.
 	 */
 	public Wizard getWizard(String wizardType, String projectArtifactId, String projectPath, String groupId) {
-		System.out.println("WIZARD: " + wizardType);
 		switch (wizardType) {
 		case "ProgramNode":
 			return new ProgramNodeWizard(projectArtifactId, projectPath, groupId);

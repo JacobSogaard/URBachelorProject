@@ -15,6 +15,8 @@ import modelClasses.MavenModel;
 import modelClasses.URCapProjectModel;
 import modelClasses.programnode.ProgramNodeModel;
 import modelClasses.programnode.ProgramNodeProjectModel;
+import modelClasses.toolbarnode.ToolbarNodeModel;
+import modelClasses.toolbarnode.ToolbarNodeProjectModel;
 
 /**
  * Sets up the wizard for program node installation
@@ -56,39 +58,36 @@ public class ToolbarNodeWizard extends Wizard{
 	 */
 	@Override
 	public boolean performFinish() {
-		//this.setAttributesPage.setGeneratingLabel(); //does not work
-//		String serviceClassName = this.setClassesPage.getServiceClassname();
-//		String viewClassName = this.setClassesPage.getViewClassname();
-//		String contributionClassName = this.setClassesPage.getContributionClassname();
-//		String nodeId = this.setAttributesPage.getNodeId();
-//		String nodeTitle = this.setAttributesPage.getNodeTitle();
-//		//boolean setChildrenAllowed = this.setAttributesPage.isChildrenAllowed(); //TODO create method is attributes page
-//		boolean setChildrenAllowed = true;
-//		
-//		MavenModel mavenModel = new ProgramNodeModel(nodeTitle, nodeId, setChildrenAllowed, serviceClassName, contributionClassName, viewClassName);
-//		mavenModel.setProjectPath(this.path);
-//		mavenModel.setProjectGroupId(this.groupId);
-//		mavenModel.setProjectArtifactId(this.artifactId);
-//		mavenModel.setProjectVersion("1.0");
-//		
-//		this.nodeModel = new ProgramNodeProjectModel(mavenModel);
-//		
-//		//Generate the program node classes using the program node model.
-//		MavenInvokerHandler prgen = new MavenInvokerHandler();
-//		
-//		
-//		
-//		
-//		Display display = Display.getDefault();
-//		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
-//		Shell shell = getShell();
-//		shell.setCursor(waitCursor);
-//		
-//		prgen.invokeMavenExecution(this.nodeModel);	
-//		
-//		shell.setCursor(null);
-//		waitCursor.dispose();
-//		
+		String serviceClassName = this.setClassesPage.getServiceClassname();
+		String contributionClassName = this.setClassesPage.getContributionClassname();
+		String iconPath = this.setAttributesPage.getIconPath();
+		//boolean setChildrenAllowed = this.setAttributesPage.isChildrenAllowed(); //TODO create method is attributes page
+		
+		
+		MavenModel mavenModel = new ToolbarNodeModel(iconPath, serviceClassName, contributionClassName);
+		mavenModel.setProjectPath(this.path);
+		mavenModel.setProjectGroupId(this.groupId);
+		mavenModel.setProjectArtifactId(this.artifactId);
+		mavenModel.setProjectVersion("1.0");
+		
+		this.nodeModel = new ToolbarNodeProjectModel(mavenModel);
+		
+		//Generate the program node classes using the program node model.
+		MavenInvokerHandler prgen = new MavenInvokerHandler();
+		
+		
+		
+		
+		Display display = Display.getDefault();
+		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
+		Shell shell = getShell();
+		shell.setCursor(waitCursor);
+		
+		prgen.invokeMavenExecution(this.nodeModel);	
+		
+		shell.setCursor(null);
+		waitCursor.dispose();
+		
 		
 		return true;
 	}
