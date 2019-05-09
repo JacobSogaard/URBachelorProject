@@ -12,6 +12,7 @@ import org.apache.maven.shared.invoker.Invoker;
 import org.apache.maven.shared.invoker.MavenInvocationException;
 import org.eclipse.jface.dialogs.MessageDialog;
 
+import mavenImport.MavenProjectImporter;
 import modelClasses.IURCapMaven;
 
 /**
@@ -20,7 +21,7 @@ import modelClasses.IURCapMaven;
  * @author jacob
  *
  */
-public class MavenInvokerHandler {
+public class MavenInvokerHandler implements IMavenHandler{
 
 	private final String MAVEN1_ENVIRONMENT = System.getenv("MAVEN_HOME");
 	private final String MAVEN2_ENVIRONMENT = System.getenv("M2_HOME");
@@ -38,7 +39,8 @@ public class MavenInvokerHandler {
 	 * 
 	 * @param projectModel
 	 */
-	public String invokeMavenExecution(IURCapMaven projectModel) {
+	@Override
+	public String invokeGenerator(IURCapMaven projectModel) {
 
 		String invokeMavenMessage = "";
 
@@ -62,7 +64,8 @@ public class MavenInvokerHandler {
 	 * 
 	 * @param projectModel
 	 */
-	public String invokeMavenExecutionDeploy(IURCapMaven projectModel, String artifactID) {
+	@Override
+	public String invokeDeploy(IURCapMaven projectModel, String artifactID) {
 
 		String messageResult = "";
 
@@ -109,19 +112,6 @@ public class MavenInvokerHandler {
 
 	}
 
-//	private void setupMavenRequestDeployDefault(IURCapMaven projectModel) {
-//		
-//		Properties prop = new Properties();
-//		prop.setProperty("ursim.home", "/home/ur/ursim/ursim-5.3.0.64176");
-//		
-//		request.setBaseDirectory(new File("/home/ur/workspace/TestURPom02"));
-//		request.setGoals(Collections.singletonList("install -P ursim"));
-//		request.setBatchMode(true);
-//		request.setProperties(prop);
-//		
-//		this.checkMavenEnvironmentVariable();
-//
-//	}
 
 	/**
 	 * Sets up the request to be made by maven.
@@ -165,6 +155,17 @@ public class MavenInvokerHandler {
 		}
 
 		return mavenExists;
+	}
+
+	/**
+	 * Imports the created project as a maven project.
+	 */
+	@Override
+	public String importMavenProject(String path, String name) {
+		MavenProjectImporter importer = new MavenProjectImporter();
+		String message = importer.importProjectAsMavenProject(path, name);
+		
+		return message;
 	}
 
 }

@@ -2,6 +2,7 @@ package deployModels;
 
 import java.util.Properties;
 
+import mavenGenerator.IMavenHandler;
 import mavenGenerator.MavenInvokerHandler;
 import modelClasses.IURCapMaven;
 import modelClasses.URCapProjectModel;
@@ -11,7 +12,8 @@ public class DeployURSimVM implements IDeploy {
 	private String ipaddress, username, password, path, goal, projectPath, artifactID;
 	private Properties properties;
 	private static final String GOAL = "install -P ursimvm";
-	
+	private IMavenHandler mavenHandler;
+
 	public DeployURSimVM(String ipaddress, String username, String password, String projectPath, String artifactID) {
 		this.ipaddress = ipaddress;
 		this.username = username;
@@ -19,12 +21,12 @@ public class DeployURSimVM implements IDeploy {
 		this.projectPath = projectPath;
 		this.artifactID = artifactID;
 		this.setProperties();
+		this.mavenHandler = new MavenInvokerHandler();
 	}
-	
 
 	public void setProjectPath(String path) {
 		this.path = path;
-		
+
 	}
 
 	private void setProperties() {
@@ -32,9 +34,8 @@ public class DeployURSimVM implements IDeploy {
 		this.properties.setProperty("ursimvm.install.host", this.ipaddress);
 		this.properties.setProperty("ursimvm.install.username", this.username);
 		this.properties.setProperty("ursimvm.install.password", this.password);
-		
-	}
 
+	}
 
 	@Override
 	public Properties getProperties() {
@@ -53,11 +54,9 @@ public class DeployURSimVM implements IDeploy {
 
 	@Override
 	public String deploy() {
-		MavenInvokerHandler invoker = new MavenInvokerHandler();
-		String message = invoker.invokeMavenExecutionDeploy(this,this.artifactID);
-		
+		String message = mavenHandler.invokeDeploy(this, this.artifactID);
+
 		return message;
 	}
-	
 
 }

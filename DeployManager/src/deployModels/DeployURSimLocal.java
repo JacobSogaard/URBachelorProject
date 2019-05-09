@@ -2,6 +2,7 @@ package deployModels;
 
 import java.util.Properties;
 
+import mavenGenerator.IMavenHandler;
 import mavenGenerator.MavenInvokerHandler;
 
 public class DeployURSimLocal implements IDeploy{
@@ -9,12 +10,14 @@ public class DeployURSimLocal implements IDeploy{
 	private String URSimpath, projectPath, goal, artifactID;
 	private Properties properties;
 	private static final String GOAL = "install -P ursim";
+	private IMavenHandler mavenHandler;
 	
 	public DeployURSimLocal(String URSimPath, String projectPath, String artifactID) {
 		this.URSimpath = URSimPath;
 		this.projectPath = projectPath;
 		this.artifactID = artifactID;
 		this.setProperties();
+		this.mavenHandler = new MavenInvokerHandler();
 	}
 	
 	@Override
@@ -45,8 +48,7 @@ public class DeployURSimLocal implements IDeploy{
 	
 	@Override
 	public String deploy() {
-		MavenInvokerHandler invoker = new MavenInvokerHandler();
-		String message = invoker.invokeMavenExecutionDeploy(this,this.artifactID);
+		String message = mavenHandler.invokeDeploy(this,this.artifactID);
 		
 		return message;
 	}

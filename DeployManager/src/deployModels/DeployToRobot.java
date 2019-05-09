@@ -2,6 +2,7 @@ package deployModels;
 
 import java.util.Properties;
 
+import mavenGenerator.IMavenHandler;
 import mavenGenerator.MavenInvokerHandler;
 
 public class DeployToRobot implements IDeploy{
@@ -9,6 +10,7 @@ public class DeployToRobot implements IDeploy{
 	private String ipaddress, username, password, path, artifactID;
 	private Properties properties;
 	private static final String GOAL = "install -P remote";
+	private IMavenHandler mavenHandler;
 	
 	public DeployToRobot(String ipaddress, String username, String password, String path, String artifactID) {
 		this.ipaddress = ipaddress;
@@ -17,6 +19,7 @@ public class DeployToRobot implements IDeploy{
 		this.path = path;
 		this.artifactID = artifactID;
 		this.setProperties();
+		this.mavenHandler = new MavenInvokerHandler();
 	}
 	
 	@Override
@@ -50,8 +53,7 @@ public class DeployToRobot implements IDeploy{
 	
 	@Override
 	public String deploy() {
-		MavenInvokerHandler invoker = new MavenInvokerHandler();
-		String message = invoker.invokeMavenExecutionDeploy(this,this.artifactID);
+		String message = mavenHandler.invokeDeploy(this,this.artifactID);
 		
 		return message;
 	}

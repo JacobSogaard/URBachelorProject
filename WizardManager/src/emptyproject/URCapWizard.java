@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+import mavenGenerator.IMavenHandler;
 import mavenGenerator.MavenInvokerHandler;
 import mavenImport.MavenProjectImporter;
 import modelClasses.*;
@@ -24,14 +25,17 @@ import modelClasses.*;
  */
 public class URCapWizard extends Wizard {
 
+	
 	protected SetupURCapPage urcapSetupPage;
 	private IURCapMaven projectModel;
+	private IMavenHandler mavenHandler;
 	private static Cursor cursor = null;
 	// protected MyPageTwo two;
 
 	public URCapWizard() {
 		super();
 		setNeedsProgressMonitor(true);
+		this.mavenHandler = new MavenInvokerHandler();
 	}
 
 	@Override
@@ -42,7 +46,6 @@ public class URCapWizard extends Wizard {
 
 	@Override
 	public boolean performFinish() {
-		MavenInvokerHandler invoker = new MavenInvokerHandler();
 		this.projectModel = new URCapProjectModel(urcapSetupPage.getProjectModel());
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);
@@ -50,15 +53,14 @@ public class URCapWizard extends Wizard {
 		shell.setCursor(waitCursor);
 
 		// Executes the maven command.
-		String invokeMessage = invoker.invokeMavenExecution(this.projectModel); // Generates project with object model
-																				// made through
+		String invokeMessage = mavenHandler.invokeGenerator(this.projectModel);
+		
 		if (invokeMessage != "") {
 			MessageDialog.openWarning(shell, "Maven Execution Message", invokeMessage);
 
 		} else {
 			// Imports the newly created project to the package explorer.
-			MavenProjectImporter importer = new MavenProjectImporter();
-			String message = importer.importProjectAsMavenProject(urcapSetupPage.getProjectModel().getProjectPath(),
+			String message = mavenHandler.importMavenProject(urcapSetupPage.getProjectModel().getProjectPath(),
 					urcapSetupPage.getProjectModel().getProjectArtifactId());
 
 			MessageDialog.openInformation(shell, "Import project message", message);

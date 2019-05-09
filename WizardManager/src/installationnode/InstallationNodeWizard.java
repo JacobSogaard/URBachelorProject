@@ -10,6 +10,7 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import mavenGenerator.IMavenHandler;
 import mavenGenerator.MavenInvokerHandler;
 import modelClasses.IURCapMaven;
 import modelClasses.MavenModel;
@@ -28,12 +29,14 @@ public class InstallationNodeWizard extends Wizard {
 	private SetAttributesPage setAttributesPage;
 	private IURCapMaven nodeModel;
 	private String artifactId, path, groupId;
+	private IMavenHandler mavenHandler;
 
 	public InstallationNodeWizard(String artifactId, String path, String groupId) {
 		super();
 		this.artifactId = artifactId;
 		this.path = path;
 		this.groupId = groupId;
+		this.mavenHandler = new MavenInvokerHandler();
 		setNeedsProgressMonitor(true);
 	}
 
@@ -71,8 +74,6 @@ public class InstallationNodeWizard extends Wizard {
 
 		this.nodeModel = new InstallationNodeMavenModel(mavenModel);
 
-		// Generate the program node classes using the program node model.
-		MavenInvokerHandler prgen = new MavenInvokerHandler();
 
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);
@@ -80,7 +81,7 @@ public class InstallationNodeWizard extends Wizard {
 		shell.setCursor(waitCursor);
 
 		//Executes the maven command and checks whether it has been a succes or not.
-		String invokeMessage = prgen.invokeMavenExecution(this.nodeModel);
+		String invokeMessage = mavenHandler.invokeGenerator(this.nodeModel);
 		if (invokeMessage != "") {
 			MessageDialog.openWarning(shell, "Maven Execution Message", invokeMessage);
 		} else {
