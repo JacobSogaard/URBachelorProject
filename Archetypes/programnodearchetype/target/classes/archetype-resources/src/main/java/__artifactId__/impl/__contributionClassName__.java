@@ -1,15 +1,12 @@
-package ${groupId}.${artifactId};
+package ${groupId}.${artifactId}.impl;
 
 
 import com.ur.urcap.api.contribution.ProgramNodeContribution;
-import com.ur.urcap.api.contribution.ProgramNodeService;
 import com.ur.urcap.api.contribution.program.ProgramAPIProvider;
+import com.ur.urcap.api.contribution.program.CreationContext;
 import com.ur.urcap.api.domain.ProgramAPI;
-import com.ur.urcap.api.domain.URCapAPI;
 import com.ur.urcap.api.domain.data.DataModel;
 import com.ur.urcap.api.domain.script.ScriptWriter;
-import com.ur.urcap.api.domain.io.DigitalIO;
-import com.ur.urcap.api.domain.program.nodes.contributable.URCapProgramNode;
 
 
 public class ${contributionClassName} implements ProgramNodeContribution {
@@ -19,7 +16,7 @@ public class ${contributionClassName} implements ProgramNodeContribution {
 	private final DataModel model;
 
 
-	public ${contributionClassName}(ProgramAPIProvider apiProvider, ${viewClassName} view, DataModel model) {
+	public ${contributionClassName}(ProgramAPIProvider apiProvider, ${viewClassName} view, DataModel model, CreationContext context) {
 
 	
 		this.programAPI = apiProvider.getProgramAPI();

@@ -97,11 +97,13 @@
          point="org.eclipse.ui.commands">
       <command
             defaultHandler="urcapplugin.toolbar.handler.ShowWizard"
+            description="EmptyProject"
             id="URCapPlugin.commands.showWizard"
             name="Setup URCap Project">
       </command>
       <command
             defaultHandler="urcapplugin.toolbar.handler.ShowWizard"
+            description="EmptyProject"
             id="referenceToMenuId"
             name="New URCap">
       </command>

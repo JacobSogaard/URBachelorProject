@@ -1,7 +1,5 @@
 package programnode;
 
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.KeyEvent;
@@ -13,8 +11,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 
 import wizardmanager.NodeWizard;
 
@@ -94,7 +90,7 @@ public class SetClassesNamePage extends NodeWizard{
 		this.contributionClassName = new Text(container, SWT.BORDER | SWT.SINGLE);
 		createInputForm(this.contributionClassName, this.contributionInputText, this.contributionInputLabel, CONTRIBUTION_INPUT_LABEL, false);
 	
-		this.setClassnamesEnabled(true);
+		this.setClassnamesEnabled(false);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		this.setAllLayout(gd);
 		setControl(container);

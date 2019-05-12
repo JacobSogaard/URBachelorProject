@@ -1,7 +1,5 @@
 package deployModels;
 
-import java.util.Properties;
-
 import modelClasses.IURCapMaven;
 
 /**
@@ -10,6 +8,6 @@ import modelClasses.IURCapMaven;
  *
  */
 public interface IDeploy extends IURCapMaven{
-	void deploy();
+	String deploy();
 	
 }

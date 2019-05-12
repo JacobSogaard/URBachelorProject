@@ -11,7 +11,7 @@ import org.eclipse.ui.PlatformUI;
 
 import mavenGenerator.MavenInvokerHandler;
 import mavenImport.MavenProjectImporter;
-import projectnature.ProjectNatureHandler;
+
 
 /**
  * This class controls all aspects of the application's execution

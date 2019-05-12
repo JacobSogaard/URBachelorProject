@@ -1,14 +1,16 @@
 package mavenGenerator;
 
-
 import java.io.File;
 import java.util.Collections;
+
 import org.apache.maven.shared.invoker.DefaultInvocationRequest;
 import org.apache.maven.shared.invoker.DefaultInvoker;
 import org.apache.maven.shared.invoker.InvocationRequest;
 import org.apache.maven.shared.invoker.InvocationResult;
 import org.apache.maven.shared.invoker.Invoker;
 import org.apache.maven.shared.invoker.MavenInvocationException;
+
+import mavenImport.MavenProjectImporter;
 import modelClasses.IURCapMaven;
 
 /**
@@ -17,10 +19,11 @@ import modelClasses.IURCapMaven;
  * @author jacob
  *
  */
-public class MavenInvokerHandler {
+public class MavenInvokerHandler implements IMavenHandler{
 
 	private final String MAVEN1_ENVIRONMENT = System.getenv("MAVEN_HOME");
 	private final String MAVEN2_ENVIRONMENT = System.getenv("M2_HOME");
+	private final String MAVEN3_ENVIRONMENT = System.getenv("M3_HOME");
 	private InvocationRequest request;
 	private Invoker invoker;
 
@@ -34,47 +37,133 @@ public class MavenInvokerHandler {
 	 * 
 	 * @param projectModel
 	 */
-	public void invokeMavenExecution(IURCapMaven projectModel) {
+	@Override
+	public String invokeGenerator(IURCapMaven projectModel) {
 
-		this.setupMavenRequest(projectModel);
+		String invokeMavenMessage = "";
 
-		try {
-			InvocationResult result = invoker.execute(request);
-		} catch (MavenInvocationException e) {
-			e.printStackTrace();
+		invokeMavenMessage = this.setupMavenRequest(projectModel);
+
+		if (invokeMavenMessage == "") {
+
+			try {
+				InvocationResult result = invoker.execute(request);
+			} catch (MavenInvocationException e) {
+				e.printStackTrace();
+			}
 		}
 
+		return invokeMavenMessage;
+
 	}
+
+	/**
+	 * Executes a maven command for deployment of the URCap.
+	 * 
+	 * @param projectModel
+	 */
+	@Override
+	public String invokeDeploy(IURCapMaven projectModel, String artifactID) {
+
+		String messageResult = "";
+
+		messageResult = this.setupMavenRequestDeploy(projectModel, artifactID);
+
+		if (messageResult == "") {
+			try {
+				InvocationResult result = invoker.execute(request);
+				if (result.getExitCode() == 0 && result.getExecutionException() == null) {
+					messageResult = "The project has been succesfully deployed!";
+				} else {
+					messageResult = "Something went wrong during deployment of the URCap!";
+				}
+			} catch (MavenInvocationException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return messageResult;
+
+	}
+
+	/**
+	 * Deploy execution. Sets up the request to be made by maven.
+	 * 
+	 * @param projectModel
+	 */
+	private String setupMavenRequestDeploy(IURCapMaven projectModel, String artifactID) {
+		String mavenExecutionMessage = "";
+
+		String pomPath = projectModel.getProjectPath() + "/" + artifactID;
+
+		request.setBaseDirectory(new File(pomPath));
+		request.setGoals(Collections.singletonList(projectModel.getGoal()));
+		request.setBatchMode(true);
+		request.setProperties(projectModel.getProperties());
+
+		if (!this.checkMavenEnvironmentVariable()) {
+			mavenExecutionMessage = "The execution is not possible." + "\n"
+					+ "Please add a maven enviroment variable to your system with the name: MAVEN_HOME";
+		}
+
+		return mavenExecutionMessage;
+
+	}
+
 
 	/**
 	 * Sets up the request to be made by maven.
 	 * 
 	 * @param projectModel
 	 */
-	private void setupMavenRequest(IURCapMaven projectModel) {
+	private String setupMavenRequest(IURCapMaven projectModel) {
+		String mavenExecutionMessage = "";
+
 		request.setBaseDirectory(new File(projectModel.getProjectPath()));
 		request.setGoals(Collections.singletonList(projectModel.getGoal()));
 		request.setBatchMode(true);
 		request.setProperties(projectModel.getProperties());
-		
 
-		this.checkMavenEnvironmentVariable();
+		if (!this.checkMavenEnvironmentVariable()) {
+			mavenExecutionMessage = "The execution is not possible." + "\n"
+					+ "Please add a maven environment variable to your system with the name: MAVEN_HOME, M2_HOME, M3_HOME, ";
+		}
+
+		return mavenExecutionMessage;
 
 	}
-	
-	
 
 	/**
 	 * Check for Maven environment variable on host computer.
 	 */
-	private void checkMavenEnvironmentVariable() {
-		if (this.MAVEN1_ENVIRONMENT == null) {
-			invoker.setMavenHome(new File(this.MAVEN2_ENVIRONMENT));
-		} else if (this.MAVEN2_ENVIRONMENT == null) {
+	private boolean checkMavenEnvironmentVariable() {
+
+		boolean mavenExists = true;
+
+		if (this.MAVEN1_ENVIRONMENT != null) {
 			invoker.setMavenHome(new File(this.MAVEN1_ENVIRONMENT));
+		} else if (this.MAVEN2_ENVIRONMENT != null) {
+			invoker.setMavenHome(new File(this.MAVEN2_ENVIRONMENT));
+		} else if (this.MAVEN3_ENVIRONMENT != null) {
+			invoker.setMavenHome(new File(this.MAVEN3_ENVIRONMENT));
 		} else {
 			System.err.println("No suitable maven environment");
+
+			mavenExists = false;
 		}
+
+		return mavenExists;
+	}
+
+	/**
+	 * Imports the created project as a maven project.
+	 */
+	@Override
+	public String importMavenProject(String path, String name) {
+		MavenProjectImporter importer = new MavenProjectImporter();
+		String message = importer.importProjectAsMavenProject(path, name);
+		
+		return message;
 	}
 
 }

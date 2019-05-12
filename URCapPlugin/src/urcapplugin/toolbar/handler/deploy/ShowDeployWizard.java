@@ -9,7 +9,7 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import Verifier.ProjectSelectionVerifier;
+import verifier.ProjectSelectionVerifier;
 import wizardmanager.WizardFactory;
 
 public class ShowDeployWizard extends AbstractHandler {
@@ -24,7 +24,8 @@ public class ShowDeployWizard extends AbstractHandler {
 			Wizard wizard;
 			try {
 				System.out.println(event.getCommand().getName());
-				wizard = wizardFactory.getWizard(event.getCommand().getName(), "", this.projectVerifier.getProjectPath());
+				wizard = wizardFactory.getWizard(event.getCommand().getName(),
+						this.projectVerifier.getProjectArtifactId(), this.projectVerifier.getProjectPath(), "");
 				openWizard(wizard, event);
 			} catch (NotDefinedException e) {
 				e.printStackTrace();

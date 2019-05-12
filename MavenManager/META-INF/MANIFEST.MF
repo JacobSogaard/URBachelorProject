@@ -2,13 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: MavenManager
 Bundle-SymbolicName: MavenManager;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: MavenManager
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.core.resources;bundle-version="3.13.200",
  org.eclipse.m2e.core;bundle-version="1.11.0",
- URCapProjectNature;bundle-version="1.0.0",
  org.eclipse.jdt.core;bundle-version="3.16.0",
  org.eclipse.jface
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
@@ -17,7 +16,7 @@ Export-Package: mavenGenerator;uses:="modelClasses",
  modelClasses,
  modelClasses.installationnode;uses:="modelClasses",
  modelClasses.programnode;uses:="modelClasses",
- projectnature;uses:="org.eclipse.core.resources,org.eclipse.core.commands"
+ modelClasses.toolbarnode
 Bundle-ClassPath: aether-api-1.7.jar,
  aether-impl-1.7.jar,
  aether-spi-1.7.jar,

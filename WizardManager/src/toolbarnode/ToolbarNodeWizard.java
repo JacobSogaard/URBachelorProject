@@ -1,4 +1,4 @@
-package installationnode;
+package toolbarnode;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
@@ -11,8 +11,8 @@ import mavenGenerator.IMavenHandler;
 import mavenGenerator.MavenInvokerHandler;
 import modelClasses.IURCapMaven;
 import modelClasses.MavenModel;
-import modelClasses.installationnode.InstallationNodeMavenModel;
-import modelClasses.installationnode.InstallationNodeModel;
+import modelClasses.toolbarnode.ToolbarNodeModel;
+import modelClasses.toolbarnode.ToolbarNodeProjectModel;
 
 /**
  * Sets up the wizard for program node installation Adds the pages to the wizard
@@ -20,21 +20,23 @@ import modelClasses.installationnode.InstallationNodeModel;
  * @author jacob
  *
  */
-public class InstallationNodeWizard extends Wizard {
+public class ToolbarNodeWizard extends Wizard {
 
 	private SetClassesNamePage setClassesPage;
 	private SetAttributesPage setAttributesPage;
+
 	private IURCapMaven nodeModel;
-	private String artifactId, projectPath, groupId;
+	private String artifactId, groupId, projectPath;
 	private IMavenHandler mavenHandler;
 
-	public InstallationNodeWizard(String artifactId, String path, String groupId) {
+	public ToolbarNodeWizard(String artifactId, String path, String groupId) {
 		super();
+		setNeedsProgressMonitor(true);
 		this.artifactId = artifactId;
 		this.projectPath = path;
 		this.groupId = groupId;
 		this.mavenHandler = new MavenInvokerHandler();
-		setNeedsProgressMonitor(true);
+
 	}
 
 	/**
@@ -42,7 +44,7 @@ public class InstallationNodeWizard extends Wizard {
 	 */
 	@Override
 	public void addPages() {
-		this.setClassesPage = new SetClassesNamePage(this.artifactId); 
+		this.setClassesPage = new SetClassesNamePage(artifactId);
 		this.setAttributesPage = new SetAttributesPage();
 		addPage(this.setClassesPage);
 		addPage(this.setAttributesPage);
@@ -54,35 +56,32 @@ public class InstallationNodeWizard extends Wizard {
 	 */
 	@Override
 	public boolean performFinish() {
-
 		String serviceClassName = this.setClassesPage.getServiceClassname();
-		String viewClassName = this.setClassesPage.getViewClassname();
 		String contributionClassName = this.setClassesPage.getContributionClassname();
-		String nodeTitle = this.setAttributesPage.getNodeTitle();
+		String iconPath = this.setAttributesPage.getIconPath();
+		iconPath = iconPath.replace("\\", "\\\\");
 
-		MavenModel mavenModel = new InstallationNodeModel(serviceClassName, contributionClassName, viewClassName,
-				nodeTitle);
-
+		MavenModel mavenModel = new ToolbarNodeModel(iconPath, serviceClassName, contributionClassName);
 		mavenModel.setProjectPath(this.projectPath);
-		mavenModel.setProjectGroupId(this.groupId); 
+		mavenModel.setProjectGroupId(this.groupId);
 		mavenModel.setProjectArtifactId(this.artifactId);
 		mavenModel.setProjectVersion("1.0");
 
-		this.nodeModel = new InstallationNodeMavenModel(mavenModel);
-
+		this.nodeModel = new ToolbarNodeProjectModel(mavenModel);
 
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);
 		Shell shell = getShell();
 		shell.setCursor(waitCursor);
 
-		//Executes the maven command and checks whether it has been a success or not.
+		// Executes the maven command and checks whether it has been a succes or not.
 		String invokeMessage = mavenHandler.invokeGenerator(this.nodeModel);
 		if (invokeMessage != "") {
 			MessageDialog.openWarning(shell, "Maven Execution Message", invokeMessage);
 		} else {
-			MessageDialog.openInformation(shell, "Installation node message",
-					"The installation node has succesfully been added to the project!" + "\n" + "Please right-click the project and Refresh the project to see result.");
+			MessageDialog.openInformation(shell, "Toolbar node message",
+					"The toolbar node has succesfully been added to the project!" + "\n"
+							+ "Please right-click the project and Refresh the project to see result.");
 		}
 
 		shell.setCursor(null);

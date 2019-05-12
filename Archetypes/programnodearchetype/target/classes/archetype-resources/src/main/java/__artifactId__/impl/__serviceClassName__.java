@@ -1,4 +1,4 @@
-package ${groupId}.${artifactId};
+package ${groupId}.${artifactId}.impl;
 
 import java.util.Locale;
 
@@ -7,7 +7,6 @@ import com.ur.urcap.api.contribution.program.ContributionConfiguration;
 import com.ur.urcap.api.contribution.program.CreationContext;
 import com.ur.urcap.api.contribution.program.ProgramAPIProvider;
 import com.ur.urcap.api.contribution.program.swing.SwingProgramNodeService;
-import com.ur.urcap.api.domain.SystemAPI;
 import com.ur.urcap.api.domain.data.DataModel;
 
 
@@ -42,7 +41,7 @@ public class ${serviceClassName} implements SwingProgramNodeService<${contributi
 	public ${contributionClassName} createNode(ProgramAPIProvider apiProvider, ${viewClassName} view,
 			DataModel model, CreationContext context) {
 
-		return new testProgramNodeContribution(apiProvider, view, model);
+		return new ${contributionClassName}(apiProvider, view, model, context);
 	}
 
 }

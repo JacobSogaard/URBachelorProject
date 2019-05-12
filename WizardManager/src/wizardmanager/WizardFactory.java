@@ -1,11 +1,14 @@
 package wizardmanager;
 
 import programnode.ProgramNodeWizard;
+import toolbarnode.ToolbarNodeWizard;
+
 import org.eclipse.jface.wizard.Wizard;
 
 import deploy.local.DeployToLocalWizard;
 import deploy.robot.DeployToRobotWizard;
 import deploy.vm.DeployToVMWizard;
+import emptyproject.URCapWizard;
 import installationnode.InstallationNodeWizard;
 
 
@@ -18,29 +21,30 @@ import installationnode.InstallationNodeWizard;
  * @author jacob
  *
  */
-public class WizardFactory {
+public class WizardFactory implements IWizardFactory {
 	/**
 	 * Get wizard of specified string type. Types a set as the description on the extension point command. Ex: "ProgramNode" for the program node menu item
 	 * Remember to null check when calling the method, since default return is null. 
 	 * @param wizardType
-	 * @return
+	 * @return - New wizard of the specified wizard. If no wizard type match, return null.
 	 */
-	public Wizard getWizard(String wizardType, String projectArtifactId, String projectPath) {
-		System.out.println("WIZARD: " + wizardType);
+	@Override
+	public Wizard getWizard(String wizardType, String projectArtifactId, String projectPath, String groupId) {
 		switch (wizardType) {
+		case "EmptyProject":
+			return new URCapWizard();
 		case "ProgramNode":
-			return new ProgramNodeWizard(projectArtifactId);
+			return new ProgramNodeWizard(projectArtifactId, projectPath, groupId);
 		case "InstallationNode":
-			return new InstallationNodeWizard(projectArtifactId, projectPath);
+			return new InstallationNodeWizard(projectArtifactId, projectPath, groupId);
 		case "ToolbarNode":
-			// TODO Toolbar node not yet implemented
-			return null;
+			return new ToolbarNodeWizard(projectArtifactId, projectPath, groupId);
 		case "DeployToRobot":
-			return new DeployToRobotWizard(projectPath);
+			return new DeployToRobotWizard(projectPath,projectArtifactId);
 		case "DeployLocal":
-			return new DeployToLocalWizard(projectPath);
+			return new DeployToLocalWizard(projectPath,projectArtifactId);
 		case "DeployToVM":
-			return new DeployToVMWizard(projectPath);
+			return new DeployToVMWizard(projectPath,projectArtifactId);
 		default:
 			return null;
 		}

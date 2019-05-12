@@ -2,30 +2,38 @@ package deployModels;
 
 import java.util.Properties;
 
+import mavenGenerator.IMavenHandler;
 import mavenGenerator.MavenInvokerHandler;
-
+/**
+ * Class for deploying urcap to robot.
+ * @author Thananya
+ *
+ */
 public class DeployToRobot implements IDeploy{
 
-	private String ipaddress, username, password, path;
+	private String ipAddress, username, password, projectPath, artifactID;
 	private Properties properties;
 	private static final String GOAL = "install -P remote";
+	private IMavenHandler mavenHandler;
 	
-	public DeployToRobot(String ipaddress, String username, String password, String path) {
-		this.ipaddress = ipaddress;
+	public DeployToRobot(String ipAddress, String username, String password, String path, String artifactID) {
+		this.ipAddress = ipAddress;
 		this.username = username;
 		this.password = password;
-		this.path = path;
+		this.projectPath = path;
+		this.artifactID = artifactID;
 		this.setProperties();
+		this.mavenHandler = new MavenInvokerHandler();
 	}
 	
 	@Override
 	public String getProjectPath() {
-		return this.path;
+		return this.projectPath;
 	}
 
 
-	public void setProjectPath(String path) {
-		this.path = path;
+	public void setProjectPath(String projectPath) {
+		this.projectPath = projectPath;
 		
 	}
 
@@ -36,7 +44,7 @@ public class DeployToRobot implements IDeploy{
 
 	private void setProperties() {
 		this.properties = new Properties();
-		this.properties.setProperty("urcap.install.host", this.ipaddress);
+		this.properties.setProperty("urcap.install.host", this.ipAddress);
 		this.properties.setProperty("urcap.install.username", this.username);
 		this.properties.setProperty("urcap.install.password", this.password);
 		
@@ -48,9 +56,10 @@ public class DeployToRobot implements IDeploy{
 	}
 	
 	@Override
-	public void deploy() {
-		MavenInvokerHandler invoker = new MavenInvokerHandler();
-		invoker.invokeMavenExecution(this);
+	public String deploy() {
+		String message = mavenHandler.invokeDeploy(this,this.artifactID);
+		return message;
 	}
+
 
 }

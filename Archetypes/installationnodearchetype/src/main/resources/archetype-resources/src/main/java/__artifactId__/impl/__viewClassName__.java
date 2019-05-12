@@ -1,4 +1,4 @@
-package ${groupId}.${artifactId};
+package ${groupId}.${artifactId}.impl;
 
 import javax.swing.JPanel;
 

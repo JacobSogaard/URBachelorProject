@@ -5,18 +5,6 @@ public abstract class MavenModel {
 	private String archetypeGroupId, archetypeArtifactId, archetypeVersionAPI, archetypeVersion, projectGroupId, projectArtifactId,
 			projectVersion, projectPath, mavenGoal;
 
-//	public NodeModel(String serviceClassName, String viewClassName, String contributionClassName, String title,
-//			String groupId, String artifactId, String version, String projectPath) {
-//		this.serviceClassName = serviceClassName;
-//		this.viewClassName = viewClassName;
-//		this.contributionClassName = contributionClassName;
-//		this.title = title;
-//		this.groupId = groupId;
-//		this.artifactId = artifactId;
-//		this.version = version;
-//		this.projectPath = projectPath;
-//	}
-
 	public MavenModel() {
 	}
 
@@ -77,6 +65,7 @@ public abstract class MavenModel {
 	}
 
 	public String getProjectPath() {
+		projectPath.replace("\\", "\\\\");
 		return projectPath;
 	}
 
