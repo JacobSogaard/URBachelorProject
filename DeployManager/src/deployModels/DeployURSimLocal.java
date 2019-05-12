@@ -5,9 +5,16 @@ import java.util.Properties;
 import mavenGenerator.IMavenHandler;
 import mavenGenerator.MavenInvokerHandler;
 
+
+/**
+ * Class for deploying to local URSim. Needs a path for the URSim and path and artifact id for project
+ * which needs to be deployed. 
+ * @author jacob
+ *
+ */
 public class DeployURSimLocal implements IDeploy{
 
-	private String URSimpath, projectPath, goal, artifactID;
+	private String URSimpath, projectPath, artifactID;
 	private Properties properties;
 	private static final String GOAL = "install -P ursim";
 	private IMavenHandler mavenHandler;

@@ -32,6 +32,10 @@ public class DeployToRobot implements IDeploy{
 	}
 
 
+	/**
+	 * Set project path
+	 * @param projectPath - String
+	 */
 	public void setProjectPath(String projectPath) {
 		this.projectPath = projectPath;
 		
