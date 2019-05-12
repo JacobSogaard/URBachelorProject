@@ -2,6 +2,11 @@ package mavenGenerator;
 
 import modelClasses.IURCapMaven;
 
+/**
+ * Interface for handling maven commands. 
+ * @author jacob
+ *
+ */
 public interface IMavenHandler {
 
 	String invokeGenerator(IURCapMaven projectModel);

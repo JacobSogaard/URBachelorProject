@@ -10,9 +10,7 @@ import modelClasses.URCapProjectModel;
 
 
 /**
- * Model class for maven generation of a program node. Takes the groupid, artifactid which should be found be the wizard when from the selected project,
- * the program node should be generated in. Also takes a path (might not be useful in this case?) and a programNodeModel which the wizard 
- * also should create. 
+ * Model class for maven generation of a program node. Takes a MavenModel which is cast to a ProgramNodeModel
  * The archetype is set to programnodearchetype. 
  * @author jacob
  *

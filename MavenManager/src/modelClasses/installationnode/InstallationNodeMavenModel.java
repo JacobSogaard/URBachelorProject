@@ -9,10 +9,9 @@ import modelClasses.MavenModel;
 
 
 /**
- * Model class for maven generation of a program node. Takes the groupid, artifactid which should be found be the wizard when from the selected project,
- * the program node should be generated in. Also takes a path (might not be useful in this case?) and a programNodeModel which the wizard 
- * also should create. 
- * The archetype is set to programnodearchetype. 
+ * Model class for maven generation of an installation node. Takes a MavenModel which holds all the properties
+ * of the maven request. 
+ * The archetype is set to installationnodearchetype. 
  * @author jacob
  *
  */
@@ -26,7 +25,7 @@ public class InstallationNodeMavenModel implements IURCapMaven {
 	private Properties properties;
 	
 	/**
-	 * Constructor the set all class fields.
+	 * Constructor the set all class fields. Takes a MavenModel which is cast to an InstallationNodeModel
 	 * @param groupID
 	 * @param artifactID
 	 * @param version
