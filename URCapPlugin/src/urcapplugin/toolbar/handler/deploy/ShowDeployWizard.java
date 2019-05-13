@@ -12,6 +12,11 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import verifier.ProjectSelectionVerifier;
 import wizardmanager.WizardFactory;
 
+/**
+ * 
+ * @author jacob
+ *
+ */
 public class ShowDeployWizard extends AbstractHandler {
 
 	private ProjectSelectionVerifier projectVerifier = new ProjectSelectionVerifier();

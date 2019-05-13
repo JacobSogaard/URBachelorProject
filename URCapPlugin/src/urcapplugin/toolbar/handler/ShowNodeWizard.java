@@ -14,8 +14,9 @@ import wizardmanager.IWizardFactory;
 import wizardmanager.WizardFactory;
 
 /**
- * Class to open the program node wizard.
- * 
+ * Class to open wizard for a specific node. 
+ * Calls the WizardFactory from WizardManager module, with the description taken from the button
+ * pressed in the toolbar dropdown menu. 
  * @author jacob
  *
  */
@@ -56,6 +57,9 @@ public class ShowNodeWizard extends AbstractHandler {
 		return null;
 	}
 	
+	/**
+	 * Checks that the artifact and path from the selected project is not null. 
+	 */
 	private void setWizardParameters() {
 		if (this.projectVerifier.getProjectArtifactId() != null) {
 			this.artifactId = this.projectVerifier.getProjectArtifactId();

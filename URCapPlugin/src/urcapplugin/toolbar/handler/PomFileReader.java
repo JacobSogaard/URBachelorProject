@@ -12,9 +12,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+/**
+ * Class to read the POM file from a project. Used to validate what kind of project it is. 
+ * @author jacob
+ *
+ */
 public class PomFileReader {
 
-	private String nodeName;
 
 	/**
 	 * This method reads the pom file on a specific path of a project and validate

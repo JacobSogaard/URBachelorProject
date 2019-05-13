@@ -21,7 +21,14 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 import nature.URCapNature;
 
+/**
+ * Handler for convert to URCap project, in the context menu under configure.
+ * Takes the selected project from the package explorer and converts it to a URCap project
+ * @author jacob
+ *
+ */
 public class ConvertToURCapHandler extends AbstractHandler {
+	
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 
