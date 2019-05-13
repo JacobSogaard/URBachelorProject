@@ -12,7 +12,7 @@ import wizardmanager.IWizardFactory;
 import wizardmanager.WizardFactory;
 
 /**
- * Class to start up the wizard when toolbar icon is clicked.
+ * Class to start up the wizard when toolbar icon is clicked. Opens the wizard for setting up a new URCap project. 
  * 
  * @author jacob
  *

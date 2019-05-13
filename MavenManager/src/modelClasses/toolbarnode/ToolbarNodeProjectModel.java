@@ -10,9 +10,8 @@ import modelClasses.URCapProjectModel;
 
 
 /**
- * Model class for maven generation of a toolbar node. Takes the groupid, artifactid which should be found be the wizard when from the selected project,
- * the toolbar node should be generated in. Also takes a path (might not be useful in this case?) and a ToolbarNodeModel which the wizard 
- * also should create. 
+ * Model class for maven generation of a toolbar node. Takes a MavenModel which holds all the information for 
+ * generating toolbarnode through Maven. 
  * The archetype is set to toolbarnodearchetype. 
  * @author jacob
  *

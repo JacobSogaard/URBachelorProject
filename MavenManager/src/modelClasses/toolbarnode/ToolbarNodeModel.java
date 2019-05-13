@@ -3,7 +3,7 @@ package modelClasses.toolbarnode;
 import modelClasses.MavenModel;
 
 /**
- * Model for program node classes. Holds the information a program node needs from the user.
+ * Model for toolbar node classes. Holds the information a toolbar node needs from the user.
  * Class should be filled out through the wizard
  * @author jacob
  *

@@ -35,7 +35,8 @@ public class MavenInvokerHandler implements IMavenHandler{
 	/**
 	 * Executes a maven command.
 	 * 
-	 * @param projectModel
+	 * @param projectModel - Object of type IURCapMaven. This holds the properties of the maven command
+	 * and the goal of the maven command.
 	 */
 	@Override
 	public String invokeGenerator(IURCapMaven projectModel) {
@@ -59,8 +60,8 @@ public class MavenInvokerHandler implements IMavenHandler{
 
 	/**
 	 * Executes a maven command for deployment of the URCap.
-	 * 
-	 * @param projectModel
+	 * @param projectModel - Object of type IURCapMaven, which holds the properties and the goal of the maven command.
+	 * @param artifactId - String value with the artifact id of the project to be deployed. 
 	 */
 	@Override
 	public String invokeDeploy(IURCapMaven projectModel, String artifactID) {
@@ -88,8 +89,8 @@ public class MavenInvokerHandler implements IMavenHandler{
 
 	/**
 	 * Deploy execution. Sets up the request to be made by maven.
-	 * 
 	 * @param projectModel
+	 * @param artifactID
 	 */
 	private String setupMavenRequestDeploy(IURCapMaven projectModel, String artifactID) {
 		String mavenExecutionMessage = "";
