@@ -9,7 +9,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;bundle-version="3.13.200",
  org.eclipse.m2e.core;bundle-version="1.11.0",
  org.eclipse.jdt.core;bundle-version="3.16.0",
- org.eclipse.jface
+ org.eclipse.jface,
+ org.junit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: mavenGenerator;uses:="modelClasses",
  mavenImport,

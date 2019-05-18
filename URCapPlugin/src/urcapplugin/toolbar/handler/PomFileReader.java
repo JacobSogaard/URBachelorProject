@@ -26,6 +26,7 @@ public class PomFileReader {
 	 * 
 	 * @param projectPath
 	 * @return true if it is an URCap project.
+	 * 
 	 */
 	public boolean validateProjectAsURCap(IPath projectPath) {
 

@@ -50,35 +50,7 @@ public class ConvertToURCapHandler extends AbstractHandler {
 				IPath path = project.getLocation();
 				PomFileReader pomreader = new PomFileReader();
 				if (pomreader.validateProjectAsURCap(path)) {
-					try {
-						IProjectDescription description = project.getDescription();
-						String[] natures = description.getNatureIds();
-
-						String[] newNatures = new String[natures.length + 1];
-						System.arraycopy(natures, 0, newNatures, 0, natures.length);
-
-						// Trying to set URCap nature as the first nature.
-						String copyNature = newNatures[0];
-						newNatures[0] = URCapNature.NATURE_ID;
-						newNatures[natures.length] = copyNature;
-
-						// validate the natures
-						IWorkspace workspace = ResourcesPlugin.getWorkspace();
-						IStatus status = workspace.validateNatureSet(newNatures);
-
-						// only apply new nature, if the status is ok
-						if (status.getCode() == IStatus.OK) {
-							description.setNatureIds(newNatures);
-							project.setDescription(description, null);
-							MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "Message",
-									"Project was successfully converted to a URCap project." + "\n" + "Please right-click the project and Refresh the project to see result.");
-
-						}
-						return status;
-
-					} catch (CoreException e) {
-						throw new ExecutionException(e.getMessage(), e);
-					}
+					return setURProjectNature(event, project);
 				} else {
 					MessageDialog.openWarning(HandlerUtil.getActiveShell(event), "WARNING",
 							"The Project is not an URCap project and therefore it cannot be converted.");
@@ -89,4 +61,47 @@ public class ConvertToURCapHandler extends AbstractHandler {
 		return Status.OK_STATUS;
 	}
 
+	/**
+	 * TODO set private when done testing
+	 * @param event
+	 * @param project
+	 * @return
+	 * @throws ExecutionException
+	 */
+	public Object setURProjectNature(ExecutionEvent event, IProject project) throws ExecutionException {
+		try {
+			IProjectDescription description = project.getDescription();
+			String[] natures = description.getNatureIds();
+
+			String[] newNatures = new String[natures.length + 1];
+			System.arraycopy(natures, 0, newNatures, 0, natures.length);
+
+			// Trying to set URCap nature as the first nature.
+			String copyNature = newNatures[0];
+			newNatures[0] = URCapNature.NATURE_ID;
+			newNatures[natures.length] = copyNature;
+
+			// validate the natures
+			IWorkspace workspace = ResourcesPlugin.getWorkspace();
+			IStatus status = workspace.validateNatureSet(newNatures);
+
+			// only apply new nature, if the status is ok
+			if (status.getCode() == IStatus.OK) {
+				description.setNatureIds(newNatures);
+				project.setDescription(description, null);
+				
+				//Removed for testing purpose
+				//MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "Message",
+				//		"Project was successfully converted to a URCap project." + "\n" + "Please right-click the project and Refresh the project to see result.");
+
+			}
+			
+			return status;
+
+		} catch (CoreException e) {
+			throw new ExecutionException(e.getMessage(), e);
+		}
+	}
+	
+	
 }
