@@ -18,19 +18,35 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import mavenGenerator.MavenInvokerHandler;
+import modelClasses.IURCapMaven;
+import modelClasses.MavenModel;
+import modelClasses.URCapModel;
+import modelClasses.URCapProjectModel;
+import nature.URCapNature;
 import urcapplugin.toolbar.handler.ConvertToURCapHandler;
 
 public class ConvertToURCapHandlerTest {
 	
 	private static ConvertToURCapHandler converter;
-	private String projectName;
 	private String nature;
+
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		converter = new ConvertToURCapHandler();
-		//copyProjects();
 		
+//		invoker = new MavenInvokerHandler();
+//		mavenModel = new URCapModel();
+//		mavenModel.setArchetypeVersionAPI("1.5.0");
+//		mavenModel.setArchetypeVersion("1.5.0");
+//		mavenModel.setProjectGroupId("com.company.testcompany");
+//		mavenModel.setProjectArtifactId("MyURCap");
+//		mavenModel.setProjectPath("/home/jacob/Desktop/testing");
+//		mavenModel.setProjectVersion("1.0");
+//		IURCapMaven emptyProject = new URCapProjectModel(mavenModel);
+//		
+//		String invokeMessage = invoker.invokeGenerator(emptyProject);		
 	}
 
 	@Before
@@ -50,18 +66,14 @@ public class ConvertToURCapHandlerTest {
 	 * @throws ExecutionException
 	 * @throws CoreException 
 	 */
-	@Test
-	public void testSetURProjectNature() throws ExecutionException, CoreException {
-		//IProject project;
-		
 
-		
-		
-		
-		fail("not yet implemented");
-		
-	}
 	
+	/**
+	 * Test setNature on project with no natures before. 
+	 * Should be succesful
+	 * @throws CoreException
+	 * @throws ExecutionException
+	 */
 	@Test
 	public void testNoNature() throws CoreException, ExecutionException {
 		IProject project = getProject("URCapNoNatures"); //This project HAS to be in workspace
@@ -85,21 +97,24 @@ public class ConvertToURCapHandlerTest {
 		natures = getNatures(project);
 		
 		assertEquals(status.getCode(), IStatus.OK);
-		assertTrue(nature.contains("")); //insert urcap nature
+		assertTrue(nature.contains(URCapNature.NATURE_ID)); //insert urcap nature
 		
 		
 	}
 	
 	@Test
 	public void testMultipleNaturesExists() throws CoreException, ExecutionException {
-		IProject project = getProject("URCapMultipleNatureExists");
-		String[] natures = getNatures(project);
-		IStatus status = (IStatus) converter.setURProjectNature(null, project);
-		project = getProject("URCapMultipleNatureExists");
-		natures = getNatures(project);
 		
-		assertEquals(status.getCode(), IStatus.OK);
-		assertTrue(nature.contains("")); //insert urcap nature
+		System.out.println("sdlkfdflk  " + ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString());
+//		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject();
+//		
+//		String[] natures = getNatures(project);
+//		IStatus status = (IStatus) converter.setURProjectNature(null, project);
+//		project = getProject("URCapMultipleNatureExists");
+//		natures = getNatures(project);
+//		
+//		assertEquals(status.getCode(), IStatus.OK);
+//		assertTrue(nature.contains(URCapNature.NATURE_ID)); //insert urcap nature
 		
 	}
 	
@@ -112,7 +127,7 @@ public class ConvertToURCapHandlerTest {
 		natures = getNatures(project);
 		
 		assertTrue(status.getCode() == IStatus.ERROR || status.getCode() == IStatus.WARNING);  //Not sure if error or warning
-		assertTrue(nature.contains("")); //insert urcap nature
+		assertTrue(nature.contains(URCapNature.NATURE_ID)); //insert urcap nature
 	
 		
 	}
@@ -127,19 +142,4 @@ public class ConvertToURCapHandlerTest {
 		return project.getDescription().getNatureIds();
 		
 	}
-	
-	//Does not work yet
-	private static void copyProjects(String project) {
-		 File sourceLocation= new File("/home/jacob/junit-workspace-init/" + project);
-	     File targetLocation = new File("/home/jacob/junit-workspace");
-
-	     try {
-			FileUtils.copyDirectory(sourceLocation, targetLocation);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-
 }

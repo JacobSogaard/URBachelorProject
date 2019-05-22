@@ -31,13 +31,13 @@ public class WizardFactory implements IWizardFactory {
 	@Override
 	public Wizard getWizard(String wizardType, String projectArtifactId, String projectPath, String groupId) {
 		switch (wizardType) {
-		case "EmptyProject":
+		case "New URCap":
 			return new URCapWizard();
-		case "ProgramNode":
+		case "ShowProgramNodeWizard":
 			return new ProgramNodeWizard(projectArtifactId, projectPath, groupId);
-		case "InstallationNode":
+		case "ShowInstallationNodeWizard":
 			return new InstallationNodeWizard(projectArtifactId, projectPath, groupId);
-		case "ToolbarNode":
+		case "ShowToolbarNodeWizard":
 			return new ToolbarNodeWizard(projectArtifactId, projectPath, groupId);
 		case "DeployToRobot":
 			return new DeployToRobotWizard(projectPath,projectArtifactId);

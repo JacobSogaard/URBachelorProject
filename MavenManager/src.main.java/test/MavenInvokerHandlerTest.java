@@ -88,8 +88,21 @@ public class MavenInvokerHandlerTest {
 		assertEquals("0", invokeMessage);
 		
 		
+	}
+	
+	@Test
+	public void testPathNotExisting() {
+		mavenModel.setArchetypeVersionAPI("1.5.0");
+		mavenModel.setArchetypeVersion("1.5.0");
+		mavenModel.setProjectGroupId("Some group Id");
+		mavenModel.setProjectArtifactId("Some Artifact Id");
+		mavenModel.setProjectPath("/home/jacob/Desktop/not_a_directory");
+		mavenModel.setProjectVersion("1.0");
+		IURCapMaven emptyProject = new URCapProjectModel(mavenModel);
 		
-		
+		//If invokeGenerator returned the invoke exit code, this would be easier to test!
+		String invokeMessage = invoker.invokeGenerator(emptyProject);
+		assertNotEquals("0", invokeMessage); //We do not expect this to pass and we expect to get an non-zero exit code from the invocation, meaning we should handle invalid filepaths
 	}
 	
 	/**
@@ -128,21 +141,15 @@ public class MavenInvokerHandlerTest {
 		assertNotEquals("0", invokeMessage); 
 	}
 	
-	@Test
-	public void testPathNotExisting() {
-		mavenModel.setArchetypeVersionAPI("1.5.0");
-		mavenModel.setArchetypeVersion("1.5.0");
-		mavenModel.setProjectGroupId("Some group Id");
-		mavenModel.setProjectArtifactId("Some Artifact Id");
-		mavenModel.setProjectPath("/home/jacob/Desktop/not_a_directory");
-		mavenModel.setProjectVersion("1.0");
-		IURCapMaven emptyProject = new URCapProjectModel(mavenModel);
-		
-		//If invokeGenerator returned the invoke exit code, this would be easier to test!
-		String invokeMessage = invoker.invokeGenerator(emptyProject);
-		assertNotEquals("0", invokeMessage); //We do not expect this to pass and we expect to get an non-zero exit code from the invocation, meaning we should handle invalid filepaths
-	}
+
 	
+	/**
+	 * Test different input fpr group or artifact id
+	 * slashes
+	 * dot
+	 * parenthesis
+	 * spaces
+	 */
 	@Test
 	public void testInvalidId() {
 		mavenModel.setArchetypeVersionAPI("1.5.0");
@@ -155,40 +162,64 @@ public class MavenInvokerHandlerTest {
 		
 		//If invokeGenerator returned the invoke exit code, this would be easier to test!
 		String invokeMessage = invoker.invokeGenerator(emptyProject);
-		assertEquals("0", invokeMessage);
+		assertEquals("0", invokeMessage);  
 		
-		//Check file names
+		//Test underscore
+		mavenModel.setArchetypeVersionAPI("1.5.0");
+		mavenModel.setArchetypeVersion("1.5.0");
+		mavenModel.setProjectGroupId("groupid");
+		mavenModel.setProjectArtifactId("_Myartifact");
+		mavenModel.setProjectPath("/home/jacob/Desktop/testing"); 
+		mavenModel.setProjectVersion("1.0");
+		IURCapMaven emptyProject = new URCapProjectModel(mavenModel);
+		
+		//If invokeGenerator returned the invoke exit code, this would be easier to test!
+		String invokeMessage = invoker.invokeGenerator(emptyProject);
+		assertEquals("0", invokeMessage);  
+		
+		//Test underscore
+		mavenModel.setArchetypeVersionAPI("1.5.0");
+		mavenModel.setArchetypeVersion("1.5.0");
+		mavenModel.setProjectGroupId("groupid");
+		mavenModel.setProjectArtifactId("Myartifact..");
+		mavenModel.setProjectPath("/home/jacob/Desktop/testing"); 
+		mavenModel.setProjectVersion("1.0");
+		IURCapMaven emptyProject = new URCapProjectModel(mavenModel);
+		
+		//If invokeGenerator returned the invoke exit code, this would be easier to test!
+		String invokeMessage = invoker.invokeGenerator(emptyProject);
+		assertEquals("0", invokeMessage);  
 	}
 	
-	@Test
-	public void testNodeGenerator() {
-		//Test installation node
-		MavenModel installationNodeMavenModel = new InstallationNodeModel("service", "contribution", "view", "title"); //changes these parameters to weird stuff. Should not break
-		installationNodeMavenModel.setProjectPath("home/jacob/Desktop/testing");
-		installationNodeMavenModel.setProjectGroupId("groupId"); 
-		installationNodeMavenModel.setProjectArtifactId("artifact"); //Change to existing
-		installationNodeMavenModel.setProjectVersion("1.0");
-		IURCapMaven installationNode = new InstallationNodeMavenModel(installationNodeMavenModel);
-		String invokeInstallationNode = invoker.invokeGenerator(installationNode);
-		assertNotEquals("0", invokeInstallationNode);
-	}
-	
-	
-
-	/**
-	 * Test method for {@link mavenGenerator.MavenInvokerHandler#invokeDeploy(modelClasses.IURCapMaven, java.lang.String)}.
-	 */
-	@Test
-	public void testInvokeDeploy() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link mavenGenerator.MavenInvokerHandler#importMavenProject(java.lang.String, java.lang.String)}.
-	 */
-	@Test
-	public void testImportMavenProject() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testNodeGenerator() {
+//		//Test installation node
+//		MavenModel installationNodeMavenModel = new InstallationNodeModel("service", "contribution", "view", "title"); //changes these parameters to weird stuff. Should not break
+//		installationNodeMavenModel.setProjectPath("home/jacob/Desktop/testing");
+//		installationNodeMavenModel.setProjectGroupId("groupId"); 
+//		installationNodeMavenModel.setProjectArtifactId("artifact"); //Change to existing
+//		installationNodeMavenModel.setProjectVersion("1.0");
+//		IURCapMaven installationNode = new InstallationNodeMavenModel(installationNodeMavenModel);
+//		String invokeInstallationNode = invoker.invokeGenerator(installationNode);
+//		assertNotEquals("0", invokeInstallationNode);
+//	}
+//	
+//	
+//
+//	/**
+//	 * Test method for {@link mavenGenerator.MavenInvokerHandler#invokeDeploy(modelClasses.IURCapMaven, java.lang.String)}.
+//	 */
+//	@Test
+//	public void testInvokeDeploy() {
+//		fail("Not yet implemented");
+//	}
+//
+//	/**
+//	 * Test method for {@link mavenGenerator.MavenInvokerHandler#importMavenProject(java.lang.String, java.lang.String)}.
+//	 */
+//	@Test
+//	public void testImportMavenProject() {
+//		fail("Not yet implemented");
+//	}
 
 }

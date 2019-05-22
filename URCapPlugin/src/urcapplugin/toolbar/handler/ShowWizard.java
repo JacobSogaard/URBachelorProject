@@ -23,7 +23,7 @@ public class ShowWizard extends AbstractHandler {
 		IWizardFactory factory = new WizardFactory();
 		Wizard wizard;
 		try {
-			wizard = factory.getWizard(event.getCommand().getDescription(), "", "", "");
+			wizard = factory.getWizard(event.getCommand().getName(), "", "", "");
 			WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
 			dialog.setHelpAvailable(true);
 			dialog.open();

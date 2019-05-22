@@ -49,6 +49,7 @@ public class MavenInvokerHandler implements IMavenHandler{
 
 			try {
 				InvocationResult result = invoker.execute(request);
+				invokeMavenMessage = Integer.toString(result.getExitCode());
 			} catch (MavenInvocationException e) {
 				e.printStackTrace();
 			}
