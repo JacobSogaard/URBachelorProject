@@ -21,7 +21,6 @@ public class InstallationNodeMavenModel implements IURCapMaven {
 	private static final String ARCHETYPE_GROUPID = "com.ur.urcap";
 	private static final String ARCHETYPE_ARTIFACTID = "installationnodearchetype";
 	private static final String ARCHETYPE_VERSION = "1.0";
-
 	private Properties properties;
 	
 	/**

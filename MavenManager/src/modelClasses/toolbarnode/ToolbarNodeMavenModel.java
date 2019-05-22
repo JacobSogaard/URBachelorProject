@@ -16,17 +16,17 @@ import modelClasses.URCapProjectModel;
  * @author jacob
  *
  */
-public class ToolbarNodeProjectModel implements IURCapMaven {
+public class ToolbarNodeMavenModel implements IURCapMaven {
 
 	private ToolbarNodeModel toolbarNodeModel;
-	Properties properties;
+	private Properties properties;
 	private static final String ARCHETYPE_GROUPID = "com.ur.urcap";
 	private static final String ARCHETYPE_ARTIFACTID = "toolbarnodearchetype";
 	private static final String ARCHETYPE_VERSION = "1.0";
 	/**
 	 * Empty constructor
 	 */
-	public ToolbarNodeProjectModel() {
+	public ToolbarNodeMavenModel() {
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class ToolbarNodeProjectModel implements IURCapMaven {
 	 * @param apiVersion
 	 * @param projectPath
 	 */
-	public ToolbarNodeProjectModel(MavenModel toolbarNode) {
+	public ToolbarNodeMavenModel(MavenModel toolbarNode) {
 		this.toolbarNodeModel = (ToolbarNodeModel) toolbarNode;
 		this.toolbarNodeModel.setArchetypeGroupId(ARCHETYPE_GROUPID);
 		this.toolbarNodeModel.setArchetypeArtifactId(ARCHETYPE_ARTIFACTID);

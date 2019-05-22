@@ -12,7 +12,7 @@ import mavenGenerator.MavenInvokerHandler;
 import modelClasses.IURCapMaven;
 import modelClasses.MavenModel;
 import modelClasses.programnode.ProgramNodeModel;
-import modelClasses.programnode.ProgramNodeProjectModel;
+import modelClasses.programnode.ProgramNodeMavenModel;
 
 /**
  * Sets up the wizard for program node installation
@@ -69,7 +69,7 @@ public class ProgramNodeWizard extends Wizard{
 		mavenModel.setProjectArtifactId(this.artifactId);
 		mavenModel.setProjectVersion("1.0");
 		
-		this.nodeModel = new ProgramNodeProjectModel(mavenModel);
+		this.nodeModel = new ProgramNodeMavenModel(mavenModel);
 		
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		

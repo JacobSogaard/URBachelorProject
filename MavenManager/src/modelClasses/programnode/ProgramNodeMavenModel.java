@@ -15,17 +15,17 @@ import modelClasses.URCapProjectModel;
  * @author jacob
  *
  */
-public class ProgramNodeProjectModel implements IURCapMaven {
+public class ProgramNodeMavenModel implements IURCapMaven {
 
 	private ProgramNodeModel programNodeModel;
-	Properties properties;
+	private Properties properties;
 	private static final String ARCHETYPE_GROUPID = "com.ur.urcap";
 	private static final String ARCHETYPE_ARTIFACTID = "programnodearchetype";
 	private static final String ARCHETYPE_VERSION = "1.0";
 	/**
 	 * Empty constructor
 	 */
-	public ProgramNodeProjectModel() {
+	public ProgramNodeMavenModel() {
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class ProgramNodeProjectModel implements IURCapMaven {
 	 * @param apiVersion
 	 * @param projectPath
 	 */
-	public ProgramNodeProjectModel(MavenModel programNode) {
+	public ProgramNodeMavenModel(MavenModel programNode) {
 		this.programNodeModel = (ProgramNodeModel) programNode;
 		this.programNodeModel.setArchetypeGroupId(ARCHETYPE_GROUPID);
 		this.programNodeModel.setArchetypeArtifactId(ARCHETYPE_ARTIFACTID);

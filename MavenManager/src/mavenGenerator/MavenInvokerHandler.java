@@ -68,7 +68,6 @@ public class MavenInvokerHandler implements IMavenHandler{
 	public String invokeDeploy(IURCapMaven projectModel, String artifactID) {
 
 		String messageResult = "";
-
 		messageResult = this.setupMavenRequestDeploy(projectModel, artifactID);
 
 		if (messageResult == "") {

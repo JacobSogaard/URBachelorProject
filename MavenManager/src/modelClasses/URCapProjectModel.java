@@ -15,7 +15,6 @@ public class URCapProjectModel implements IURCapMaven {
 	private static final String ARCHETYPE_GROUPID = "com.ur.urcap";
 	private static final String ARCHETYPE_ARTIFACTID = "archetype";
 	private String packaging;
-	
 	private URCapModel mavenModel;
 	
 	/**

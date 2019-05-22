@@ -1,4 +1,4 @@
-package test;
+package pomReaderTest;
 
 import static org.junit.Assert.*;
 

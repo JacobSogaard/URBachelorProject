@@ -12,7 +12,7 @@ import mavenGenerator.MavenInvokerHandler;
 import modelClasses.IURCapMaven;
 import modelClasses.MavenModel;
 import modelClasses.toolbarnode.ToolbarNodeModel;
-import modelClasses.toolbarnode.ToolbarNodeProjectModel;
+import modelClasses.toolbarnode.ToolbarNodeMavenModel;
 
 /**
  * Sets up the wizard for program node installation Adds the pages to the wizard
@@ -67,7 +67,7 @@ public class ToolbarNodeWizard extends Wizard {
 		mavenModel.setProjectArtifactId(this.artifactId);
 		mavenModel.setProjectVersion("1.0");
 
-		this.nodeModel = new ToolbarNodeProjectModel(mavenModel);
+		this.nodeModel = new ToolbarNodeMavenModel(mavenModel);
 
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);
