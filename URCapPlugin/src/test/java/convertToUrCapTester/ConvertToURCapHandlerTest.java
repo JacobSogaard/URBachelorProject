@@ -1,4 +1,4 @@
-package java.convertToUrCapTester;
+package convertToUrCapTester;
 
 import static org.junit.Assert.*;
 
