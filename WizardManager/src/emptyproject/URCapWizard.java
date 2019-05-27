@@ -51,15 +51,15 @@ public class URCapWizard extends Wizard {
 		
 		
 	
-		if (invokeMessage != "0") {
-			MessageDialog.openWarning(shell, "Maven Execution Message", "Something went wrong during generating the URCap project");
+		if (!invokeMessage.equals("0")) {
+			MessageDialog.openWarning(shell, "Maven Execution Message", "Something went wrong when creating the URCap project.");
 
 		} else {
 			// Imports the newly created project to the package explorer.
 			String message = mavenHandler.importMavenProject(urcapSetupPage.getProjectModel().getProjectPath(),
 					urcapSetupPage.getProjectModel().getProjectArtifactId());
 
-			MessageDialog.openInformation(shell, "Import project message", "Project created successfully & importet to workspace");
+			MessageDialog.openInformation(shell, "Import project message", "Project created successfully and importet to workspace");
 		}
 
 		shell.setCursor(null);

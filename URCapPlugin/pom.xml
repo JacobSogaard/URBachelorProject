@@ -6,11 +6,8 @@
 	<artifactId>URCapPlugin</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
-	<dependencies>
-
-	</dependencies>
 	<build>
-		<sourceDirectory>src</sourceDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>

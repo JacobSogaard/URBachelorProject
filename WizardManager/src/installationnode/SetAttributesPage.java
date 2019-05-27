@@ -6,7 +6,9 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.*;;
+import org.eclipse.swt.widgets.*;
+
+import wizardmanager.NodeWizard;;
 
 /**
  * Wizard page which sets information about the program node, excepts class
@@ -15,7 +17,7 @@ import org.eclipse.swt.widgets.*;;
  * @author jacob
  *
  */
-public class SetAttributesPage extends WizardPage {
+public class SetAttributesPage extends NodeWizard {
 
 	private Text nodeTitle;
 	private Label nodeTitleLabel;

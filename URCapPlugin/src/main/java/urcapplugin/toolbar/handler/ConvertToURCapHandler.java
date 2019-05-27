@@ -49,7 +49,7 @@ public class ConvertToURCapHandler extends AbstractHandler {
 				// Validating if the project is an URCap.
 				IPath path = project.getLocation();
 				PomFileReader pomreader = new PomFileReader();
-				if (pomreader.validateProjectAsURCap(path)) {
+				if (pomreader.validateProjectAsURCap(path.toOSString())) {
 					return setURProjectNature(event, project);
 				} else {
 					MessageDialog.openWarning(HandlerUtil.getActiveShell(event), "WARNING",

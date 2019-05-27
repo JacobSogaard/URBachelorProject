@@ -58,28 +58,47 @@ public class PomFileReaderTest {
 	 */
 	@Test
 	public void testValidateProjectAsURCap() {
-		
-		//Test with different projects. 
-		//Test with invalid project
-		IProject project = getProject("some project"); //Has to be in workspace
-		IPath path = project.getLocation();
-		boolean isURProject = pfr.validateProjectAsURCap(path);
+		String location = "/home/jacob/Desktop/testing/PomReaderTest/MyUrCap";
+		boolean isURProject = pfr.validateProjectAsURCap(location);
 		assertTrue(isURProject); 
-		
-		
+	}
+	
+	@Test
+	public void testValidateNoPomFile() {
+		String location = "/home/jacob/Desktop/testing/PomReaderTest/NoPomFile";
+		boolean isURProject = pfr.validateProjectAsURCap(location);
+		assertTrue(!isURProject);
+	}
+	
+	@Test
+	public void testNotUrProject() {
+		String location = "/home/jacob/Desktop/testing/PomReaderTest/NotUrProject";
+		boolean isURProject = pfr.validateProjectAsURCap(location);
+		assertTrue(!isURProject);
 	}
 
 	@Test
 	public void testGetGroupId() {
-		
 		//Test with different projects with different group ids. 
-		IProject project = getProject("some project"); //Has to be in workspace
-		IPath path = project.getLocation();
-		String groupId = pfr.getGroupId(path);
-		assertEquals("GroupId", groupId);
+		String location = "/home/jacob/Desktop/testing/PomReaderTest/MyUrCap";
+		String groupId = pfr.getGroupId(location);
+		assertEquals("com.ur.myurcompany", groupId);
 	}
 	
-	private IProject getProject(String projectName) {
-		return ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+	@Test
+	public void hasEmptyGroupidTag() {
+		String location = "/home/jacob/Desktop/testing/PomReaderTest/EmptyGroupId";
+		String groupId = pfr.getGroupId(location);
+		assertEquals("", groupId);
 	}
+	
+	@Test
+	public void hasNoGroupidTag() {
+		String location = "/home/jacob/Desktop/testing/PomReaderTest/NoGroupId";
+		String groupId = pfr.getGroupId(location);
+		assertEquals("", groupId);
+	}
+	
+
+
 }

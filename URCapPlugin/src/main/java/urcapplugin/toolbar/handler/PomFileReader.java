@@ -24,7 +24,7 @@ public class PomFileReader {
 	 * This method reads the pom file on a specific path of a project and validate
 	 * if the project is an URCap.
 	 * 
-	 * @param projectPath
+	 * @param projectPath - As IPath
 	 * @return true if it is an URCap project.
 	 * 
 	 */
@@ -50,7 +50,40 @@ public class PomFileReader {
 		return isURCapProject;
 
 	}
+	
+	/**
+	 * This method reads the pom file on a specific path of a project and validate
+	 * if the project is an URCap.
+	 * 
+	 * @param projectPath - As string
+	 * @return true if it is an URCap project.
+	 * 
+	 */
+	public boolean validateProjectAsURCap(String projectPath) {
 
+		boolean isURCapProject = false;
+
+		if (projectPath != null) {
+			String pomFilePath = projectPath + "/pom.xml";
+			File file = new File(pomFilePath);
+
+			try {
+				if (this.readXMLFile(file, "urcap.install.host") != null) {
+					isURCapProject = true;
+				} else {
+					isURCapProject = false;
+				}
+			} catch (SAXException | IOException | ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return isURCapProject;
+
+	}
+
+
+	
 	/**
 	 * Get group id of pom file on specified path
 	 * 
@@ -58,7 +91,7 @@ public class PomFileReader {
 	 * @return - Returns the group id of POM file as a String. Null if non was
 	 *         found.
 	 */
-	public String getGroupId(IPath projectPath) {
+	public String getGroupId(String projectPath) {
 		String groupId;
 		if (projectPath != null) {
 			String pomFilePath = projectPath.toString() + "/pom.xml";

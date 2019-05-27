@@ -9,9 +9,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 
-import mavenGenerator.MavenInvokerHandler;
-import mavenImport.MavenProjectImporter;
-
 
 /**
  * This class controls all aspects of the application's execution
