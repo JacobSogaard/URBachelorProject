@@ -1,4 +1,5 @@
-package mavenGenerator;
+package invokertest;
+
 
 import static org.junit.Assert.*;
 

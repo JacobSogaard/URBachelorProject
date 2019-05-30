@@ -12,12 +12,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jface,
  org.junit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: mavenGenerator;uses:="modelClasses",
- mavenImport,
- modelClasses,
- modelClasses.installationnode;uses:="modelClasses",
- modelClasses.programnode;uses:="modelClasses",
- modelClasses.toolbarnode
 Bundle-ClassPath: aether-api-1.7.jar,
  aether-impl-1.7.jar,
  aether-spi-1.7.jar,
@@ -88,3 +82,9 @@ Bundle-ClassPath: aether-api-1.7.jar,
  xmlunit-1.5.jar,
  .
 Bundle-ActivationPolicy: lazy
+Export-Package: mavenGenerator,
+ mavenImport,
+ modelClasses,
+ modelClasses.installationnode,
+ modelClasses.programnode,
+ modelClasses.toolbarnode

@@ -41,6 +41,7 @@ public class URCapWizard extends Wizard {
 	@Override
 	public boolean performFinish() {
 		this.projectModel = new URCapProjectModel(urcapSetupPage.getProjectModel());
+		
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);
 		Shell shell = getShell();
@@ -48,9 +49,6 @@ public class URCapWizard extends Wizard {
 
 		// Executes the maven command.
 		String invokeMessage = mavenHandler.invokeGenerator(this.projectModel);
-		
-		
-	
 		if (!invokeMessage.equals("0")) {
 			MessageDialog.openWarning(shell, "Maven Execution Message", "Something went wrong when creating the URCap project.");
 
