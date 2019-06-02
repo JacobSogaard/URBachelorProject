@@ -77,7 +77,7 @@ public class ToolbarNodeWizard extends Wizard {
 		// Executes the maven command and checks whether it has been a succes or not.
 		String invokeMessage = mavenHandler.invokeGenerator(this.nodeModel);
 		if (invokeMessage != "") {
-			MessageDialog.openWarning(shell, "Maven Execution Message", invokeMessage);
+			MessageDialog.openWarning(shell, "Maven Execution Message", "The toolbar node has succesfully been added to the project!" + "\n" + "Please right-click the project and Refresh the project to see result.");
 		} else {
 			MessageDialog.openInformation(shell, "Toolbar node message",
 					"The toolbar node has succesfully been added to the project!" + "\n"

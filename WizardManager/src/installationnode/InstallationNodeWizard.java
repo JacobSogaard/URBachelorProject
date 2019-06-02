@@ -79,7 +79,7 @@ public class InstallationNodeWizard extends Wizard {
 		//Executes the maven command and checks whether it has been a success or not.
 		String invokeMessage = mavenHandler.invokeGenerator(this.nodeModel);
 		if (invokeMessage != "") {
-			MessageDialog.openWarning(shell, "Maven Execution Message", invokeMessage);
+			MessageDialog.openWarning(shell, "Maven Execution Message", "The installation node has succesfully been added to the project!" + "\n" + "Please right-click the project and Refresh the project to see result.");
 		} else {
 			MessageDialog.openInformation(shell, "Installation node message",
 					"The installation node has succesfully been added to the project!" + "\n" + "Please right-click the project and Refresh the project to see result.");
