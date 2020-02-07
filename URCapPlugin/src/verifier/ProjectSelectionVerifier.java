@@ -30,10 +30,12 @@ public class ProjectSelectionVerifier {
 				.getSelection("org.eclipse.jdt.ui.PackageExplorer");
 		IJavaProject javaProject = (IJavaProject) structured.getFirstElement();
 		IProject project = javaProject.getProject();
-
+		
+		
 		try {
 			this.setProjectArtifactId(project.getDescription().getName());
 			this.setIPath(project.getLocation());
+			//this.setProjectPath(project.getLocation().toString());
 			String[] natures = project.getDescription().getNatureIds();
 			for (String nature : natures) {
 				if (nature.equals("URCapProjectNature.urcapprojectnature")) {

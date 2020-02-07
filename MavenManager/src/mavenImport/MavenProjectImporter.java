@@ -148,6 +148,7 @@ public class MavenProjectImporter {
 
 	public IProject getProject() {
 		return project;
+		
 	}
 
 	

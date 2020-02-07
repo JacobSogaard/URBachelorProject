@@ -20,6 +20,7 @@ public class DeployToLocalWizardPage extends WizardPage {
 	private Composite container;
 	private GridLayout layout;
 	private String browseLabelText = "Path to URSim";
+	private String projectPath;
 
 
 	protected DeployToLocalWizardPage() {
@@ -89,7 +90,7 @@ public class DeployToLocalWizardPage extends WizardPage {
 	
 	protected String getURSimPath() {
 		String windowPath = this.browseText.getText();
-		windowPath.replace("\\", "\\\\");
+		//windowPath.replace("\\", "\\\\");
 		return windowPath;
 	}
 	

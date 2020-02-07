@@ -2,6 +2,7 @@ package mavenGenerator;
 
 import java.io.File;
 import java.util.Collections;
+import java.util.Properties;
 
 import org.apache.maven.shared.invoker.DefaultInvocationRequest;
 import org.apache.maven.shared.invoker.DefaultInvoker;
@@ -93,13 +94,42 @@ public class MavenInvokerHandler implements IMavenHandler{
 	 */
 	private String setupMavenRequestDeploy(IURCapMaven projectModel, String artifactID) {
 		String mavenExecutionMessage = "";
+		
 
-		String pomPath = projectModel.getProjectPath() + "/" + artifactID;
-
-		request.setBaseDirectory(new File(pomPath));
+		String pomPath = projectModel.getProjectPath() + "/" + artifactID +"/pom.xml";
+		String projectPath = projectModel.getProjectPath() + "/" + artifactID;
+		
+		Properties prop = projectModel.getProperties();
+		
+		mavenExecutionMessage = "pomPath: " + pomPath + " projectPath: " + projectPath + "\n ursim: " + prop.getProperty("ursim.home");
+		
+		
+		request.setPomFile(new File(pomPath));
+		request.setBaseDirectory(new File(projectPath));
 		request.setGoals(Collections.singletonList(projectModel.getGoal()));
 		request.setBatchMode(true);
 		request.setProperties(projectModel.getProperties());
+
+		if (!this.checkMavenEnvironmentVariable()) {
+			mavenExecutionMessage = "The execution is not possible." + "\n"
+					+ "Please add a maven enviroment variable to your system with the name: MAVEN_HOME";
+		}
+
+		return mavenExecutionMessage;
+
+	}
+	 
+	private String setupMavenRequestDeployDefault(IURCapMaven projectModel, String artifactID) {
+		String mavenExecutionMessage = "";
+
+		Properties prop = new Properties();
+		prop.setProperty("ursim.home", "/home/ur/ursim/ursim-5.5.1.82186");
+		
+		request.setPomFile(new File("/home/ur/eclipse-workspace/TestProject1/pom.xml"));
+		request.setBaseDirectory(new File("/home/ur/eclipse-workspace/TestProject1"));
+		request.setGoals(Collections.singletonList("install -P ursim"));
+		request.setBatchMode(true);
+		request.setProperties(prop);
 
 		if (!this.checkMavenEnvironmentVariable()) {
 			mavenExecutionMessage = "The execution is not possible." + "\n"
