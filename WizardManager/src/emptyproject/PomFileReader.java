@@ -8,7 +8,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.swt.widgets.Shell;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -99,12 +102,38 @@ public class PomFileReader {
 		NodeList nodeList = doc.getElementsByTagName(tagName);
 
 		if (nodeList.getLength() > 0) {
+
 			result = doc.getElementsByTagName(tagName).item(0).getTextContent();
 
 		}
 
 		return result;
 
+	}
+
+	public String getURsimPath(String projectPath) {
+		String ursimPath = "";
+
+		if (projectPath != null) {
+			String pomFilePath = projectPath + "/pom.xml";
+
+			File file = new File(pomFilePath);
+
+			try {
+				ursimPath = this.readXMLFile(file, "ursim.home");
+				if (ursimPath == null) {
+					return "The URSim path is null!";
+				} else if(ursimPath == "") {
+					return "The ursim path is empty.";
+				}else {
+					return ursimPath;
+				}
+			} catch (SAXException | IOException | ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return "nullprojectPath";
 	}
 
 }

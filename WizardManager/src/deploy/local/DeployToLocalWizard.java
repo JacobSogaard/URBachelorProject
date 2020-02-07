@@ -22,7 +22,10 @@ public class DeployToLocalWizard extends Wizard {
 		setNeedsProgressMonitor(true);
 		this.projectPath = path;
 		this.artifactID = projectArtifactId;
+		
 	}
+	
+
 
 	/**
 	 * Adds the pages to the wizard.
@@ -31,6 +34,9 @@ public class DeployToLocalWizard extends Wizard {
 	public void addPages() {
 		deployLocalWizard = new DeployToLocalWizardPage();
 		addPage(deployLocalWizard);
+		
+		//EDITED::
+		deployLocalWizard.setProjectPathDeploy(this.projectPath);
 	}
 
 	/**
