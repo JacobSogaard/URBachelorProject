@@ -25,7 +25,7 @@ public class ShowDeployWizard extends AbstractHandler {
 			try {
 				System.out.println(event.getCommand().getName());
 				wizard = wizardFactory.getWizard(event.getCommand().getName(),
-						this.projectVerifier.getProjectArtifactId(), this.projectVerifier.getProjectPath(), "");
+						this.projectVerifier.getProjectArtifactId(), this.projectVerifier.getPath().toString(), "");
 				openWizard(wizard, event);
 			} catch (NotDefinedException e) {
 				e.printStackTrace();

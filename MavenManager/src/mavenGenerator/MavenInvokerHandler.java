@@ -96,12 +96,12 @@ public class MavenInvokerHandler implements IMavenHandler{
 		String mavenExecutionMessage = "";
 		
 
-		String pomPath = projectModel.getProjectPath() + "/" + artifactID +"/pom.xml";
-		String projectPath = projectModel.getProjectPath() + "/" + artifactID;
+		String pomPath = projectModel.getProjectPath() +"/pom.xml";
+		String projectPath = projectModel.getProjectPath();
 		
-		Properties prop = projectModel.getProperties();
+		//Properties prop = projectModel.getProperties();
 		
-		mavenExecutionMessage = "pomPath: " + pomPath + " projectPath: " + projectPath + "\n ursim: " + prop.getProperty("ursim.home");
+		//mavenExecutionMessage = "pomPath: " + pomPath + " projectPath: " + projectPath + "\n ursim: " + prop.getProperty("ursim.home");
 		
 		
 		request.setPomFile(new File(pomPath));

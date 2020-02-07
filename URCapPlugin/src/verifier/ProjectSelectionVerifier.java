@@ -35,7 +35,6 @@ public class ProjectSelectionVerifier {
 		try {
 			this.setProjectArtifactId(project.getDescription().getName());
 			this.setIPath(project.getLocation());
-			//this.setProjectPath(project.getLocation().toString());
 			String[] natures = project.getDescription().getNatureIds();
 			for (String nature : natures) {
 				if (nature.equals("URCapProjectNature.urcapprojectnature")) {
@@ -59,13 +58,13 @@ public class ProjectSelectionVerifier {
 		this.projectArtifactId = projectArtifactId;
 	}
 
-	public String getProjectPath() {
-		return projectPath;
-	}
-
-	private void setProjectPath(String projectPath) {
-		this.projectPath = projectPath;
-	}
+//	public String getProjectPath() {
+//		return projectPath;
+//	}
+//
+//	private void setProjectPath(String projectPath) {
+//		this.projectPath = projectPath;
+//	}
 	
 	private void setIPath(IPath path) {
 		this.ipath = path;

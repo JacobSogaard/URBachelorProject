@@ -37,9 +37,6 @@ public class ShowNodeWizard extends AbstractHandler {
 			String groupId = pomReader.getGroupId(this.projectVerifier.getPath());
 			this.setWizardParameters();
 			
-			//DELETE
-			MessageDialog.openError(HandlerUtil.getActiveShell(event), "Path", this.projectVerifier.getPath().toString());
-			
 			try {
 				wizard = factory.getWizard(event.getCommand().getDescription(), this.artifactId,
 						this.path, groupId);
