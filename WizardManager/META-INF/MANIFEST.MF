@@ -8,6 +8,7 @@ Automatic-Module-Name: WizardManager
 Service-Component: OSGI-INF/*.xml
 Import-Package: modelClasses,
  nature,
+ org.apache.tools.ant;version="1.10.5",
  org.eclipse.osgi.framework.console;version="1.0.0",
  org.osgi.framework;version="1.3.0",
  org.osgi.service.component.annotations;version="1.2.0";resolution:=optional,

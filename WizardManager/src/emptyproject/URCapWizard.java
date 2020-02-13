@@ -53,6 +53,88 @@ public class URCapWizard extends Wizard {
 
 	@Override
 	public boolean performFinish() {
+		Shell shell = getShell();
+
+		TaskExecutionController con = new TaskExecutionController();
+		this.projectModel = new URCapProjectModel(urcapSetupPage.getProjectModel());
+		String path = urcapSetupPage.getProjectModel().getProjectPath();
+		String id = urcapSetupPage.getProjectModel().getProjectArtifactId();
+		
+		con.executeTask(shell,path,id);
+
+		return true;
+	}
+
+	public void setNewProjectNature(IPath path, IProject project) {
+
+		PomFileReader pomreader = new PomFileReader();
+		if (pomreader.validateProjectAsURCap(path)) {
+			try {
+
+				IProjectDescription description = project.getDescription();
+				String[] natures = description.getNatureIds();
+
+				String[] newNatures = new String[natures.length + 1];
+				System.arraycopy(natures, 0, newNatures, 0, natures.length);
+
+				// Trying to set URCap nature as the first nature.
+				String copyNature = newNatures[0];
+				newNatures[0] = URCapNature.NATURE_ID;
+				newNatures[natures.length] = copyNature;
+
+				// validate the natures
+				IWorkspace workspace = ResourcesPlugin.getWorkspace();
+				IStatus status = workspace.validateNatureSet(newNatures);
+
+				// only apply new nature, if the status is ok
+				if (status.getCode() == IStatus.OK) {
+					description.setNatureIds(newNatures);
+					project.setDescription(description, null);
+
+				}
+
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public String executeGenerateImportProject(Shell shell, String path, String id) {
+		
+		String invokeMessage = mavenHandler.invokeGenerator(this.projectModel);
+		String message = "";
+
+		if (invokeMessage != "") {
+			//MessageDialog.openWarning(shell, "Maven Execution Message", invokeMessage);
+			message = invokeMessage;
+
+		} else {
+			// Imports the newly created project to the package explorer.
+			message = mavenHandler.importMavenProject(path,
+					id);
+			try {
+				Thread.sleep(15000);
+
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		// Sets the nature one the project
+			MavenProjectImporter importer = new MavenProjectImporter();
+			IProject project = importer.getProject();
+			IPath projectpath = project.getLocation();
+			setNewProjectNature(projectpath, project);
+
+//			//MessageDialog.openInformation(shell, "Import project message", message);
+				
+		}
+		
+		return message;
+		
+	}
+
+	private void Tempholder() {
 		this.projectModel = new URCapProjectModel(urcapSetupPage.getProjectModel());
 		// Display display = Display.getDefault();
 		// Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);
@@ -88,40 +170,40 @@ public class URCapWizard extends Wizard {
 		}
 		// shell.setCursor(null);
 		// waitCursor.dispose();
-		return true;
 	}
+	
+	private class TaskExecutionController {
+		
+		
+		public TaskExecutionController() {
+		}
+		
 
-	public void setNewProjectNature(IPath path, IProject project) {
-
-		PomFileReader pomreader = new PomFileReader();
-		if (pomreader.validateProjectAsURCap(path)) {
-			try {
-
-				IProjectDescription description = project.getDescription();
-				String[] natures = description.getNatureIds();
-
-				String[] newNatures = new String[natures.length + 1];
-				System.arraycopy(natures, 0, newNatures, 0, natures.length);
-
-				// Trying to set URCap nature as the first nature.
-				String copyNature = newNatures[0];
-				newNatures[0] = URCapNature.NATURE_ID;
-				newNatures[natures.length] = copyNature;
-
-				// validate the natures
-				IWorkspace workspace = ResourcesPlugin.getWorkspace();
-				IStatus status = workspace.validateNatureSet(newNatures);
-
-				// only apply new nature, if the status is ok
-				if (status.getCode() == IStatus.OK) {
-					description.setNatureIds(newNatures);
-					project.setDescription(description, null);
-
+		public void executeTask(Shell shell, String path, String id) {
+			Job job = new Job("First Job") {
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
+					
+					String executeMessage = executeGenerateImportProject(shell,path,id);
+					//doLongThing();
+					
+					syncWithUi(shell,executeMessage);
+					// use this to open a Shell in the UI thread
+					return Status.OK_STATUS;
 				}
 
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
+			};
+			job.setUser(true);
+			job.schedule();
+		}
+
+		private void syncWithUi(Shell shell, String message) {
+			Display.getDefault().asyncExec(new Runnable() {
+				public void run() {
+					MessageDialog.openInformation(shell, "Import Project Message", message);
+				}
+			});
+
 		}
 	}
 
