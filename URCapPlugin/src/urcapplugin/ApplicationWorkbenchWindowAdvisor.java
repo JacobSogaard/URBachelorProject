@@ -24,5 +24,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setShowCoolBar(true);
         configurer.setShowStatusLine(false);
         configurer.setTitle("New URCap Project"); //$NON-NLS-1$
+        
+        
     }
 }

@@ -56,8 +56,14 @@ public class DeployToLocalWizardPage extends WizardPage {
 
 		this.browseBTN = new Button(container, SWT.PUSH);
 		this.browseBTN.setBounds(40, 50, 50, 20);
+		
 
 		this.browseBTN.setText("Browse");
+		
+		if (getUrsimPathFromPom()) {
+			setPageComplete(isAllFieldsSet());
+		}
+		
 		this.browseBTN.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -92,13 +98,15 @@ public class DeployToLocalWizardPage extends WizardPage {
 		Boolean pathExists = false;
 
 		try {
-			// this.browseText.setText(fd.open());
-
-			if (isPathValid(pomReader.getURsimPath(this.projectPath))) {
-				this.browseText.setText(pomReader.getURsimPath(this.projectPath));
+			this.browseText.setText("");
+			
+			String ursimPath = fd.open();
+			
+			if (isPathValid(ursimPath)) {
+				this.browseText.setText(ursimPath);
 				pathExists = true;
 			} else {
-				this.browseText.setText("The path does not exist. Please Check!");
+				this.browseText.setText("Invalid Path. Please Check!");
 				pathExists = false;
 			}
 
@@ -138,5 +146,24 @@ public class DeployToLocalWizardPage extends WizardPage {
 			return true;
 		}
 
+	}
+	
+	private boolean getUrsimPathFromPom() {
+		Boolean pathExists = false;
+		try {
+
+			if (isPathValid(pomReader.getURsimPath(this.projectPath))) {
+				this.browseText.setText(pomReader.getURsimPath(this.projectPath));
+				pathExists = true;
+			} else {
+				this.browseText.setText("Invalid Path. Please Check!");
+				pathExists = false;
+			}
+
+		} catch (IllegalArgumentException ex) {
+			ex.printStackTrace();
+		}
+
+		return pathExists;
 	}
 }
