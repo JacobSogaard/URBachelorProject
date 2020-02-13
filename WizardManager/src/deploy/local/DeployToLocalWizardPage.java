@@ -1,5 +1,9 @@
 package deploy.local;
 
+import java.io.File;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Paths;
+
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -12,7 +16,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 
 import org.eclipse.swt.widgets.Label;
-
 
 import emptyproject.PomFileReader;
 
@@ -27,14 +30,12 @@ public class DeployToLocalWizardPage extends WizardPage {
 	private String projectPath;
 
 	private PomFileReader pomReader = new PomFileReader();
-	
 
 	protected DeployToLocalWizardPage() {
 		super("Deploy to local wizardpage");
 		setTitle("Deploy to local URSim");
 		setDescription("Set path for local URSim");
 		setPageComplete(false);
-
 
 	}
 
@@ -61,9 +62,9 @@ public class DeployToLocalWizardPage extends WizardPage {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				browseFile();
-				setPageComplete(isAllFieldsSet());
-
+				if (browseFile()) {
+					setPageComplete(isAllFieldsSet());
+				}
 			}
 
 			@Override
@@ -81,21 +82,32 @@ public class DeployToLocalWizardPage extends WizardPage {
 	/**
 	 * Method to browse for a file in the user OS
 	 * 
-	 * @return
+	 * @return a boolean whether the path exists or not.
 	 */
-	private void browseFile() {
+	private boolean browseFile() {
 		DirectoryDialog fd = new DirectoryDialog(container.getShell(), SWT.OPEN);
 		fd.setText("Open");
 		fd.setFilterPath("");
 
+		Boolean pathExists = false;
+
 		try {
-			//this.browseText.setText(fd.open());
-			//this.browseText.setText(pomReader.getURsimPath("/home/ur/eclipse-workspace/TestProject1"));
-			this.browseText.setText(pomReader.getURsimPath(this.projectPath));
+			// this.browseText.setText(fd.open());
+
+			if (isPathValid(pomReader.getURsimPath(this.projectPath))) {
+				this.browseText.setText(pomReader.getURsimPath(this.projectPath));
+				pathExists = true;
+			} else {
+				this.browseText.setText("The path does not exist. Please Check!");
+				pathExists = false;
+			}
+
 		} catch (IllegalArgumentException ex) {
-			return;
+			ex.printStackTrace();
 		}
-		
+
+		return pathExists;
+
 	}
 
 	protected String getURSimPath() {
@@ -107,9 +119,24 @@ public class DeployToLocalWizardPage extends WizardPage {
 	private boolean isAllFieldsSet() {
 		return true;
 	}
-	
+
 	public void setProjectPathDeploy(String path) {
 		this.projectPath = path;
 	}
 
+	/**
+	 * Validates if the URSIM path set by the user is a valid path.
+	 * 
+	 * @param path of the ursim
+	 * @return boolean
+	 */
+	private boolean isPathValid(String path) {
+		File f = new File(path);
+		if (!f.exists()) {
+			return false;
+		} else {
+			return true;
+		}
+
+	}
 }
