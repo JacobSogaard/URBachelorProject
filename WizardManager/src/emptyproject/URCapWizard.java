@@ -25,6 +25,7 @@ import mavenImport.MavenProjectImporter;
 import modelClasses.IURCapMaven;
 import modelClasses.URCapProjectModel;
 import nature.URCapNature;
+import processControl.ProgressBarDialog;
 
 /**
  * Class which handles pages in wizard. Each page should have it's own class and
@@ -55,12 +56,15 @@ public class URCapWizard extends Wizard {
 	public boolean performFinish() {
 		Shell shell = getShell();
 
-		TaskExecutionController con = new TaskExecutionController();
-		this.projectModel = new URCapProjectModel(urcapSetupPage.getProjectModel());
-		String path = urcapSetupPage.getProjectModel().getProjectPath();
-		String id = urcapSetupPage.getProjectModel().getProjectArtifactId();
+//		ProcessExecutionManager executionManager = new ProcessExecutionManager();
+//
+//		this.projectModel = new URCapProjectModel(urcapSetupPage.getProjectModel());
+//		String path = urcapSetupPage.getProjectModel().getProjectPath();
+//		String id = urcapSetupPage.getProjectModel().getProjectArtifactId();
+//
+//		executionManager.executeTask(shell, path, id);
 		
-		con.executeTask(shell,path,id);
+		executeGenerateImportProjectDefault(shell);
 
 		return true;
 	}
@@ -100,18 +104,16 @@ public class URCapWizard extends Wizard {
 	}
 
 	public String executeGenerateImportProject(Shell shell, String path, String id) {
-		
+
 		String invokeMessage = mavenHandler.invokeGenerator(this.projectModel);
 		String message = "";
 
 		if (invokeMessage != "") {
-			//MessageDialog.openWarning(shell, "Maven Execution Message", invokeMessage);
 			message = invokeMessage;
 
 		} else {
 			// Imports the newly created project to the package explorer.
-			message = mavenHandler.importMavenProject(path,
-					id);
+			message = mavenHandler.importMavenProject(path, id);
 			try {
 				Thread.sleep(15000);
 
@@ -120,19 +122,99 @@ public class URCapWizard extends Wizard {
 				e.printStackTrace();
 			}
 
-		// Sets the nature one the project
+			// Sets the nature one the project
 			MavenProjectImporter importer = new MavenProjectImporter();
 			IProject project = importer.getProject();
 			IPath projectpath = project.getLocation();
 			setNewProjectNature(projectpath, project);
 
-//			//MessageDialog.openInformation(shell, "Import project message", message);
-				
 		}
-		
+
 		return message;
-		
+
 	}
+
+	public String executeGenerateImportProjectDefault(Shell shell) {
+
+		DemoProgressBar dpb = new DemoProgressBar(shell);
+		dpb.initGuage();
+		dpb.open();
+
+		return "";
+	}
+
+	private class DemoProgressBar extends ProgressBarDialog {
+
+		private String[] info = null;
+
+		public DemoProgressBar(Shell parent) {
+			super(parent);
+		}
+
+		@Override
+		public void initGuage() {
+			info = new String[100];
+			for (int i = 0; i < info.length; i++) {
+				info[i] = "process task " + i + ".";
+			}
+			this.setExecuteTime(15);
+			this.setMayCancel(true);
+			this.setProcessMessage("please waiting....");
+			this.setShellTitle("Demo");
+
+		}
+
+		@Override
+		protected String process(int arg0) {
+			try {
+				Thread.sleep(1000);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return info[arg0 - 1];
+		}
+
+	}
+
+	public class ProcessExecutionManager {
+		
+		public ProcessExecutionManager() {
+			// TODO Auto-generated constructor stub
+		}
+
+		public void executeTask(Shell shell, String path, String id) {
+			Job job = new Job("First Job") {
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
+					
+					String executeMessage = executeGenerateImportProject(shell, path, id);
+					// doLongThing();
+
+					syncWithUi(shell, "");
+					// use this to open a Shell in the UI thread
+					
+					return Status.OK_STATUS;
+				}
+
+			};
+			job.setUser(true);
+			job.schedule();
+		}
+
+		private void syncWithUi(Shell shell, String messag) {
+			Display.getDefault().asyncExec(new Runnable() {
+				public void run() {
+					//MessageDialog.openInformation(shell, "Import Project Message", message);
+
+				}
+			});
+
+		}
+	}
+
+	// __________________________________________________NOT USED
+	// CODE____________________________________________________________________________//
 
 	private void Tempholder() {
 		this.projectModel = new URCapProjectModel(urcapSetupPage.getProjectModel());
@@ -170,41 +252,6 @@ public class URCapWizard extends Wizard {
 		}
 		// shell.setCursor(null);
 		// waitCursor.dispose();
-	}
-	
-	private class TaskExecutionController {
-		
-		
-		public TaskExecutionController() {
-		}
-		
-
-		public void executeTask(Shell shell, String path, String id) {
-			Job job = new Job("First Job") {
-				@Override
-				protected IStatus run(IProgressMonitor monitor) {
-					
-					String executeMessage = executeGenerateImportProject(shell,path,id);
-					//doLongThing();
-					
-					syncWithUi(shell,executeMessage);
-					// use this to open a Shell in the UI thread
-					return Status.OK_STATUS;
-				}
-
-			};
-			job.setUser(true);
-			job.schedule();
-		}
-
-		private void syncWithUi(Shell shell, String message) {
-			Display.getDefault().asyncExec(new Runnable() {
-				public void run() {
-					MessageDialog.openInformation(shell, "Import Project Message", message);
-				}
-			});
-
-		}
 	}
 
 }
