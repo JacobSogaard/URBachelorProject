@@ -58,13 +58,13 @@ public class URCapWizard extends Wizard {
 
 //		ProcessExecutionManager executionManager = new ProcessExecutionManager();
 //
-//		this.projectModel = new URCapProjectModel(urcapSetupPage.getProjectModel());
-//		String path = urcapSetupPage.getProjectModel().getProjectPath();
-//		String id = urcapSetupPage.getProjectModel().getProjectArtifactId();
+		this.projectModel = new URCapProjectModel(urcapSetupPage.getProjectModel());
+		String path = urcapSetupPage.getProjectModel().getProjectPath();
+		String id = urcapSetupPage.getProjectModel().getProjectArtifactId();
 //
 //		executionManager.executeTask(shell, path, id);
 		
-		executeGenerateImportProjectDefault(shell);
+		executeGenerateImportProjectDefault(shell, path, id);
 
 		return true;
 	}
@@ -115,7 +115,7 @@ public class URCapWizard extends Wizard {
 			// Imports the newly created project to the package explorer.
 			message = mavenHandler.importMavenProject(path, id);
 			try {
-				Thread.sleep(15000);
+				Thread.sleep(3000);
 
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -134,9 +134,9 @@ public class URCapWizard extends Wizard {
 
 	}
 
-	public String executeGenerateImportProjectDefault(Shell shell) {
+	public String executeGenerateImportProjectDefault(Shell shell, String path, String id) {
 
-		DemoProgressBar dpb = new DemoProgressBar(shell);
+		DemoProgressBar dpb = new DemoProgressBar(shell,path,id);
 		dpb.initGuage();
 		dpb.open();
 
@@ -146,9 +146,16 @@ public class URCapWizard extends Wizard {
 	private class DemoProgressBar extends ProgressBarDialog {
 
 		private String[] info = null;
-
-		public DemoProgressBar(Shell parent) {
+		private Shell parent;
+		private String path, id;
+		
+		
+		public DemoProgressBar(Shell parent, String path, String id) {
 			super(parent);
+			this.parent = parent;
+			this.path = path;
+			this.id = id;
+			
 		}
 
 		@Override
@@ -166,8 +173,9 @@ public class URCapWizard extends Wizard {
 
 		@Override
 		protected String process(int arg0) {
+			
 			try {
-				Thread.sleep(1000);
+				executeGenerateImportProject(parent, path, id);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -191,10 +199,11 @@ public class URCapWizard extends Wizard {
 					String executeMessage = executeGenerateImportProject(shell, path, id);
 					// doLongThing();
 
-					syncWithUi(shell, "");
+					//syncWithUi(shell, "");
 					// use this to open a Shell in the UI thread
 					
 					return Status.OK_STATUS;
+					
 				}
 
 			};
