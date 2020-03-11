@@ -61,7 +61,7 @@ public class ProgramNodeWizard extends Wizard{
 		String contributionClassName = this.setClassesPage.getContributionClassname();
 		String nodeId = this.setAttributesPage.getNodeId();
 		String nodeTitle = this.setAttributesPage.getNodeTitle();
-		boolean setChildrenAllowed = true;
+		boolean setChildrenAllowed = this.setAttributesPage.getChildAllowedNotice();
 		
 		MavenModel mavenModel = new ProgramNodeModel(nodeTitle, nodeId, setChildrenAllowed, serviceClassName, contributionClassName, viewClassName);
 		mavenModel.setProjectPath(this.path);

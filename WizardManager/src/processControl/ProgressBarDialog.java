@@ -139,7 +139,7 @@ public abstract class ProgressBarDialog extends Dialog {
 	protected abstract String process(int times);
 
 	protected void cleanUp() {
-
+		
 	}
 
 	protected void doBefore() {
@@ -147,7 +147,7 @@ public abstract class ProgressBarDialog extends Dialog {
 	}
 
 	protected void doAfter() {
-
+		
 	}
 
 	class ProcessThread extends Thread {

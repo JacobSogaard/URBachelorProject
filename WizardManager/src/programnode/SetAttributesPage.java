@@ -100,6 +100,8 @@ public class SetAttributesPage extends WizardPage {
 		this.setChildrenAllowedBTN.setLayoutData(checkBoxGrid);
 		
 		
+		
+		
 		setControl(container);
 	
 		
@@ -133,6 +135,8 @@ public class SetAttributesPage extends WizardPage {
 		return this.nodeTitle.getText();
 	}
 	
-	
+	public boolean getChildAllowedNotice() {
+		return this.setChildrenAllowedBTN.getSelection();
+	}
 
 }

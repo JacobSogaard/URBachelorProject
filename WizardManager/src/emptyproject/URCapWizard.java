@@ -141,25 +141,24 @@ public class URCapWizard extends Wizard {
 
 	public String executeGenerateImportProjectDefault(Shell shell, String path, String id) {
 
-		DemoProgressBar dpb = new DemoProgressBar(shell, path, id);
+		emptyProjectProgressBar dpb = new emptyProjectProgressBar(shell, path, id);
 		dpb.initGuage();
 		dpb.open();
 
 		return "";
 	}
 
-	private class DemoProgressBar extends ProgressBarDialog {
+	private class emptyProjectProgressBar extends ProgressBarDialog {
 
 		private String[] info = null;
 		private Shell parent;
 		private String path, id;
 
-		public DemoProgressBar(Shell parent, String path, String id) {
+		public emptyProjectProgressBar(Shell parent, String path, String id) {
 			super(parent);
 			this.parent = parent;
 			this.path = path;
 			this.id = id;
-
 		}
 
 		@Override
@@ -172,12 +171,10 @@ public class URCapWizard extends Wizard {
 			this.setMayCancel(true);
 			this.setProcessMessage("please wait....");
 			this.setShellTitle("Creating new URCap project");
-
 		}
 
 		@Override
 		protected String process(int arg0) {
-
 			if (arg0 == 1) {
 				process1GenerateImportProject(parent, path, id);
 				return info[arg0 - 1];
