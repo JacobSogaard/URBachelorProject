@@ -63,7 +63,7 @@ public class URCapWizard extends Wizard {
 		String id = urcapSetupPage.getProjectModel().getProjectArtifactId();
 //
 //		executionManager.executeTask(shell, path, id);
-		
+
 		executeGenerateImportProjectDefault(shell, path, id);
 
 		return true;
@@ -103,7 +103,7 @@ public class URCapWizard extends Wizard {
 		}
 	}
 
-	public String executeGenerateImportProject(Shell shell, String path, String id) {
+	public String process1GenerateImportProject(Shell shell, String path, String id) {
 
 		String invokeMessage = mavenHandler.invokeGenerator(this.projectModel);
 		String message = "";
@@ -114,19 +114,6 @@ public class URCapWizard extends Wizard {
 		} else {
 			// Imports the newly created project to the package explorer.
 			message = mavenHandler.importMavenProject(path, id);
-			try {
-				Thread.sleep(3000);
-
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			// Sets the nature one the project
-			MavenProjectImporter importer = new MavenProjectImporter();
-			IProject project = importer.getProject();
-			IPath projectpath = project.getLocation();
-			setNewProjectNature(projectpath, project);
 
 		}
 
@@ -134,9 +121,27 @@ public class URCapWizard extends Wizard {
 
 	}
 
+	public void process2SpaceTime() {
+		try {
+			Thread.sleep(3000);
+
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void process3SetMavenNature() {
+		// Sets the nature one the project
+		MavenProjectImporter importer = new MavenProjectImporter();
+		IProject project = importer.getProject();
+		IPath projectpath = project.getLocation();
+		setNewProjectNature(projectpath, project);
+	}
+
 	public String executeGenerateImportProjectDefault(Shell shell, String path, String id) {
 
-		DemoProgressBar dpb = new DemoProgressBar(shell,path,id);
+		DemoProgressBar dpb = new DemoProgressBar(shell, path, id);
 		dpb.initGuage();
 		dpb.open();
 
@@ -148,14 +153,13 @@ public class URCapWizard extends Wizard {
 		private String[] info = null;
 		private Shell parent;
 		private String path, id;
-		
-		
+
 		public DemoProgressBar(Shell parent, String path, String id) {
 			super(parent);
 			this.parent = parent;
 			this.path = path;
 			this.id = id;
-			
+
 		}
 
 		@Override
@@ -164,62 +168,30 @@ public class URCapWizard extends Wizard {
 			for (int i = 0; i < info.length; i++) {
 				info[i] = "process task " + i + ".";
 			}
-			this.setExecuteTime(15);
+			this.setExecuteTime(3);
 			this.setMayCancel(true);
-			this.setProcessMessage("please waiting....");
-			this.setShellTitle("Demo");
+			this.setProcessMessage("please wait....");
+			this.setShellTitle("Creating new URCap project");
 
 		}
 
 		@Override
 		protected String process(int arg0) {
-			
-			try {
-				executeGenerateImportProject(parent, path, id);
-			} catch (Exception e) {
-				e.printStackTrace();
+
+			if (arg0 == 1) {
+				process1GenerateImportProject(parent, path, id);
+				return info[arg0 - 1];
+			} else if (arg0 == 2) {
+				process2SpaceTime();
+				return info[arg0 - 1];
+			} else if (arg0 == 3) {
+				process3SetMavenNature();
+				return info[arg0 - 1];
+			} else {
+				return info[arg0 - 1];
 			}
-
-			return info[arg0 - 1];
 		}
 
-	}
-
-	public class ProcessExecutionManager {
-		
-		public ProcessExecutionManager() {
-			// TODO Auto-generated constructor stub
-		}
-
-		public void executeTask(Shell shell, String path, String id) {
-			Job job = new Job("First Job") {
-				@Override
-				protected IStatus run(IProgressMonitor monitor) {
-					
-					String executeMessage = executeGenerateImportProject(shell, path, id);
-					// doLongThing();
-
-					//syncWithUi(shell, "");
-					// use this to open a Shell in the UI thread
-					
-					return Status.OK_STATUS;
-					
-				}
-
-			};
-			job.setUser(true);
-			job.schedule();
-		}
-
-		private void syncWithUi(Shell shell, String messag) {
-			Display.getDefault().asyncExec(new Runnable() {
-				public void run() {
-					//MessageDialog.openInformation(shell, "Import Project Message", message);
-
-				}
-			});
-
-		}
 	}
 
 	// __________________________________________________NOT USED
