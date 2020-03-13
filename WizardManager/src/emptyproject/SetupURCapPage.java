@@ -1,5 +1,8 @@
 package emptyproject;
 
+import java.util.HashMap;
+import java.util.Map.Entry;
+
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
@@ -24,15 +27,16 @@ public class SetupURCapPage extends NodeWizard {
 	private Text groupIdText, artifactIdText, directoryText, versionText;
 	private Composite container;
 	private String workspacePath, groupIdToolTip, artifactIdToolTip, apiVersionToolTip, versionToolTip;
-	private final String[] API_VERSIONS = { "1.0.0", "1.1.0", "1.2.0", "1.3.0", "1.4.0", "1.5.0", "1.6.0"};
+	private final String[] API_VERSIONS = { "1.0.0", "1.1.0", "1.2.0", "1.3.0", "1.4.0", "1.5.0", "1.6.0", "1.7.0", "1.8.0"};
 	private Combo comboDropDownApiVersion;
 	private MavenModel mavenModel;
 	private boolean isArtifactIdValid;
+	private HashMap<String,String> mapVersions;
 	
 	private void createMavenModel() {
 		this.mavenModel = new URCapModel();
 		this.mavenModel.setArchetypeVersionAPI(this.comboDropDownApiVersion.getText());
-		this.mavenModel.setArchetypeVersion(this.comboDropDownApiVersion.getText());
+		this.mavenModel.setArchetypeVersion(this.mapVersions.get(this.comboDropDownApiVersion.getText()));
 		this.mavenModel.setProjectGroupId(this.groupIdText.getText());
 		this.mavenModel.setProjectArtifactId(this.artifactIdText.getText());
 		this.mavenModel.setProjectPath(this.directoryText.getText());
@@ -98,13 +102,17 @@ public class SetupURCapPage extends NodeWizard {
 				
 			}
 		});
+		
+		//init the version to achetype mapping
+		this.initMap();
+		
 
 		// Label and dropdown for selection of api version
 		Label apiVersionLabel = new Label(container, SWT.NONE);
 		apiVersionLabel.setText("API version");
 		comboDropDownApiVersion = new Combo(container, SWT.DROP_DOWN | SWT.BORDER);
-		for (String api : API_VERSIONS) {
-			comboDropDownApiVersion.add(api);
+		for (Entry<String, String> entry : this.mapVersions.entrySet()) {
+			comboDropDownApiVersion.add(entry.getKey());
 		}
 		comboDropDownApiVersion.select(comboDropDownApiVersion.getItemCount() - 2);
 		apiVersionLabel.setToolTipText(this.apiVersionToolTip);
@@ -262,6 +270,16 @@ public class SetupURCapPage extends NodeWizard {
 
 	public IWizardPage getNextPage() {
 		return super.getNextPage();
+	}
+	
+	private void initMap(){
+		this.mapVersions = new HashMap<String, String>();
+		mapVersions.put("1.3.0","1.3.55");
+		mapVersions.put("1.4.0","1.4.4");
+		mapVersions.put("1.5.0","1.5.0");
+		mapVersions.put("1.6.0","1.6.1");
+		mapVersions.put("1.7.0","1.7.0");
+		mapVersions.put("1.8.0","1.8.0");
 	}
 
 }

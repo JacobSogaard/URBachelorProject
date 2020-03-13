@@ -39,7 +39,6 @@ public class DeployToLocalWizard extends Wizard {
 		deployLocalWizard = new DeployToLocalWizardPage();
 		addPage(deployLocalWizard);
 		
-		//EDITED::
 		deployLocalWizard.setProjectPathDeploy(this.projectPath);
 	}
 
