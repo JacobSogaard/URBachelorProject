@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/URCapFeature_1.0.0.202003111249.jar" id="URCapFeature" version="1.0.0.202003111249"/>
+   <feature url="features/URCapFeature_1.0.0.qualifier.jar" id="URCapFeature" version="1.0.0.qualifier"/>
 </site>

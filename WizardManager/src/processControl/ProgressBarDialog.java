@@ -42,7 +42,7 @@ public abstract class ProgressBarDialog extends Dialog {
 	protected int executeTime = 50;// process times
 	protected String processMessage = "process......";// procress info
 	protected String shellTitle = "Progress..."; //
-    protected Image processImage = SWTUtil.getImageOfMessage();//image
+	protected Image processImage = SWTUtil.getImageOfMessage();// image
 
 	protected boolean mayCancel = true; // cancel
 	protected int processBarStyle = SWT.SMOOTH; // process bar style
@@ -55,9 +55,9 @@ public abstract class ProgressBarDialog extends Dialog {
 		this.executeTime = executeTime;
 	}
 
-    public void setProcessImage(Image processImage) {
-    this.processImage = processImage;
-  }
+	public void setProcessImage(Image processImage) {
+		this.processImage = processImage;
+	}
 
 	public void setProcessMessage(String processInfo) {
 		this.processMessage = processInfo;
@@ -101,7 +101,7 @@ public abstract class ProgressBarDialog extends Dialog {
 		composite.setLayout(new GridLayout());
 
 		message = new CLabel(composite, SWT.NONE);
-		 message.setImage(processImage);
+		message.setImage(processImage);
 		message.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
 		message.setText(processMessage);
 
@@ -139,7 +139,7 @@ public abstract class ProgressBarDialog extends Dialog {
 	protected abstract String process(int times);
 
 	protected void cleanUp() {
-		
+
 	}
 
 	protected void doBefore() {
@@ -147,7 +147,7 @@ public abstract class ProgressBarDialog extends Dialog {
 	}
 
 	protected void doAfter() {
-		
+
 	}
 
 	class ProcessThread extends Thread {
@@ -171,6 +171,7 @@ public abstract class ProgressBarDialog extends Dialog {
 						if (progressBar.isDisposed()) {
 							return;
 						}
+
 						//
 						processMessageLabel.setText(info);
 						//

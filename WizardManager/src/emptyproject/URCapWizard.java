@@ -56,15 +56,13 @@ public class URCapWizard extends Wizard {
 	public boolean performFinish() {
 		Shell shell = getShell();
 
-//		ProcessExecutionManager executionManager = new ProcessExecutionManager();
-//
 		this.projectModel = new URCapProjectModel(urcapSetupPage.getProjectModel());
 		String path = urcapSetupPage.getProjectModel().getProjectPath();
 		String id = urcapSetupPage.getProjectModel().getProjectArtifactId();
-//
-//		executionManager.executeTask(shell, path, id);
 
-		executeGenerateImportProjectDefault(shell, path, id);
+		String executeMessage = executeGenerateImportProjectDefault(shell, path, id);
+
+		MessageDialog.openInformation(shell, "Message",executeMessage);
 
 		return true;
 	}
@@ -123,7 +121,7 @@ public class URCapWizard extends Wizard {
 
 	public void process2SpaceTime() {
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -145,7 +143,7 @@ public class URCapWizard extends Wizard {
 		dpb.initGuage();
 		dpb.open();
 
-		return "";
+		return dpb.invokeMessage;
 	}
 
 	private class emptyProjectProgressBar extends ProgressBarDialog {
@@ -153,6 +151,7 @@ public class URCapWizard extends Wizard {
 		private String[] info = null;
 		private Shell parent;
 		private String path, id;
+		public String invokeMessage;
 
 		public emptyProjectProgressBar(Shell parent, String path, String id) {
 			super(parent);
@@ -167,7 +166,7 @@ public class URCapWizard extends Wizard {
 			for (int i = 0; i < info.length; i++) {
 				info[i] = "process task " + i + ".";
 			}
-			this.setExecuteTime(3);
+			this.setExecuteTime(4);
 			this.setMayCancel(true);
 			this.setProcessMessage("please wait....");
 			this.setShellTitle("Creating new URCap project");
@@ -176,7 +175,7 @@ public class URCapWizard extends Wizard {
 		@Override
 		protected String process(int arg0) {
 			if (arg0 == 1) {
-				process1GenerateImportProject(parent, path, id);
+				this.invokeMessage = process1GenerateImportProject(parent, path, id);
 				return info[arg0 - 1];
 			} else if (arg0 == 2) {
 				process2SpaceTime();
@@ -187,49 +186,9 @@ public class URCapWizard extends Wizard {
 			} else {
 				return info[arg0 - 1];
 			}
+
 		}
 
-	}
-
-	// __________________________________________________NOT USED
-	// CODE____________________________________________________________________________//
-
-	private void Tempholder() {
-		this.projectModel = new URCapProjectModel(urcapSetupPage.getProjectModel());
-		// Display display = Display.getDefault();
-		// Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);
-		Shell shell = getShell();
-		// shell.setCursor(waitCursor);
-
-		// Executes the maven command.
-		String invokeMessage = mavenHandler.invokeGenerator(this.projectModel);
-
-		if (invokeMessage != "") {
-			MessageDialog.openWarning(shell, "Maven Execution Message", invokeMessage);
-
-		} else {
-			// Imports the newly created project to the package explorer.
-			String message = mavenHandler.importMavenProject(urcapSetupPage.getProjectModel().getProjectPath(),
-					urcapSetupPage.getProjectModel().getProjectArtifactId());
-
-			try {
-				Thread.sleep(15000);
-
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			// Sets the nature one the project
-			MavenProjectImporter importer = new MavenProjectImporter();
-			IProject project = importer.getProject();
-			IPath path = project.getLocation();
-			setNewProjectNature(path, project);
-
-			MessageDialog.openInformation(shell, "Import project message", message);
-		}
-		// shell.setCursor(null);
-		// waitCursor.dispose();
 	}
 
 }

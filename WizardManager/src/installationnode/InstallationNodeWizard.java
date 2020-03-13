@@ -13,6 +13,7 @@ import modelClasses.IURCapMaven;
 import modelClasses.MavenModel;
 import modelClasses.installationnode.InstallationNodeMavenModel;
 import modelClasses.installationnode.InstallationNodeModel;
+import processControl.ProgressBarDialog;
 
 /**
  * Sets up the wizard for program node installation Adds the pages to the wizard
@@ -71,13 +72,10 @@ public class InstallationNodeWizard extends Wizard {
 		this.nodeModel = new InstallationNodeMavenModel(mavenModel);
 
 
-		Display display = Display.getDefault();
-		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);
 		Shell shell = getShell();
-		shell.setCursor(waitCursor);
+		
+		String invokeMessage = addInstallationNodeToProject(shell, mavenModel, nodeModel);
 
-		//Executes the maven command and checks whether it has been a success or not.
-		String invokeMessage = mavenHandler.invokeGenerator(this.nodeModel);
 		if (invokeMessage != "") {
 			MessageDialog.openWarning(shell, "Maven Execution Message", invokeMessage);
 		} else {
@@ -85,10 +83,69 @@ public class InstallationNodeWizard extends Wizard {
 					"The installation node has succesfully been added to the project!" + "\n" + "Please right-click the project and Refresh the project to see result.");
 		}
 
-		shell.setCursor(null);
-		waitCursor.dispose();
-
 		return true;
+	}
+	
+	public String addInstallationNodeToProject(Shell parent, MavenModel mavenModel, IURCapMaven nodeModel) {
+		InstallationNodeProgressBar dpb = new InstallationNodeProgressBar(parent, mavenModel, nodeModel);
+		dpb.initGuage();
+		dpb.open();
+
+		return dpb.invokeMessage;
+	}
+	
+	
+	private class InstallationNodeProgressBar extends ProgressBarDialog {
+
+		private String[] info = null;
+		private IURCapMaven nodeModel;
+		public String invokeMessage;
+
+
+		public InstallationNodeProgressBar(Shell parent, MavenModel mavenModel,  IURCapMaven nodeModel) {
+			super(parent);
+			this.nodeModel = nodeModel;
+		}
+
+		@Override
+		public void initGuage() {
+			info = new String[100];
+			for (int i = 0; i < info.length; i++) {
+				info[i] = "process task " + i + ".";
+			}
+			this.setExecuteTime(3);
+			this.setMayCancel(true);
+			this.setProcessMessage("please wait....");
+			this.setShellTitle("Adding program node to the project");
+		}
+
+		@Override
+		protected String process(int times) {
+			if (times == 1) {
+				this.invokeMessage = mavenHandler.invokeGenerator(this.nodeModel);
+				return info[times - 1];
+
+			} else if (times == 2) {
+
+				processSpaceTime();
+
+			} else {
+
+				return info[times - 1];
+			}
+			return info[times - 1];
+					}
+		
+		private void processSpaceTime() {
+			try {
+				Thread.sleep(2000);
+
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 }

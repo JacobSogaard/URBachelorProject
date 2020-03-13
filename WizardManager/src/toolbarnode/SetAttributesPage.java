@@ -26,8 +26,7 @@ public class SetAttributesPage extends WizardPage {
 		setTitle("Set attributes for toolbar");
 		setDescription("");
 		setPageComplete(false);
-		
-		
+
 	}
 
 	@Override
@@ -41,11 +40,10 @@ public class SetAttributesPage extends WizardPage {
 		this.browseLabel = new Label(container, SWT.BORDER | SWT.SINGLE);
 		this.browseLabel.setText(this.browseLabelText);
 		this.browseLabel.setEnabled(false);
-		
-		
+
 		this.browseText = new Combo(container, SWT.DROP_DOWN | SWT.BORDER);
 		this.browseText.setText("");
-		
+
 		this.browseBTN = new Button(container, SWT.PUSH);
 		this.browseBTN.setBounds(40, 50, 50, 20);
 		this.browseBTN.setText("Browse");
@@ -53,8 +51,10 @@ public class SetAttributesPage extends WizardPage {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				browseFile();
-				setPageComplete(isAllFieldsSet());
+				boolean canContinue = browseFile();
+				if (canContinue) {
+					setPageComplete(isAllFieldsSet());
+				}
 
 			}
 
@@ -75,19 +75,29 @@ public class SetAttributesPage extends WizardPage {
 	 * 
 	 * @return
 	 */
-	private void browseFile() {
+	private boolean browseFile() {
+		boolean foundFileName = false;
 		FileDialog fd = new FileDialog(container.getShell(), SWT.OPEN);
 		fd.setText("Open");
-		String[] filterExt = { "*.png", "*.tif", "*.jpg", "*.gif", "*.jpeg",  };
+		String[] filterExt = { "*.png", "*.tif", "*.jpg", "*.gif", "*.jpeg", };
 		fd.setFilterExtensions(filterExt);
-		
+
 		try {
-			this.browseText.setText(fd.open());
+			fd.open();
+			if (fd.getFileName() != "") {
+				this.browseText.setText("/" + fd.getFileName());
+				foundFileName = true;
+			} else {
+				this.browseText.setText("Image file missing!");
+				foundFileName = false;
+			}
 		} catch (IllegalArgumentException ex) {
-			return;
+
 		}
+
+		return foundFileName;
 	}
-	
+
 	public String getIconPath() {
 		return this.browseText.getText();
 	}
