@@ -1,5 +1,8 @@
 package emptyproject;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -27,22 +30,23 @@ public class SetupURCapPage extends NodeWizard {
 	private Text groupIdText, artifactIdText, directoryText, versionText;
 	private Composite container;
 	private String workspacePath, groupIdToolTip, artifactIdToolTip, apiVersionToolTip, versionToolTip;
-	private final String[] API_VERSIONS = { "1.0.0", "1.1.0", "1.2.0", "1.3.0", "1.4.0", "1.5.0", "1.6.0", "1.7.0", "1.8.0"};
 	private Combo comboDropDownApiVersion;
 	private MavenModel mavenModel;
 	private boolean isArtifactIdValid;
-	private HashMap<String,String> mapVersions;
-	
+	private HashMap<String, String> map;
+	private static String API_PATH = "/home/ur/.m2/repository/com/ur/urcap/api";
+	private static String ARCHETYPE_PATH = "/home/ur/.m2/repository/com/ur/urcap/archetype";
+
 	private void createMavenModel() {
 		this.mavenModel = new URCapModel();
 		this.mavenModel.setArchetypeVersionAPI(this.comboDropDownApiVersion.getText());
-		this.mavenModel.setArchetypeVersion(this.mapVersions.get(this.comboDropDownApiVersion.getText()));
+		this.mavenModel.setArchetypeVersion(this.map.get(this.comboDropDownApiVersion.getText()));
 		this.mavenModel.setProjectGroupId(this.groupIdText.getText());
 		this.mavenModel.setProjectArtifactId(this.artifactIdText.getText());
 		this.mavenModel.setProjectPath(this.directoryText.getText());
 		this.mavenModel.setProjectVersion(this.versionText.getText());
 	}
-	
+
 	/**
 	 * Returns the project model which the new project should be generated from
 	 * 
@@ -88,30 +92,29 @@ public class SetupURCapPage extends NodeWizard {
 		artifactIdText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		this.createFormWithMessage(artifactIdLabel, "Artifact Id", artifactIdText, "Artifact id");
 		artifactIdText.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 				isArtifactIdValid = verifyInput(artifactIdText.getText());
 				setPageComplete(isAllFieldsSet());
-				
+
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
-		
-		//init the version to achetype mapping
+
+		// init the version to achetype mapping
 		this.initMap();
-		
 
 		// Label and dropdown for selection of api version
 		Label apiVersionLabel = new Label(container, SWT.NONE);
 		apiVersionLabel.setText("API version");
 		comboDropDownApiVersion = new Combo(container, SWT.DROP_DOWN | SWT.BORDER);
-		for (Entry<String, String> entry : this.mapVersions.entrySet()) {
+		for (Entry<String, String> entry : this.map.entrySet()) {
 			comboDropDownApiVersion.add(entry.getKey());
 		}
 		comboDropDownApiVersion.select(comboDropDownApiVersion.getItemCount() - 2);
@@ -167,7 +170,6 @@ public class SetupURCapPage extends NodeWizard {
 			}
 		});
 
-		
 		setGridData();
 		// Required to avoid an error in the system
 		setControl(container);
@@ -218,8 +220,8 @@ public class SetupURCapPage extends NodeWizard {
 	}
 
 	/**
-	 * Empty label used to counter the 3 columns needed for the browse location
-	 * part of wizard, so the part with only 2 columns have their own line
+	 * Empty label used to counter the 3 columns needed for the browse location part
+	 * of wizard, so the part with only 2 columns have their own line
 	 */
 	private void emptyLabel() {
 		Label emptyLabel = new Label(container, SWT.NONE);
@@ -245,41 +247,86 @@ public class SetupURCapPage extends NodeWizard {
 	public String getArtifactId() {
 		return this.artifactIdText.getText();
 	}
-	
+
 	private boolean isAllFieldsSet() {
 		return !this.groupIdText.getText().isEmpty() && isArtifactIdValid;
 	}
 
-	
 	private void setGroupIdToolTip() {
 		this.groupIdToolTip = "Uniquely identifies your project across all projects. A group ID should follow Java's package name rules. This means it starts with a reversed domain name you control. For example: com.mycompany.myurcap";
 	}
-	
+
 	private void setArtifactIdToolTip() {
 		this.artifactIdToolTip = "Unique name of this URCap.";
 	}
-	
+
 	private void setApiVersionToolTip() {
 		this.apiVersionToolTip = "UR API version number. Latest is recommended";
 	}
-	
+
 	private void setVersionToolTip() {
 		this.versionToolTip = "Version of URCap. The version is also defined in the POM file.";
 	}
-	
 
 	public IWizardPage getNextPage() {
 		return super.getNextPage();
 	}
-	
-	private void initMap(){
-		this.mapVersions = new HashMap<String, String>();
-		mapVersions.put("1.3.0","1.3.55");
-		mapVersions.put("1.4.0","1.4.4");
-		mapVersions.put("1.5.0","1.5.0");
-		mapVersions.put("1.6.0","1.6.1");
-		mapVersions.put("1.7.0","1.7.0");
-		mapVersions.put("1.8.0","1.8.0");
+
+	private void initMap() {
+		this.map = new HashMap<String, String>();
+		ArrayList<String> apiVersions = this.getNameOfFiles(API_PATH);
+		ArrayList<String> archetypeVersions = this.getNameOfFiles(ARCHETYPE_PATH);
+		Collections.sort(apiVersions);
+		Collections.sort(archetypeVersions);
+
+		for (int i = 0; i < apiVersions.size(); i++) {
+			String[] apiNames = apiVersions.get(i).split("-|\\.");
+			String[] archetypeNames = archetypeVersions.get(i).split("-|\\.");
+
+			int firstIndexAPI = Integer.parseInt(apiNames[0]);
+			int secondIndexAPI = Integer.parseInt(apiNames[1]);
+
+			int firstIndexArch = Integer.parseInt(archetypeNames[0]);
+			int secondIndexArch = Integer.parseInt(archetypeNames[1]);
+
+			if (firstIndexAPI == firstIndexArch && secondIndexAPI == secondIndexArch) {
+				map.put(apiVersions.get(i), archetypeVersions.get(i));
+			} else {
+				map.put(apiVersions.get(i), archetypeVersions.get(0));
+			}
+		}
+
+//		map.put("1.3.0", "1.3.55");
+//		map.put("1.4.0", "1.4.4");
+//		map.put("1.5.0", "1.5.0");
+//		map.put("1.6.0", "1.6.1");
+//		map.put("1.7.0", "1.7.0");
+//		map.put("1.8.0", "1.8.0");
+	}
+
+	public ArrayList<String> getNameOfFiles(String path) {
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+		ArrayList<String> listOfNames = new ArrayList<>();
+
+		for (int i = 0; i < listOfFiles.length; i++) {
+			String name = listOfFiles[i].getName();
+			if (!name.contains("maven")) {
+				String[] names = name.split("-|\\.");
+
+				int firstIndex = Integer.parseInt(names[0]);
+				int secondIndex = Integer.parseInt(names[1]);
+
+				if (firstIndex > 0 && secondIndex >= 3) {
+					listOfNames.add(name);
+				}
+
+			}
+
+		}
+
+		return listOfNames;
+
 	}
 
 }
