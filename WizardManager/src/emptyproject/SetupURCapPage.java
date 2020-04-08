@@ -33,14 +33,14 @@ public class SetupURCapPage extends NodeWizard {
 	private Combo comboDropDownApiVersion;
 	private MavenModel mavenModel;
 	private boolean isArtifactIdValid;
-	private HashMap<String, String> map;
+	private HashMap<String, String> apiArchRelation;
 	private static String API_PATH = "/home/ur/.m2/repository/com/ur/urcap/api";
 	private static String ARCHETYPE_PATH = "/home/ur/.m2/repository/com/ur/urcap/archetype";
 
 	private void createMavenModel() {
 		this.mavenModel = new URCapModel();
 		this.mavenModel.setArchetypeVersionAPI(this.comboDropDownApiVersion.getText());
-		this.mavenModel.setArchetypeVersion(this.map.get(this.comboDropDownApiVersion.getText()));
+		this.mavenModel.setArchetypeVersion(this.apiArchRelation.get(this.comboDropDownApiVersion.getText()));
 		this.mavenModel.setProjectGroupId(this.groupIdText.getText());
 		this.mavenModel.setProjectArtifactId(this.artifactIdText.getText());
 		this.mavenModel.setProjectPath(this.directoryText.getText());
@@ -114,10 +114,17 @@ public class SetupURCapPage extends NodeWizard {
 		Label apiVersionLabel = new Label(container, SWT.NONE);
 		apiVersionLabel.setText("API version");
 		comboDropDownApiVersion = new Combo(container, SWT.DROP_DOWN | SWT.BORDER);
-		for (Entry<String, String> entry : this.map.entrySet()) {
-			comboDropDownApiVersion.add(entry.getKey());
+		
+		ArrayList<String> apiList = new ArrayList<>(apiArchRelation.keySet());
+		Collections.sort(apiList, new VersionComparator());
+		for (String apiKey : apiList) {
+			comboDropDownApiVersion.add(apiKey);
 		}
-		comboDropDownApiVersion.select(comboDropDownApiVersion.getItemCount() - 2);
+		
+//		for (Entry<String, String> entry : this.apiArchRelation.entrySet()) {
+//			comboDropDownApiVersion.add(entry.getKey());
+//		}
+		comboDropDownApiVersion.select(comboDropDownApiVersion.getItemCount() - 1);
 		apiVersionLabel.setToolTipText(this.apiVersionToolTip);
 
 		this.emptyLabel();
@@ -127,7 +134,7 @@ public class SetupURCapPage extends NodeWizard {
 		versionNumberLabel.setToolTipText(this.versionToolTip);
 		versionNumberLabel.setText("Version number");
 		versionText = new Text(container, SWT.BORDER | SWT.SINGLE);
-		versionText.setText("1.0");
+		versionText.setText("1.0.0");
 
 		versionText.addKeyListener(new KeyListener() {
 
@@ -273,27 +280,31 @@ public class SetupURCapPage extends NodeWizard {
 	}
 
 	private void initMap() {
-		this.map = new HashMap<String, String>();
+		this.apiArchRelation = new HashMap<String, String>();
 		ArrayList<String> apiVersions = this.getNameOfFiles(API_PATH);
 		ArrayList<String> archetypeVersions = this.getNameOfFiles(ARCHETYPE_PATH);
 		Collections.sort(apiVersions);
 		Collections.sort(archetypeVersions);
 
 		for (int i = 0; i < apiVersions.size(); i++) {
-			String[] apiNames = apiVersions.get(i).split("-|\\.");
-			String[] archetypeNames = archetypeVersions.get(i).split("-|\\.");
+			String currentApiVersion = apiVersions.get(i);
+			String[] apiNames = currentApiVersion.split("-|\\.");
+			for (int j = 0; j < archetypeVersions.size(); j++) {
+				String currentArchVersion = archetypeVersions.get(j);
+				String[] archetypeNames = currentArchVersion.split("-|\\.");
+				int firstIndexAPI = Integer.parseInt(apiNames[0]);
+				int secondIndexAPI = Integer.parseInt(apiNames[1]);
 
-			int firstIndexAPI = Integer.parseInt(apiNames[0]);
-			int secondIndexAPI = Integer.parseInt(apiNames[1]);
+				int firstIndexArch = Integer.parseInt(archetypeNames[0]);
+				int secondIndexArch = Integer.parseInt(archetypeNames[1]);
 
-			int firstIndexArch = Integer.parseInt(archetypeNames[0]);
-			int secondIndexArch = Integer.parseInt(archetypeNames[1]);
-
-			if (firstIndexAPI == firstIndexArch && secondIndexAPI == secondIndexArch) {
-				map.put(apiVersions.get(i), archetypeVersions.get(i));
-			} else {
-				map.put(apiVersions.get(i), archetypeVersions.get(0));
+				if (firstIndexAPI == firstIndexArch && secondIndexAPI == secondIndexArch) {
+					apiArchRelation.put(currentApiVersion, currentArchVersion);
+				} else if(firstIndexAPI == 1 && secondIndexAPI == 9){
+					apiArchRelation.put(currentApiVersion, "1.8.0");
+				}
 			}
+
 		}
 
 //		map.put("1.3.0", "1.3.55");
@@ -302,6 +313,8 @@ public class SetupURCapPage extends NodeWizard {
 //		map.put("1.6.0", "1.6.1");
 //		map.put("1.7.0", "1.7.0");
 //		map.put("1.8.0", "1.8.0");
+//		map.put("1.9.0", "1.8.0");
+//		map.put("1.10.0", "1.10.0");
 	}
 
 	public ArrayList<String> getNameOfFiles(String path) {
